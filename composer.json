@@ -1,0 +1,16 @@
+{
+    "name": "vendor/notification-manager",
+    "description": "Description of project NotificationManager.",
+    "authors": [
+        {
+            "name": "Michele Pagnin",
+            "email": "pagnin.michele@gmail.com"
+        }
+    ],
+    "require": {
+        "twbs/bootstrap": "v3.3.4"
+    },
+    "require-dev": {
+        "mpstyle/mtoolkit": "dev-master"
+    }
+}

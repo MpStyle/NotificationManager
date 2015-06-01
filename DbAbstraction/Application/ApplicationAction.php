@@ -1,36 +1,28 @@
 <?php
 
-namespace DbAbstraction\Notification;
+namespace DbAbstraction\Application;
 
-use MToolkit\Model\Sql\MPDOQuery;
-use MToolkit\Model\Sql\MPDOResult;
 use MToolkit\Core\MDataType;
+use MToolkit\Model\Sql\MPDOResult;
 
-class NotificationAction
+class ApplicationAction
 {
 
     /**
-     * Insert a new notification.
      * 
-     * @param string $title
-     * @param string $subtitle
-     * @param string $message
-     * @return MPDOResult
+     * @param string $name
+     * @return type
      */
-    public static function insert( $title, $subtitle, $message )
+    public static function insert( $name )
     {
-        MDataType::mustBeNullableString( $title );
-        MDataType::mustBeNullableString( $subtitle );
-        MDataType::mustBeNullableString( $message );
+        MDataType::mustBeString( $name );
 
-        $query = "CALL notificationInsert(?, ?, ?)";
+        $query = "CALL applicationInsert(?)";
         /* @var $connection \PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
 
-        $sql->bindValue( $title );
-        $sql->bindValue( $subtitle );
-        $sql->bindValue( $message );
+        $sql->bindValue( $name );
 
         $sql->exec();
 
@@ -38,30 +30,23 @@ class NotificationAction
     }
 
     /**
-     * Update a notification with id <i>$id</i>.
      * 
      * @param int $id
-     * @param string $title
-     * @param string $subtitle
-     * @param string $message
-     * @return MPDOResult
+     * @param string $anme
+     * @return type
      */
-    public static function update( $id, $title, $subtitle, $message )
+    public static function update( $id, $name )
     {
         MDataType::mustBeInt( $id );
-        MDataType::mustBeNullableString( $title );
-        MDataType::mustBeNullableString( $subtitle );
-        MDataType::mustBeNullableString( $message );
+        MDataType::mustBeString( $name );
 
-        $query = "CALL notificationUpdate(?, ?, ?, ?)";
+        $query = "CALL applicationUpdate(?, ?)";
         /* @var $connection \PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
 
         $sql->bindValue( $id );
-        $sql->bindValue( $title );
-        $sql->bindValue( $subtitle );
-        $sql->bindValue( $message );
+        $sql->bindValue( $name );
 
         $sql->exec();
 
@@ -69,8 +54,6 @@ class NotificationAction
     }
 
     /**
-     * Delete the notification with id <i>$id</i>
-     * 
      * @param int $id
      * @return MPDOResult
      */
@@ -78,7 +61,7 @@ class NotificationAction
     {
         MDataType::mustBeInt( $id );
 
-        $query = "CALL notificationDelete(?)";
+        $query = "CALL applicationDelete(?)";
         /* @var $connection \PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
@@ -92,21 +75,25 @@ class NotificationAction
 
     /**
      * @param int $id
+     * @param string $name
+     * @param int $perPage
+     * @param int $page
      * @return MPDOResult
      */
-    public static function get( $id = null, $applicationId=null, $perPage=10, $page=0 )
+    public static function get( $id = null, $name = null, $perPage=10, $page=0 )
     {
         MDataType::mustBeNullableInt( $id );
+        MDataType::mustBeString( $name );
         MDataType::mustBeInt( $perPage );
         MDataType::mustBeInt( $page );
 
-        $query = "CALL notificationGet(?, ?, ?, ?)";
+        $query = "CALL applicationGet(?, ?, ?, ?)";
         /* @var $connection \PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
 
         $sql->bindValue( $id );
-        $sql->bindValue( $applicationId );
+        $sql->bindValue( $name );
         $sql->bindValue( $perPage );
         $sql->bindValue( $page );
 
