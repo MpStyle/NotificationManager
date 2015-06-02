@@ -8,9 +8,9 @@
         }
     ],
     "require": {
-        "twbs/bootstrap": "v3.3.4"
+        "twbs/bootstrap": "v3.3.4",
+        "mpstyle/mtoolkit": "dev-master"
     },
     "require-dev": {
-        "mpstyle/mtoolkit": "dev-master"
     }
 }

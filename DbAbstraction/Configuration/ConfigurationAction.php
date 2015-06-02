@@ -1,11 +1,13 @@
 <?php
 
-namespace DbAbstraction\Settings;
+namespace DbAbstraction\Configuration;
 
 use MToolkit\Core\MDataType;
+use MToolkit\Model\Sql\MDbConnection;
 use MToolkit\Model\Sql\MPDOResult;
+use MToolkit\Model\Sql\MPDOQuery;
 
-class SettingsAction
+class ConfigurationAction
 {
 
     /**
@@ -16,7 +18,7 @@ class SettingsAction
     {
         MDataType::mustBeString( $key );
 
-        $query = "SELECT getSetting(?) AS `Value`";
+        $query = "SELECT getConfigurationValue(?) AS `Value`";
         /* @var $connection \PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );

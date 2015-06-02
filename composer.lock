@@ -1,11 +1,61 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "aec1a183b200551db5802ed5406864ea",
+    "hash": "bc28f02b8ac272500a1248e047fd2b0d",
     "packages": [
+        {
+            "name": "mpstyle/mtoolkit",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/MpStyle/MToolkit.git",
+                "reference": "3a78245bf274af5cb19108012542411b4e2fa48e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/MpStyle/MToolkit/zipball/3a78245bf274af5cb19108012542411b4e2fa48e",
+                "reference": "3a78245bf274af5cb19108012542411b4e2fa48e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MToolkit\\": "./",
+                    "Vendor\\Namespace\\": ""
+                },
+                "files": [
+                    "Core/MGlobal.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Michele Pagnin",
+                    "email": "pagnin.michele@gmail.com",
+                    "homepage": "http://mpmp.altervista.org",
+                    "role": "Main Developer"
+                }
+            ],
+            "description": "MToolkit is a simple PHP toolkit. Easy to understand. Fast to use.",
+            "homepage": "https://github.com/MpStyle/MToolkit",
+            "keywords": [
+                ".net",
+                "framework",
+                "qt",
+                "toolkit",
+                "web framework"
+            ],
+            "time": "2015-06-02 13:51:29"
+        },
         {
             "name": "twbs/bootstrap",
             "version": "v3.3.4",
@@ -58,67 +108,14 @@
             "time": "2015-03-16 15:44:41"
         }
     ],
-    "packages-dev": [
-        {
-            "name": "mpstyle/mtoolkit",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/MpStyle/MToolkit.git",
-                "reference": "3c8cb63a17ee11739cd262552cbd98911419c914"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/MpStyle/MToolkit/zipball/3c8cb63a17ee11739cd262552cbd98911419c914",
-                "reference": "3c8cb63a17ee11739cd262552cbd98911419c914",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "MToolkit\\": "./",
-                    "Vendor\\Namespace\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "LGPL-3.0+"
-            ],
-            "authors": [
-                {
-                    "name": "Michele Pagnin",
-                    "email": "pagnin.michele@gmail.com",
-                    "homepage": "http://mpmp.altervista.org",
-                    "role": "Main Developer"
-                }
-            ],
-            "description": "MToolkit is a simple PHP toolkit. Easy to understand. Fast to use.",
-            "homepage": "https://github.com/MpStyle/MToolkit",
-            "keywords": [
-                ".net",
-                "framework",
-                "qt",
-                "toolkit",
-                "web framework"
-            ],
-            "time": "2015-05-10 08:51:32"
-        }
-    ],
-    "aliases": [
-
-    ],
+    "packages-dev": [],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "mpstyle/mtoolkit": 20
     },
     "prefer-stable": false,
-    "platform": [
-
-    ],
-    "platform-dev": [
-
-    ]
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
 }

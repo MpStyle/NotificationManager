@@ -2,8 +2,9 @@
 
 namespace DbAbstraction\Notification;
 
-use MToolkit\Model\Sql\MPDOQuery;
+use MToolkit\Model\Sql\MDbConnection;
 use MToolkit\Model\Sql\MPDOResult;
+use MToolkit\Model\Sql\MPDOQuery;
 use MToolkit\Core\MDataType;
 
 class NotificationAction

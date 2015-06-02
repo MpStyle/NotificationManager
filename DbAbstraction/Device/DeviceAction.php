@@ -2,7 +2,9 @@
 namespace DbAbstraction\Device;
 
 use MToolkit\Core\MDataType;
+use MToolkit\Model\Sql\MDbConnection;
 use MToolkit\Model\Sql\MPDOResult;
+use MToolkit\Model\Sql\MPDOQuery;
 
 class DeviceAction
 {

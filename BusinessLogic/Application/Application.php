@@ -2,7 +2,9 @@
 
 namespace BusinessLogic\Application;
 
-class Application
+use MToolkit\Core\MObject;
+
+class Application extends MObject
 {
     private $id = null;
     private $name = null;

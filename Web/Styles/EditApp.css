@@ -1,0 +1,122 @@
+.MaintenanceSuccessMessage {
+  margin-top: 10px; }
+
+.FormContainer {
+  max-width: 800px; }
+
+/* TAGS */
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0px;
+  background-color: #f1f1f1;
+  color: #333; }
+
+#Wrapper {
+  padding: 0px; }
+
+/* HEADER */
+#TitleLogoContainer {
+  vertical-align: top; }
+
+#LogoImage {
+  width: 50px;
+  margin: 5px 0px 0px 20px;
+  float: left; }
+
+#LogoImageMenu {
+  width: 72px;
+  margin: 5px 0px 0px 0px;
+  float: left; }
+
+#TitleLink {
+  float: left; }
+
+#Title {
+  display: inline-block;
+  margin: 5px 0px 0px 10px; }
+
+#UserContainer {
+  margin: 5px 10px 5px 0px; }
+
+@media all and (max-width: 768px) {
+  #UserContainer {
+    margin: 0px -10px 5px 0px; }
+
+  #menu li ul {
+    display: block; } }
+/* CONTENT */
+#LeftColumn {
+  padding-right: 0px;
+  margin-left: 0px;
+  padding-left: 0px;
+  background-color: #ececec;
+  color: #555;
+  overflow: auto;
+  overflow-x: hidden;
+  -ms-overflow-x: hidden;
+  top: 65px;
+  bottom: 0px; }
+
+#LeftColumn ul li {
+  text-decoration: none; }
+
+#LeftColumn ul a:hover {
+  background-color: #f1f1f1 !important;
+  text-decoration: none !important; }
+
+#LeftColumn #menu {
+  padding-left: 0;
+  list-style-type: none; }
+
+#LeftColumn #menu li a {
+  display: block !important;
+  position: relative;
+  padding: 10px 0 10px 15px !important;
+  background-color: #dfdfdf;
+  color: #555; }
+
+#LeftColumn #menu li a img {
+  padding-right: 10px; }
+
+#LeftColumn #menu ul {
+  /*display: block;*/
+  list-style-type: none;
+  position: relative;
+  padding-left: 0; }
+
+#LeftColumn #menu ul li {
+  padding: 0px !important; }
+
+#LeftColumn #menu ul li a {
+  display: block !important;
+  position: relative;
+  padding: 10px 0 10px 30px !important;
+  background-color: #ececec;
+  padding: 5px 0px 0px 0px;
+  display: inline-block;
+  border-top: 1px solid #dfdfdf;
+  color: #555; }
+
+.MenuArrow {
+  float: right; }
+
+.glyphicon {
+  padding-right: 10px; }
+
+#Container {
+  margin: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  overflow: hidden; }
+
+@media (min-width: 992px) {
+  #ContentWrapper {
+    margin-left: 16.66666667%; } }
+@media (max-width: 991px) {
+  #ContentWrapper {
+    margin-left: 25%; } }
+@media (max-width: 767px) {
+  #ContentWrapper {
+    margin-left: 0px; } }
+#content h2 {
+  margin-top: 0px; }

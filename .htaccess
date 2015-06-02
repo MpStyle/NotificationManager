@@ -1,0 +1,8 @@
+#php_value auto_prepend_file "./Settings.php"
+
+RewriteEngine On
+
+RewriteRule ^Login$ /Web/Login.php [QSA,L]
+
+RewriteRule ^Styles/(.+)$ /Web/Styles/$1 [QSA,L]
+RewriteRule ^Javascripts/(.+)$ /Web/Javascripts/$1 [QSA,L]

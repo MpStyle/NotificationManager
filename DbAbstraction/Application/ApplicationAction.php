@@ -3,7 +3,9 @@
 namespace DbAbstraction\Application;
 
 use MToolkit\Core\MDataType;
+use MToolkit\Model\Sql\MDbConnection;
 use MToolkit\Model\Sql\MPDOResult;
+use MToolkit\Model\Sql\MPDOQuery;
 
 class ApplicationAction
 {
@@ -11,18 +13,24 @@ class ApplicationAction
     /**
      * 
      * @param string $name
-     * @return type
+     * @param string $googleKey
+     * @param string $windowsPhoneKey
+     * @return MPDOResult
      */
-    public static function insert( $name )
+    public static function insert( $name, $googleKey, $windowsPhoneKey )
     {
         MDataType::mustBeString( $name );
+        MDataType::mustBeNullableString( $googleKey );
+        MDataType::mustBeNullableString( $windowsPhoneKey );
 
-        $query = "CALL applicationInsert(?)";
+        $query = "CALL applicationInsert(?, ?, ?)";
         /* @var $connection \PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
 
         $sql->bindValue( $name );
+        $sql->bindValue( $googleKey );
+        $sql->bindValue( $windowsPhoneKey );
 
         $sql->exec();
 
@@ -32,21 +40,27 @@ class ApplicationAction
     /**
      * 
      * @param int $id
-     * @param string $anme
-     * @return type
+     * @param string $name
+     * @param string $googleKey
+     * @param string $windowsPhoneKey
+     * @return MPDOResult
      */
-    public static function update( $id, $name )
+    public static function update( $id, $name, $googleKey, $windowsPhoneKey )
     {
         MDataType::mustBeInt( $id );
         MDataType::mustBeString( $name );
+        MDataType::mustBeNullableString( $googleKey );
+        MDataType::mustBeNullableString( $windowsPhoneKey );
 
-        $query = "CALL applicationUpdate(?, ?)";
+        $query = "CALL applicationUpdate(?, ?, ?, ?)";
         /* @var $connection \PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
 
         $sql->bindValue( $id );
         $sql->bindValue( $name );
+        $sql->bindValue( $googleKey );
+        $sql->bindValue( $windowsPhoneKey );
 
         $sql->exec();
 
