@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "hash": "bc28f02b8ac272500a1248e047fd2b0d",
@@ -108,14 +108,21 @@
             "time": "2015-03-16 15:44:41"
         }
     ],
-    "packages-dev": [],
-    "aliases": [],
+    "packages-dev": [
+
+    ],
+    "aliases": [
+
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "mpstyle/mtoolkit": 20
     },
     "prefer-stable": false,
-    "prefer-lowest": false,
-    "platform": [],
-    "platform-dev": []
+    "platform": [
+
+    ],
+    "platform-dev": [
+
+    ]
 }

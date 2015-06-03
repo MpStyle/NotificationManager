@@ -20,12 +20,14 @@ class Login extends AbstractBaseWebService
         $created = $params['created'];
         $expiresIn = $params['expires_in'];
 
+//        var_dump( array($accessToken, $tokenId, $created, $tokenType, $expiresIn) );
+
         $googleClient = new GoogleApiServices( $accessToken, $tokenId, $created, $tokenType, $expiresIn );
 
         if( $googleClient->isValidToken() )
         {
             $userInfo = $googleClient->userInfo();
-            $isValidUser = ( in_array( $userInfo['id'], \Settings::authorizedGooglePlusUserIdArray() ) || \Settings::authorizedGooglePlusUserIdArray() == "*" );
+            $isValidUser = ( in_array( $userInfo['id'], \Settings::authorizedGooglePlusUserIdArray() ) || in_array( "*", \Settings::authorizedGooglePlusUserIdArray() ) );
 
             if( $isValidUser === false )
             {
@@ -41,14 +43,14 @@ class Login extends AbstractBaseWebService
                 MNetworkSession::set( Session::GOOGLE_EXPIRES_IN, $expiresIn );
             }
 
-            $rawResponse = array( "Result" => $isValidUser );
+            $rawResponse = array("Result" => $isValidUser);
             $response = new MRPCJsonResponse();
             $response->setResult( $rawResponse );
             $this->setResponse( $response );
             return;
         }
 
-        $rawResponse = array( "Result" => false );
+        $rawResponse = array("Result" => false);
         $response = new MRPCJsonResponse();
         $response->setResult( $rawResponse );
         $this->setResponse( $response );

@@ -17,6 +17,12 @@ use MToolkit\Core\MDataType;
 
 class BasePage extends MAbstractPageController
 {
+    /**
+     * @var Application
+     */
+    private $currentApp = null;
+    private $currentDevice = null;
+    private $currentNotification = null;
 
     public function __construct( $template = null, MAbstractViewController $parent = null )
     {
@@ -33,22 +39,29 @@ class BasePage extends MAbstractPageController
     /**
      * @return Application
      */
-    protected function getCurrentApp()
+    public function getCurrentApp($id)
     {
-        $applications = ApplicationBook::getApplications( $this->getPost()->getValue( Post::APPS ) );
-
-        if( $applications->count() <= 0 )
+        if( $this->currentApp == null )
         {
-            return null;
+            $applications = ApplicationBook::getApplications( $id );
+
+            if( $applications->count() <= 0 )
+            {
+                $this->currentApp = new Application( $this );
+            }
+            else
+            {
+                $this->currentApp = $applications->at( 0 );
+            }
         }
 
-        return $applications->at( 0 );
+        return $this->currentApp;
     }
 
     /**
      * @return Device
      */
-    protected function getCurrentDevice()
+    public function getCurrentDevice()
     {
         
     }
@@ -56,7 +69,7 @@ class BasePage extends MAbstractPageController
     /**
      * @return Notification
      */
-    protected function getCurrentNotification()
+    public function getCurrentNotification()
     {
         
     }

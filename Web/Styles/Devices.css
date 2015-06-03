@@ -4,6 +4,18 @@
 .FormContainer {
   max-width: 800px; }
 
+.ErrorMessage-MarginBottom20 {
+  margin-bottom: 20px; }
+
+.BlackOverlay {
+  position: fixed;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 3000; }
+
 /* TAGS */
 body {
   font-family: 'Roboto', sans-serif;

@@ -6,10 +6,11 @@ use MToolkit\Core\MObject;
 
 class Application extends MObject
 {
-    private $id = null;
-    private $name = null;
-    private $googleKey;
-    private $windowsPhoneKey;
+    protected $id = null;
+    protected $name = null;
+    protected $googleKey;
+    protected $windowsPhoneKey;
+    protected $clientId;
 
     public function getId()
     {
@@ -52,6 +53,17 @@ class Application extends MObject
     public function setWindowsPhoneKey( $windowsPhoneKey )
     {
         $this->windowsPhoneKey = $windowsPhoneKey;
+        return $this;
+    }
+
+    public function getClientId()
+    {
+        return $this->clientId;
+    }
+
+    public function setClientId( $clientId )
+    {
+        $this->clientId = $clientId;
         return $this;
     }
 

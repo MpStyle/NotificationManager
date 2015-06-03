@@ -40,7 +40,7 @@ class Settings
      */
     public static function authorizedGooglePlusUserIdArray()
     {
-        return array( '109852933276518677904', '110935823365082203857' );
+        return array( '*' );
     }
 
 }

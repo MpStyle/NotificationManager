@@ -17,13 +17,14 @@ class ApplicationAction
      * @param string $windowsPhoneKey
      * @return MPDOResult
      */
-    public static function insert( $name, $googleKey, $windowsPhoneKey )
+    public static function insert( $name, $googleKey, $windowsPhoneKey, $clientId )
     {
         MDataType::mustBeString( $name );
         MDataType::mustBeNullableString( $googleKey );
         MDataType::mustBeNullableString( $windowsPhoneKey );
+        MDataType::mustBeNullableString( $clientId );
 
-        $query = "CALL applicationInsert(?, ?, ?)";
+        $query = "CALL appInsert(?, ?, ?, ?)";
         /* @var $connection \PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
@@ -31,6 +32,7 @@ class ApplicationAction
         $sql->bindValue( $name );
         $sql->bindValue( $googleKey );
         $sql->bindValue( $windowsPhoneKey );
+        $sql->bindValue( $clientId );
 
         $sql->exec();
 
@@ -52,7 +54,7 @@ class ApplicationAction
         MDataType::mustBeNullableString( $googleKey );
         MDataType::mustBeNullableString( $windowsPhoneKey );
 
-        $query = "CALL applicationUpdate(?, ?, ?, ?)";
+        $query = "CALL appUpdate(?, ?, ?, ?)";
         /* @var $connection \PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
@@ -75,7 +77,7 @@ class ApplicationAction
     {
         MDataType::mustBeInt( $id );
 
-        $query = "CALL applicationDelete(?)";
+        $query = "CALL appDelete(?)";
         /* @var $connection \PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
@@ -97,11 +99,11 @@ class ApplicationAction
     public static function get( $id = null, $name = null, $perPage=10, $page=0 )
     {
         MDataType::mustBeNullableInt( $id );
-        MDataType::mustBeString( $name );
+        MDataType::mustBeNullableString( $name );
         MDataType::mustBeInt( $perPage );
         MDataType::mustBeInt( $page );
 
-        $query = "CALL applicationGet(?, ?, ?, ?)";
+        $query = "CALL appGet(?, ?, ?, ?)";
         /* @var $connection \PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );

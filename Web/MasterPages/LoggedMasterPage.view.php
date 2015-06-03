@@ -72,13 +72,7 @@ use BusinessLogic\Enum\Post;
                 </div>
 
                 <div id="ContentWrapper" class="col-xs-12 col-sm-9 col-md-10 col-lg-10">
-                    <form method="post">
-                        <input type="hidden" name="<?php echo Post::APPS ?>" value="<?php echo $this->getPost()->getValue( Post::APPS ) ?>" />
-                        <input type="hidden" name="<?php echo Post::DEVICES ?>" value="<?php echo $this->getPost()->getValue( Post::DEVICES ) ?>" />
-                        <input type="hidden" name="<?php echo Post::NOTIFICATIONS ?>" value="<?php echo $this->getPost()->getValue( Post::NOTIFICATIONS ) ?>" />
-
-                        <div id="content"></div>
-                    </form>
+                    <div id="content"></div>
                 </div>
             </div>
 
