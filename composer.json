@@ -9,8 +9,11 @@
     ],
     "require": {
         "twbs/bootstrap": "v3.3.4",
-        "mpstyle/mtoolkit": "dev-master"
+        "mpstyle/mtoolkit": "dev-master",
+        "moment/moment": "dev-master",
+        "eonasdan/bootstrap-datetimepicker": "4.7.14"
     },
     "require-dev": {
+        "eternicode/bootstrap-datepicker": "1.4.x-dev"
     }
 }

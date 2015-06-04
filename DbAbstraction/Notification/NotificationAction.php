@@ -95,19 +95,21 @@ class NotificationAction
      * @param int $id
      * @return MPDOResult
      */
-    public static function get( $id = null, $applicationId=null, $perPage=10, $page=0 )
+    public static function get( $id = null, $applicationId=null, $status=null, $perPage=10, $page=0 )
     {
         MDataType::mustBeNullableInt( $id );
+        MDataType::mustBeNullableInt( $applicationId );
         MDataType::mustBeInt( $perPage );
         MDataType::mustBeInt( $page );
 
-        $query = "CALL notificationGet(?, ?, ?, ?)";
+        $query = "CALL notificationGet(?, ?, ?, ?, ?)";
         /* @var $connection \PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
 
         $sql->bindValue( $id );
         $sql->bindValue( $applicationId );
+        $sql->bindValue( $status );
         $sql->bindValue( $perPage );
         $sql->bindValue( $page );
 
@@ -115,5 +117,56 @@ class NotificationAction
 
         return $sql->getResult();
     }
+    
+    /**
+     * @param int $id
+     * @param int $enabled
+     * @param int $applicationId
+     * @return MPDOResult
+     */
+    public static function getPageCount( $id = null, $applicationId=null, $status=null, $perPage=10 )
+    {
+        MDataType::mustBeNullableInt( $id );
+        MDataType::mustBeNullableInt( $applicationId );
+        MDataType::mustBeInt( $perPage );
 
+        $query = "CALL notificationGetPageCount(?, ?, ?, ?)";
+        /* @var $connection \PDO */
+        $connection = MDbConnection::getDbConnection();
+        $sql = new MPDOQuery( $query, $connection );
+
+        $sql->bindValue( $id );
+        $sql->bindValue( $applicationId );
+        $sql->bindValue( $status );
+        $sql->bindValue( $perPage );
+
+        $sql->exec();
+
+        return $sql->getResult();
+    }
+    
+    /**
+     * @param int $id
+     * @param int $applicationId
+     * @param int $status
+     * @return MPDOResult
+     */
+    public static function getCount($id = null, $applicationId=null, $status=null)
+    {
+        MDataType::mustBeNullableInt( $id );
+        MDataType::mustBeNullableInt( $applicationId );
+
+        $query = "CALL notificationGetCount(?, ?, ?)";
+        /* @var $connection \PDO */
+        $connection = MDbConnection::getDbConnection();
+        $sql = new MPDOQuery( $query, $connection );
+
+        $sql->bindValue( $id );
+        $sql->bindValue( $applicationId );
+        $sql->bindValue( $status );
+
+        $sql->exec();
+
+        return $sql->getResult();
+    }
 }

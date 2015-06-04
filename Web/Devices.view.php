@@ -2,7 +2,6 @@
 namespace Web;
 
 use BusinessLogic\Device\Device;
-use BusinessLogic\Device\DeviceBook;
 
 /* @var $this Devices */
 ?>
@@ -10,15 +9,17 @@ use BusinessLogic\Device\DeviceBook;
 
 <div id="content">
     <?php switch( $this->getGet()->getValue( "error" ) ): ?><?php case "00": ?>
-            <div class="alert alert-success ErrorMessage-MarginBottom20" role="alert">The device was successfully saved.</div>
+            <div class="alert alert-success ErrorMessage ErrorMessage-MarginBottom20" role="alert">The device was successfully saved.</div>
             <?php break; ?><?php case "01": ?>
-            <div class="alert alert-danger ErrorMessage-MarginBottom20" role="alert">The device was not deleted.</div>
+            <div class="alert alert-danger ErrorMessage ErrorMessage-MarginBottom20" role="alert">The device was not deleted.</div>
             <?php break; ?><?php case "02": ?>
-            <div class="alert alert-success ErrorMessage-MarginBottom20" role="alert">The device was successfully deleted.</div>    
+            <div class="alert alert-success ErrorMessage ErrorMessage-MarginBottom20" role="alert">The device was successfully deleted.</div>    
+            <?php break; ?><?php case "03": ?>
+            <div class="alert alert-success ErrorMessage ErrorMessage-MarginBottom20" role="alert">The device was successfully updated.</div>    
             <?php break; ?>
     <?php endswitch; ?>
 
-    <h2>Device list</h2>
+    <h2>Device list (<?php echo $this->getDeviceCount() ?>)</h2>
 
     <div class="table-responsive">
         <table class="table table-striped table-bordered EntityList">
@@ -47,9 +48,9 @@ use BusinessLogic\Device\DeviceBook;
                         <td>
                             <form method="post">
                                 <?php if( $device->getEnabled() ): ?>
-                                    <button id="DisableDeviceButton" type="submit" name="action" value="disableDevice" class="btn btn-default">Disable</button>
+                                    <button id="DisableDeviceButton" type="submit" name="action" value="disableDevice" class="btn btn-warning">Disable</button>
                                 <?php else: ?>
-                                    <button id="EnableDeviceButton" type="submit" name="action" value="enableDevice" class="btn btn-default">Enable</button>
+                                    <button id="EnableDeviceButton" type="submit" name="action" value="enableDevice" class="btn btn-success">Enable</button>
                                 <?php endif; ?>
                                 <button id="DeleteDeviceButton" type="button" class="btn btn-danger" data-toggle="modal" data-target=".DeleteDeviceModal">Delete</button>
 

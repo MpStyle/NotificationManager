@@ -10,15 +10,15 @@ use BusinessLogic\Application\ApplicationBook;
 
 <div id="content">
     <?php switch( $this->getGet()->getValue( "error" ) ): ?><?php case "00": ?>
-            <div class="alert alert-success ErrorMessage-MarginBottom20" role="alert">The app was successfully saved.</div>
+            <div class="alert alert-success ErrorMessage ErrorMessage-MarginBottom20" role="alert">The app was successfully saved.</div>
             <?php break; ?><?php case "01": ?>
-            <div class="alert alert-danger ErrorMessage-MarginBottom20" role="alert">The app was not deleted.</div>
+            <div class="alert alert-danger ErrorMessage ErrorMessage-MarginBottom20" role="alert">The app was not deleted.</div>
             <?php break; ?><?php case "02": ?>
-            <div class="alert alert-success ErrorMessage-MarginBottom20" role="alert">The app was successfully deleted.</div>    
+            <div class="alert alert-success ErrorMessage ErrorMessage-MarginBottom20" role="alert">The app was successfully deleted.</div>    
             <?php break; ?>
     <?php endswitch; ?>
 
-    <h2>App list</h2>
+    <h2>App list (<?php echo $this->getApplicationCount() ?>)</h2>
 
     <form method="post">
         <button name="action" value="createNewApp" class="btn btn-default">

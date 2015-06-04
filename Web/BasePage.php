@@ -37,6 +37,7 @@ class BasePage extends MAbstractPageController
     }
 
     /**
+     * @param int $id
      * @return Application
      */
     public function getCurrentApp($id)
@@ -59,19 +60,27 @@ class BasePage extends MAbstractPageController
     }
 
     /**
-     * @return Device
-     */
-    public function getCurrentDevice()
-    {
-        
-    }
-
-    /**
+     * 
+     * @param int $id
      * @return Notification
      */
-    public function getCurrentNotification()
+    public function getCurrentNotification($id)
     {
-        
+        if( $this->currentNotification == null )
+        {
+            $notifications = \BusinessLogic\Notification\NotificationBook::getNotifications($id);
+
+            if( $notifications->count() <= 0 )
+            {
+                $this->currentNotification = new Notification( $this );
+            }
+            else
+            {
+                $this->currentNotification = $notifications->at( 0 );
+            }
+        }
+
+        return $this->currentNotification;
     }
 
     public function addCss( $href, $media = CssMedia::ALL, $rel = CssRel::STYLESHEET )

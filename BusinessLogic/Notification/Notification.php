@@ -2,35 +2,42 @@
 
 namespace BusinessLogic\Notification;
 
-class Notification
+use MToolkit\Core\MObject;
+
+class Notification extends MObject
 {
     /**
      * @var int
      */
-    private $id = null;
+    protected $id = null;
 
     /**
      * @var string
      */
-    private $title;
+    protected $title;
 
     /**
      * @var string
      */
-    private $message = null;
+    protected $message = null;
 
     /**
      * @var string
      */
-    private $creationDate = null;
+    protected $creationDate = null;
+    protected $updateDate = null;
 
     /**
-     * Could be: draft, approved
+     * Could be: DRAFT, APPROVED
      * @var string
      */
-    private $status = null;
-    private $applicationId = null;
-    private $iconId;
+    protected $status = null;
+    protected $applicationId = null;
+    protected $applicationName = null;
+    protected $iconId = null;
+    protected $deviceType = null;
+    protected $startDateValidation = null;
+    protected $endDateValidation = null;
 
     public function getId()
     {
@@ -106,6 +113,55 @@ class Notification
     public function setIconId( $iconId )
     {
         $this->iconId = $iconId;
+        return $this;
+    }
+
+    public function getApplicationName()
+    {
+        return $this->applicationName;
+    }
+
+    public function getUpdateDate()
+    {
+        return $this->updateDate;
+    }
+
+    public function setUpdateDate( $updateDate )
+    {
+        $this->updateDate = $updateDate;
+        return $this;
+    }
+
+    public function getDeviceType()
+    {
+        return $this->deviceType;
+    }
+
+    public function getStartDateValidation()
+    {
+        return $this->startDateValidation;
+    }
+
+    public function getEndDateValidation()
+    {
+        return $this->endDateValidation;
+    }
+
+    public function setDeviceType( $deviceType )
+    {
+        $this->deviceType = $deviceType;
+        return $this;
+    }
+
+    public function setStartDateValidation( $startDateValidation )
+    {
+        $this->startDateValidation = $startDateValidation;
+        return $this;
+    }
+
+    public function setEndDateValidation( $endDateValidation )
+    {
+        $this->endDateValidation = $endDateValidation;
         return $this;
     }
 

@@ -2,9 +2,9 @@
 
 namespace BusinessLogic\Device;
 
-final class Type
+final class DeviceTypes
 {
     const IOS="IOS";
     const ANDROID="ANDROID";
-    const WINDOWS_MOBILE="WINDOWS_MOBILE";
+    const WINDOWS_PHONE="WINDOWS_PHONE";
 }

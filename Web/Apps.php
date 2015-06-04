@@ -9,7 +9,8 @@ use Web\MasterPages\LoggedMasterPage;
 
 class Apps extends BasePage
 {
-
+    private $applicationCount=0;
+    
     public function __construct()
     {
         parent::__construct( __DIR__ . '/Apps.view.php' );
@@ -19,6 +20,9 @@ class Apps extends BasePage
 
         $this->addJavascript( "Javascripts/Apps.js" );
         $this->addCss( "Styles/Apps.css" );
+        
+        /* @var $result MPDOResult */ $result = ApplicationAction::getCount( $id, $name );
+        $this->applicationCount = $result->getData( 0, 'AppCount' );
     }
 
     protected function createNewApp()
@@ -37,5 +41,11 @@ class Apps extends BasePage
             $this->getHttpResponse()->redirect( "Apps.php?error=02" );
         }
     }
+
+    public function getApplicationCount()
+    {
+        return $this->applicationCount;
+    }
+
 
 }

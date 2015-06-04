@@ -2,21 +2,21 @@
 
 namespace BusinessLogic\Device;
 
-use BusinessLogic\Device\Type;
+use BusinessLogic\Device\DeviceTypes;
 use MToolkit\Core\MObject;
 
 class Device extends MObject
 {
-    protected $id;
-    protected $mobileId;
-    protected $type;
-    protected $oSVersion;
-    protected $applicationVersion;
-    protected $applicationName;
-    protected $applicationId;
-    protected $brand;
-    protected $model;
-    protected $enabled;
+    protected $id = null;
+    protected $mobileId = null;
+    protected $type = null;
+    protected $oSVersion = null;
+    protected $applicationVersion = null;
+    protected $applicationName = null;
+    protected $applicationId = null;
+    protected $brand = null;
+    protected $model = null;
+    protected $enabled = null;
 
     /**
      * @return int
@@ -35,7 +35,7 @@ class Device extends MObject
     }
 
     /**
-     * @return Type
+     * @return DeviceTypes
      */
     public function getType()
     {
@@ -147,7 +147,7 @@ class Device extends MObject
         $this->enabled = $enabled;
         return $this;
     }
-    
+
     public function getOSVersion()
     {
         return $this->oSVersion;
@@ -158,7 +158,5 @@ class Device extends MObject
         $this->oSVersion = $oSVersion;
         return $this;
     }
-
-
 
 }

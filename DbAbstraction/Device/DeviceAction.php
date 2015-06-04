@@ -74,6 +74,18 @@ class DeviceAction
         return $sql->getResult();
     }
     
+    public static function getDeviceType()
+    {
+        $query = "CALL deviceTypeGet()";
+        /* @var $connection \PDO */
+        $connection = MDbConnection::getDbConnection();
+        $sql = new MPDOQuery( $query, $connection );
+
+        $sql->exec();
+
+        return $sql->getResult();
+    }
+    
     /**
      * @param int $id
      * @param int $enabled
@@ -127,6 +139,32 @@ class DeviceAction
         $sql->bindValue( $enabled );
         $sql->bindValue( $applicationId );
         $sql->bindValue( $perPage );
+
+        $sql->exec();
+
+        return $sql->getResult();
+    }
+    
+    /**
+     * @param int $id
+     * @param int $enabled
+     * @param int $applicationId
+     * @return MPDOResult
+     */
+    public static function getCount($id=null, $enabled=null, $applicationId=null)
+    {
+        MDataType::mustBeNullableInt( $id );
+        MDataType::mustBeNullableInt( $enabled );
+        MDataType::mustBeNullableInt( $applicationId );
+
+        $query = "CALL deviceGetCount(?, ?, ?)";
+        /* @var $connection \PDO */
+        $connection = MDbConnection::getDbConnection();
+        $sql = new MPDOQuery( $query, $connection );
+
+        $sql->bindValue( $id );
+        $sql->bindValue( $enabled );
+        $sql->bindValue( $applicationId );
 
         $sql->exec();
 

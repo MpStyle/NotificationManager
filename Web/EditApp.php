@@ -4,8 +4,9 @@ namespace Web;
 
 require_once '../Settings.php';
 
+use BusinessLogic\Application\Application;
+use DbAbstraction\Application\ApplicationAction;
 use Web\MasterPages\LoggedMasterPage;
-use BusinessLogic\Enum\Post;
 
 class EditApp extends BasePage
 {
@@ -28,7 +29,7 @@ class EditApp extends BasePage
         if( $this->getGet()->getValue( "id" ) == null )
         {
             // Create app
-            $result = \DbAbstraction\Application\ApplicationAction::insert(
+            $result = ApplicationAction::insert(
                             $this->getPost()->getValue( "app_name" )
                             , $this->getPost()->getValue( "app_google_client_key" )
                             , $this->getPost()->getValue( "app_microsoft_client_key" )
@@ -38,7 +39,7 @@ class EditApp extends BasePage
         else
         {
             // Edit app
-            $result = \DbAbstraction\Application\ApplicationAction::update(
+            $result = ApplicationAction::update(
                             (int)$this->getCurrentApp()->getId()
                             , $this->getPost()->getValue( "app_name" )
                             , $this->getPost()->getValue( "app_google_client_key" )

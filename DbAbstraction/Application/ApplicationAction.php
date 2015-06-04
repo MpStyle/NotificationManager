@@ -117,5 +117,23 @@ class ApplicationAction
 
         return $sql->getResult();
     }
+    
+    public static function getCount($id = null, $name = null)
+    {
+        MDataType::mustBeNullableInt( $id );
+        MDataType::mustBeNullableString( $name );
+
+        $query = "CALL appGetCount(?, ?)";
+        /* @var $connection \PDO */
+        $connection = MDbConnection::getDbConnection();
+        $sql = new MPDOQuery( $query, $connection );
+
+        $sql->bindValue( $id );
+        $sql->bindValue( $name );
+
+        $sql->exec();
+
+        return $sql->getResult();
+    }
 
 }

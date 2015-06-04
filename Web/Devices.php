@@ -13,6 +13,7 @@ class Devices extends BasePage
 {
     private $devices = null;
     private $pages = 1;
+    private $deviceCount=0;
 
     public function __construct()
     {
@@ -31,32 +32,35 @@ class Devices extends BasePage
         $currentPage = $this->getCurrentPage();
 
         /* @var $result MPDOResult */ $result = DeviceAction::getPageCount( $deviceId, $enabled, $applicationId, $perPage );
-
         $this->pages = $result->getData( 0, 'PageCount' );
+        
+        /* @var $result MPDOResult */ $result = DeviceAction::getCount( $deviceId, $enabled, $applicationId );
+        $this->deviceCount = $result->getData( 0, 'DeviceCount' );
 
         $this->devices = DeviceBook::getDevices( $deviceId, $enabled, $applicationId, $perPage, $currentPage );
     }
 
     protected function disableDevice()
     {
-        var_dump( (int) $this->getPost()->getValue( "DeviceId" ) );
         DeviceAction::update( (int) $this->getPost()->getValue( "DeviceId" ), 0 );
+        $this->getHttpResponse()->redirect( "Devices.php?error=03&applicationId=" . $this->getApplicationId() . "&page=" . $this->getCurrentPage() );
     }
 
     protected function enableDevice()
     {
         DeviceAction::update( (int) $this->getPost()->getValue( "DeviceId" ), 1 );
+        $this->getHttpResponse()->redirect( "Devices.php?error=03&applicationId=" . $this->getApplicationId() . "&page=" . $this->getCurrentPage() );
     }
 
     protected function deleteDevice()
     {
         if( DeviceAction::delete( (int) $this->getPost()->getValue( "DeleteDeviceId" ) ) == null )
         {
-            $this->getHttpResponse()->redirect( "Devices.php?error=01&applicationId=" . $this->getApplicationId() . "&page=" . $this->getPages() );
+            $this->getHttpResponse()->redirect( "Devices.php?error=01&applicationId=" . $this->getApplicationId() . "&page=" . $this->getCurrentPage() );
         }
         else
         {
-            $this->getHttpResponse()->redirect( "Devices.php?error=02&applicationId=" . $this->getApplicationId() . "&page=" . $this->getPages() );
+            $this->getHttpResponse()->redirect( "Devices.php?error=02&applicationId=" . $this->getApplicationId() . "&page=" . $this->getCurrentPage() );
         }
     }
 
@@ -80,4 +84,8 @@ class Devices extends BasePage
         return $this->pages;
     }
 
+    public function getDeviceCount()
+    {
+        return $this->deviceCount;
+    }
 }
