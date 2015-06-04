@@ -136,4 +136,55 @@ class ApplicationAction
         return $sql->getResult();
     }
 
+    public static function getAppLink( $name, $applicationId )
+    {
+        MDataType::mustBeNullableInt( $applicationId );
+        MDataType::mustBeNullableString( $name );
+
+        $query = "CALL appLinkGet(?, ?)";
+        /* @var $connection \PDO */
+        $connection = MDbConnection::getDbConnection();
+        $sql = new MPDOQuery( $query, $connection );
+
+        $sql->bindValue( $name );
+        $sql->bindValue( $applicationId );
+
+        $sql->exec();
+
+        return $sql->getResult();
+    }
+    
+    public static function insertAppLink( $name, $applicationId )
+    {
+        MDataType::mustBeNullableInt( $applicationId );
+        MDataType::mustBeNullableString( $name );
+
+        $query = "CALL appLinkInsert(?, ?)";
+        /* @var $connection \PDO */
+        $connection = MDbConnection::getDbConnection();
+        $sql = new MPDOQuery( $query, $connection );
+
+        $sql->bindValue( $name );
+        $sql->bindValue( $applicationId );
+
+        $sql->exec();
+
+        return $sql->getResult();
+    }
+    
+    public static function deleteAppLink( $applicationId )
+    {
+        MDataType::mustBeNullableInt( $applicationId );
+
+        $query = "CALL appLinkDelete(?)";
+        /* @var $connection \PDO */
+        $connection = MDbConnection::getDbConnection();
+        $sql = new MPDOQuery( $query, $connection );
+
+        $sql->bindValue( $applicationId );
+
+        $sql->exec();
+
+        return $sql->getResult();
+    }
 }

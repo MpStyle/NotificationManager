@@ -5,11 +5,14 @@ namespace Web;
 require_once '../Settings.php';
 
 use BusinessLogic\Application\Application;
+use BusinessLogic\Application\ApplicationBook;
+use BusinessLogic\Application\ApplicationLink;
 use DbAbstraction\Application\ApplicationAction;
 use Web\MasterPages\LoggedMasterPage;
 
 class EditApp extends BasePage
 {
+    private $internalLinks = array();
 
     public function __construct()
     {
@@ -20,13 +23,19 @@ class EditApp extends BasePage
 
         $this->addJavascript( "Javascripts/EditApp.js" );
         $this->addCss( "Styles/EditApp.css" );
+
+        $internalLinks = ApplicationBook::getApplicationLinks( null, (int) $this->getCurrentApp()->getId() )->__toArray();
+        foreach( $internalLinks as /* @var $internalLink ApplicationLink */ $internalLink )
+        {
+            $this->internalLinks[]=$internalLink->getName();
+        }
     }
 
     protected function confirmEdit()
     {
         /* @var \MToolkit\Model\Sql\MPDOResult $result */
 
-        if( $this->getGet()->getValue( "id" ) == null )
+        if( $this->getCurrentApp()->getId() == null )
         {
             // Create app
             $result = ApplicationAction::insert(
@@ -40,22 +49,29 @@ class EditApp extends BasePage
         {
             // Edit app
             $result = ApplicationAction::update(
-                            (int)$this->getCurrentApp()->getId()
+                            (int) $this->getCurrentApp()->getId()
                             , $this->getPost()->getValue( "app_name" )
                             , $this->getPost()->getValue( "app_google_client_key" )
                             , $this->getPost()->getValue( "app_microsoft_client_key" )
             );
         }
 
-        if( $result != null && $result->getNumRowsAffected() > 0 )
+        if( $result != null )
         {
+            ApplicationAction::deleteAppLink( (int) $this->getCurrentApp()->getId() );
+
+            foreach( explode( ",", $this->getPost()->getValue( "links" ) ) as $link )
+            {
+                ApplicationAction::insertAppLink( trim( $link ), (int) $this->getCurrentApp()->getId() );
+            }
+
             // ok
             $this->getHttpResponse()->redirect( "Apps.php?error=0" );
         }
         else
         {
             // ko
-            $this->getHttpResponse()->redirect( "?error=1" );
+            $this->getHttpResponse()->redirect( "?error=1&id=" . $this->getCurrentApp()->getId() );
         }
     }
 
@@ -64,7 +80,12 @@ class EditApp extends BasePage
      */
     public function getCurrentApp( $id = null )
     {
-        return parent::getCurrentApp( (int)$this->getGet()->getValue( "id" ) );
+        return parent::getCurrentApp( (int) $this->getGet()->getValue( "id" ) );
+    }
+
+    public function getInternalLinks()
+    {
+        return implode( ", ", $this->internalLinks );
     }
 
 }

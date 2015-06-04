@@ -19,7 +19,7 @@ use BusinessLogic\Device\Device;
             <?php break; ?>
     <?php endswitch; ?>
 
-    <h2>Device list (<?php echo $this->getDeviceCount() ?>)</h2>
+    <h2>Device list <small>(<?php echo $this->getDeviceCount() ?>)</small></h2>
 
     <div class="table-responsive">
         <table class="table table-striped table-bordered EntityList">

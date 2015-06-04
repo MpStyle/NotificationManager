@@ -4,17 +4,17 @@
 .FormContainer {
   max-width: 800px; }
 
+/* TABLES ENTITIES */
+.EntityList .NoWrap {
+  white-space: nowrap; }
+.EntityList .NoWrapEllipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; }
+
+/* ERROR MESSAGES */
 .ErrorMessage-MarginBottom20 {
   margin-bottom: 20px; }
-
-.BlackOverlay {
-  position: fixed;
-  left: 0px;
-  right: 0px;
-  top: 0px;
-  bottom: 0px;
-  background-color: rgba(0, 0, 0, 0.3);
-  z-index: 3000; }
 
 /* TAGS */
 body {
@@ -22,6 +22,10 @@ body {
   margin: 0px;
   background-color: #f1f1f1;
   color: #333; }
+
+/* CLASSES */
+.EntityList {
+  margin-top: 20px; }
 
 #Wrapper {
   padding: 0px; }
@@ -58,6 +62,7 @@ body {
     display: block; } }
 /* CONTENT */
 #LeftColumn {
+  position: fixed;
   padding-right: 0px;
   margin-left: 0px;
   padding-left: 0px;
@@ -116,7 +121,7 @@ body {
   padding-right: 10px; }
 
 #Container {
-  margin: 0px;
+  margin: 75px 0px 0px 0px;
   padding-left: 0px;
   padding-right: 0px;
   overflow: hidden; }

@@ -5,6 +5,7 @@ namespace BusinessLogic\Application;
 use DbAbstraction\Application\ApplicationAction;
 use MToolkit\Model\Sql\MPDOResult;
 use MToolkit\Core\MDataType;
+use BusinessLogic\Application\ApplicationLink;
 
 final class ApplicationBook
 {
@@ -33,15 +34,42 @@ final class ApplicationBook
                 foreach( $currentApplication as $key => $value )
                 {                    
                     $codeKey = lcfirst( $key );
-                    
-//                    var_dump($key);
-//                    var_dump($codeKey);
-                    
                     $application->$codeKey = $value;
                 }
                 
-//                var_dump($application);
+                $applications->append( $application );
+            }
+        }
 
+        return $applications;
+    }
+
+    /**
+     * @param string $name
+     * @param int $applicationId
+     * @return \MToolkit\Core\MList
+     */
+    public static function getApplicationLinks( $name = null, $applicationId = null )
+    {
+        MDataType::mustBeNullableInt( $applicationId );
+        MDataType::mustBeNullableString( $name );
+
+        /* @var $applicationList MPDOResult */ $applicationList = ApplicationAction::getAppLink( $name, $applicationId );
+        /* @var $applications MList */ $applications = new \MToolkit\Core\MList();
+
+        if( $applicationList != null )
+        {
+            foreach( $applicationList as $currentApplication )
+            {
+                
+                $application = new ApplicationLink();
+
+                foreach( $currentApplication as $key => $value )
+                {                    
+                    $codeKey = lcfirst( $key );
+                    $application->$codeKey = $value;
+                }
+                
                 $applications->append( $application );
             }
         }

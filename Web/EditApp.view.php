@@ -42,6 +42,11 @@ use BusinessLogic\Enum\Post;
                 <label>Client ID</label>
                 <input type="text" name="client_id" value="<?php echo ($this->getGet()->getValue( "id" ) == null ? sha1( uniqid() ) : $this->getCurrentApp()->getClientId()) ?>" class="form-control" readonly="readonly" maxlength="1024" />
             </div>
+            
+            <div class="form-group">
+                <label>Links <small>(use coma as separator)</small></label>
+                <input type="text" name="links" value="<?php echo $this->getInternalLinks() ?>" class="form-control" placeholder="Enter the internal link of the app" />
+            </div>
 
             <div class="pull-right">
 

@@ -18,7 +18,7 @@ use BusinessLogic\Application\ApplicationBook;
             <?php break; ?>
     <?php endswitch; ?>
 
-    <h2>App list (<?php echo $this->getApplicationCount() ?>)</h2>
+            <h2>App list <small>(<?php echo $this->getApplicationCount() ?>)</small></h2>
 
     <form method="post">
         <button name="action" value="createNewApp" class="btn btn-default">
