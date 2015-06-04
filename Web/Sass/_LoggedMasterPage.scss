@@ -10,6 +10,13 @@ body
     color: #333;
 }
 
+/* CLASSES */
+
+.EntityList
+{
+    margin-top: 20px;
+}
+
 #Wrapper
 {
     padding: 0px;
@@ -68,6 +75,7 @@ body
 
 #LeftColumn
 {
+    position: fixed;
     padding-right: 0px;
     margin-left: 0px;
     padding-left: 0px;
@@ -148,7 +156,7 @@ body
 
 #Container
 {
-    margin: 0px;
+    margin: 75px 0px 0px 0px;
     padding-left: 0px;
     padding-right: 0px;
     overflow: hidden;

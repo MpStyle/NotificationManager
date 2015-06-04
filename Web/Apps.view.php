@@ -25,54 +25,62 @@ use BusinessLogic\Application\ApplicationBook;
             <span class="glyphicon glyphicon-plus"></span>
             Create new app
         </button>
+    </form>
 
-        <div class="table-responsive">
-            <table class="table table-striped table-bordered">
-                <thead>
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered EntityList">
+            <thead>
+                <tr>
+                    <td class="NoWrap">App name</td>
+                    <td class="hidden-xs">Client ID</td>
+                    <td class="hidden-xs hidden-sm">Google client key</td>
+                    <td class="hidden-xs hidden-sm">Microsoft client key</td>
+                    <td>Show</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach( ApplicationBook::getApplications() as /* @var $application Application */ $application ): ?>
                     <tr>
-                        <td>App name</td>
-                        <td>Client ID</td>
-                        <td>Google ckient key</td>
-                        <td>Microsoft client key</td>
-                        <td></td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach( ApplicationBook::getApplications() as /* @var $application Application */ $application ): ?>
-                        <tr>
-                            <td><?php echo $application->getName() ?></td>
-                            <td><?php echo $application->getClientId() ?></td>
-                            <td><?php echo $application->getGoogleKey() ?></td>
-                            <td><?php echo $application->getWindowsPhoneKey() ?></td>
-                            <td>
+                        <td class="NoWrapEllipsis"><?php echo $application->getName() ?></td>
+                        <td class="hidden-xs"><?php echo $application->getClientId() ?></td>
+                        <td class="hidden-xs hidden-sm"><?php echo $application->getGoogleKey() ?></td>
+                        <td class="hidden-xs hidden-sm"><?php echo $application->getWindowsPhoneKey() ?></td>
+                        <td class="NoWrap">
+                            <a href="Devices.php?applicationId=<?php echo $application->getId() ?>" class="btn btn-default">Devices</a>
+                            <a href="Notifications.php?applicationId=<?php echo $application->getId() ?>" class="btn btn-default">Notifications</a>
+                        </td>
+                        <td class="NoWrap">
+                            <form method="post">
                                 <a href="EditApp.php?id=<?php echo $application->getId() ?>" class="btn btn-default">Edit</a>
                                 <button id="DeleteApplicationButton" type="button" class="btn btn-danger" data-toggle="modal" data-target=".DeleteApplicationModal">Delete</button>
 
                                 <input type="hidden" class="ApplicationName" value="<?php echo $application->getName() ?>" />
                                 <input type="hidden" class="ApplicationId" value="<?php echo $application->getId() ?>" />
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        </div>
+                                </from>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
 
-        <div class="modal fade DeleteApplicationModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-sm">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        Do yuo want to delete app "<span class="ApplicationName"></span>"?
-                    </div>
-                    <div class="modal-footer">
-
+    <div class="modal fade DeleteApplicationModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-body">
+                    Do yuo want to delete app "<span class="ApplicationName"></span>"?
+                </div>
+                <div class="modal-footer">
+                    <form method="post">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-danger" name="action" value="deleteApplication">Delete</button>
 
                         <input type="hidden" name="ApplicationId" class="ApplicationId" value="" />
-
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
-    </form>
+    </div>
+
 </div>

@@ -40,7 +40,7 @@ use BusinessLogic\Enum\Post;
 
             <div class="form-group">
                 <label>Client ID</label>
-                <input type="text" name="client_id" value="<?php echo $this->getCurrentApp()->getClientId() ?>" class="form-control" readonly="readonly" maxlength="1024" />
+                <input type="text" name="client_id" value="<?php echo ($this->getGet()->getValue( "id" ) == null ? sha1( uniqid() ) : $this->getCurrentApp()->getClientId()) ?>" class="form-control" readonly="readonly" maxlength="1024" />
             </div>
 
             <div class="pull-right">

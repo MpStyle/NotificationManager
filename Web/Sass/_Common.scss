@@ -1,8 +1,8 @@
 @mixin border-radius($radius) {
-  -webkit-border-radius: $radius;
-     -moz-border-radius: $radius;
-      -ms-border-radius: $radius;
-          border-radius: $radius;
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    -ms-border-radius: $radius;
+    border-radius: $radius;
 }
 
 .MaintenanceSuccessMessage 
@@ -15,6 +15,25 @@
     max-width: 800px;
 }
 
+/* TABLES ENTITIES */
+
+.EntityList
+{
+    .NoWrap
+    {
+        white-space: nowrap;
+    }
+
+    .NoWrapEllipsis
+    {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+/* ERROR MESSAGES */
+
 .ErrorMessage
 {
 }
@@ -22,15 +41,4 @@
 .ErrorMessage-MarginBottom20
 {
     margin-bottom: 20px;
-}
-
-.BlackOverlay
-{
-    position: fixed;
-    left: 0px;
-    right: 0px;
-    top: 0px;
-    bottom: 0px;
-    background-color: rgba(0,0,0,0.3);
-    z-index: 3000;
 }

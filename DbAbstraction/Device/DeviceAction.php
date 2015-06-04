@@ -39,7 +39,7 @@ class DeviceAction
     public static function update( $id, $enabled )
     {
         MDataType::mustBeInt( $id );
-        MDataType::mustBeBoolean( $enabled );
+        MDataType::mustBeInt( $enabled );
 
         $query = "CALL deviceUpdate(?, ?)";
         /* @var $connection \PDO */
@@ -76,23 +76,57 @@ class DeviceAction
     
     /**
      * @param int $id
-     * @param boolean $enabled
+     * @param int $enabled
+     * @param int $applicationId
+     * @param int $perPage
+     * @param int $page
      * @return MPDOResult
      */
-    public static function get( $id=null, $enabled=null, $perPage=10, $page=0 )
+    public static function get( $id=null, $enabled=null, $applicationId=null,  $perPage=10, $page=0 )
     {
         MDataType::mustBeNullableInt( $id );
-        MDataType::mustBeNullableBoolean( $enabled );
+        MDataType::mustBeNullableInt( $enabled );
+        MDataType::mustBeNullableInt( $applicationId );
         MDataType::mustBeInt( $perPage );
         MDataType::mustBeInt( $page );
 
-        $query = "CALL deviceGet(?, ?, ?, ?)";
+        $query = "CALL deviceGet(?, ?, ?, ?, ?)";
         /* @var $connection \PDO */
         $connection = MDbConnection::getDbConnection();
-        $sql = new MPDOQuery( $query, $connection, $perPage, $page );
+        $sql = new MPDOQuery( $query, $connection );
 
         $sql->bindValue( $id );
         $sql->bindValue( $enabled );
+        $sql->bindValue( $applicationId );
+        $sql->bindValue( $perPage );
+        $sql->bindValue( $page );
+
+        $sql->exec();
+
+        return $sql->getResult();
+    }
+    
+    /**
+     * @param int $id
+     * @param int $enabled
+     * @param int $applicationId
+     * @return MPDOResult
+     */
+    public static function getPageCount( $id=null, $enabled=null, $applicationId=null, $perPage=10 )
+    {
+        MDataType::mustBeNullableInt( $id );
+        MDataType::mustBeNullableInt( $enabled );
+        MDataType::mustBeNullableInt( $applicationId );
+
+        $query = "CALL deviceGetPageCount(?, ?, ?, ?)";
+        /* @var $connection \PDO */
+        $connection = MDbConnection::getDbConnection();
+        $sql = new MPDOQuery( $query, $connection );
+
+        $sql->bindValue( $id );
+        $sql->bindValue( $enabled );
+        $sql->bindValue( $applicationId );
+        $sql->bindValue( $perPage );
 
         $sql->exec();
 

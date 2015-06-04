@@ -3,15 +3,20 @@
 namespace BusinessLogic\Device;
 
 use BusinessLogic\Device\Type;
+use MToolkit\Core\MObject;
 
-class Device
+class Device extends MObject
 {
-    private $id;
-    private $mobileId;
-    private $type;
-    private $clientAppVersion;
-    private $brand;
-    private $model;
+    protected $id;
+    protected $mobileId;
+    protected $type;
+    protected $oSVersion;
+    protected $applicationVersion;
+    protected $applicationName;
+    protected $applicationId;
+    protected $brand;
+    protected $model;
+    protected $enabled;
 
     /**
      * @return int
@@ -66,17 +71,6 @@ class Device
         $this->type = $type;
         return $this;
     }
-    
-    public function getClientAppVersion()
-    {
-        return $this->clientAppVersion;
-    }
-
-    public function setClientAppVersion( $clientAppVersion )
-    {
-        $this->clientAppVersion = $clientAppVersion;
-        return $this;
-    }
 
     public function getBrand()
     {
@@ -99,5 +93,72 @@ class Device
         $this->model = $model;
         return $this;
     }
+
+    public function getApplicationVersion()
+    {
+        return $this->applicationVersion;
+    }
+
+    public function getApplicationName()
+    {
+        return $this->applicationName;
+    }
+
+    public function setApplicationVersion( $applicationVersion )
+    {
+        $this->applicationVersion = $applicationVersion;
+        return $this;
+    }
+
+    public function setApplicationName( $applicationName )
+    {
+        $this->applicationName = $applicationName;
+        return $this;
+    }
+
+    public function getApplicationId()
+    {
+        return $this->applicationId;
+    }
+
+    public function setApplicationId( $applicationId )
+    {
+        $this->applicationId = $applicationId;
+        return $this;
+    }
+
+    public function getEnabled()
+    {
+        return $this->enabled;
+    }
+
+    public function setEnabled( $enabled )
+    {
+        if( is_string( $enabled ) )
+        {
+            $enabled = ($enabled == '1' ? 1 : 0);
+        }
+
+        if( is_int( $enabled ) )
+        {
+            $enabled = ($enabled == 1 ? true : false);
+        }
+
+        $this->enabled = $enabled;
+        return $this;
+    }
+    
+    public function getOSVersion()
+    {
+        return $this->oSVersion;
+    }
+
+    public function setOSVersion( $oSVersion )
+    {
+        $this->oSVersion = $oSVersion;
+        return $this;
+    }
+
+
 
 }
