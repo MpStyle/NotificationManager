@@ -11,27 +11,59 @@ class NotificationAction
 {
 
     /**
-     * Insert a new notification.
-     * 
      * @param string $title
-     * @param string $subtitle
+     * @param string $shortMessage
      * @param string $message
+     * @param string $status
+     * @param string $deviceType
+     * @param string $startDate
+     * @param string $endDate
+     * @param int $applicationId
+     * @param string $linkType
+     * @param string $link
+     * @param int $iconId
      * @return MPDOResult
      */
-    public static function insert( $title, $subtitle, $message )
+    public static function insert( 
+            $title
+            , $shortMessage
+            , $message
+            , $status
+            , $deviceType
+            , $startDate
+            , $endDate
+            , $applicationId
+            , $linkType
+            , $link
+            , $iconId )
     {
         MDataType::mustBeNullableString( $title );
-        MDataType::mustBeNullableString( $subtitle );
-        MDataType::mustBeNullableString( $message );
+        MDataType::mustBeNullableString( $shortMessage );
+        MDataType::mustBeNullableString( $status );
+        MDataType::mustBeNullableString( $deviceType );
+        MDataType::mustBeNullableString( $startDate );
+        MDataType::mustBeNullableString( $endDate );
+        MDataType::mustBeNullableInt( $applicationId );
+        MDataType::mustBeNullableString( $linkType );
+        MDataType::mustBeNullableString( $link );
+        MDataType::mustBeNullableInt( $iconId );
 
-        $query = "CALL notificationInsert(?, ?, ?)";
+        $query = "CALL notificationInsert(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         /* @var $connection \PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
 
         $sql->bindValue( $title );
-        $sql->bindValue( $subtitle );
+        $sql->bindValue( $shortMessage );
         $sql->bindValue( $message );
+        $sql->bindValue( $status );
+        $sql->bindValue( $deviceType );
+        $sql->bindValue( $startDate );
+        $sql->bindValue( $endDate );
+        $sql->bindValue( $applicationId );
+        $sql->bindValue( $linkType );
+        $sql->bindValue( $link );
+        $sql->bindValue( $iconId );
 
         $sql->exec();
 
@@ -47,22 +79,37 @@ class NotificationAction
      * @param string $message
      * @return MPDOResult
      */
-    public static function update( $id, $title, $subtitle, $message )
+    public static function update( $id, $title, $shortMessage, $message, $status, $deviceType, $startDate, $endDate, $applicationId, $linkType, $link, $iconId )
     {
         MDataType::mustBeInt( $id );
         MDataType::mustBeNullableString( $title );
-        MDataType::mustBeNullableString( $subtitle );
-        MDataType::mustBeNullableString( $message );
+        MDataType::mustBeNullableString( $shortMessage );
+        MDataType::mustBeNullableString( $status );
+        MDataType::mustBeNullableString( $deviceType );
+        MDataType::mustBeNullableString( $startDate );
+        MDataType::mustBeNullableString( $endDate );
+        MDataType::mustBeNullableInt( $applicationId );
+        MDataType::mustBeNullableString( $linkType );
+        MDataType::mustBeNullableString( $link );
+        MDataType::mustBeNullableInt( $iconId );
 
-        $query = "CALL notificationUpdate(?, ?, ?, ?)";
+        $query = "CALL notificationUpdate(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         /* @var $connection \PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
 
         $sql->bindValue( $id );
         $sql->bindValue( $title );
-        $sql->bindValue( $subtitle );
+        $sql->bindValue( $shortMessage );
         $sql->bindValue( $message );
+        $sql->bindValue( $status );
+        $sql->bindValue( $deviceType );
+        $sql->bindValue( $startDate );
+        $sql->bindValue( $endDate );
+        $sql->bindValue( $applicationId );
+        $sql->bindValue( $linkType );
+        $sql->bindValue( $link );
+        $sql->bindValue( $iconId );
 
         $sql->exec();
 

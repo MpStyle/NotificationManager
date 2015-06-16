@@ -1,12 +1,32 @@
 function EditNotification()
 {
-    $('#datetimepicker6').datetimepicker();
-    $('#datetimepicker7').datetimepicker();
-    $("#datetimepicker6").on("dp.change", function (e) {
-        $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
+    // Gestione dei renge delle date
+    $('#StartDate').datetimepicker({
+        format: 'DD/MM/YYYY'
     });
-    $("#datetimepicker7").on("dp.change", function (e) {
-        $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
+    $('#EndDate').datetimepicker({
+        format: 'DD/MM/YYYY'
+    });
+
+    $("#StartDate").on("dp.change", function (e) {
+        $('#EndDate').data("DateTimePicker").minDate(e.date);
+    });
+    $("#EndDate").on("dp.change", function (e) {
+        $('#StartDate').data("DateTimePicker").maxDate(e.date);
+    });
+
+    // Gestione dei link
+    $("#LinkType").change(function () {
+        if ($(this).val() === "INTERNAL")
+        {
+            $("#InternalLinkGroup").slideDown();
+            $("#ExternalLinkGroup").slideUp();
+        }
+        else
+        {
+            $("#InternalLinkGroup").slideUp();
+            $("#ExternalLinkGroup").slideDown();
+        }
     });
 }
 

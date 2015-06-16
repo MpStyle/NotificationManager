@@ -17,6 +17,7 @@ class Device extends MObject
     protected $brand = null;
     protected $model = null;
     protected $enabled = null;
+    protected $localization = null;
 
     /**
      * @return int
@@ -136,7 +137,7 @@ class Device extends MObject
     {
         if( is_string( $enabled ) )
         {
-            $enabled = ($enabled == '1' ? 1 : 0);
+            $enabled = (int) $enabled;
         }
 
         if( is_int( $enabled ) )
@@ -156,6 +157,17 @@ class Device extends MObject
     public function setOSVersion( $oSVersion )
     {
         $this->oSVersion = $oSVersion;
+        return $this;
+    }
+
+    public function getLocalization()
+    {
+        return $this->localization;
+    }
+
+    public function setLocalization( $localization )
+    {
+        $this->localization = $localization;
         return $this;
     }
 

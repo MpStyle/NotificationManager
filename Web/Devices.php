@@ -13,7 +13,7 @@ class Devices extends BasePage
 {
     private $devices = null;
     private $pages = 1;
-    private $deviceCount=0;
+    private $deviceCount = 0;
 
     public function __construct()
     {
@@ -27,17 +27,19 @@ class Devices extends BasePage
 
         $deviceId = null;
         $enabled = null;
-        $applicationId = $this->getApplicationId();
+        $applicationId = $this->getApplicationId() == null ? $this->getApplicationId() : $this->getPost()->getValue( "application_id" );
+        $type = $this->getPost()->getValue( "type" ) == "" ? null : $this->getPost()->getValue( "type" );
+        $text = $this->getPost()->getValue( "free_search" ) == "" ? null : $this->getPost()->getValue( "free_search" );
         $perPage = 10;
         $currentPage = $this->getCurrentPage();
 
-        /* @var $result MPDOResult */ $result = DeviceAction::getPageCount( $deviceId, $enabled, $applicationId, $perPage );
+        /* @var $result MPDOResult */ $result = DeviceAction::getPageCount( $deviceId, $enabled, $applicationId, $type, $text, $perPage );
         $this->pages = $result->getData( 0, 'PageCount' );
-        
-        /* @var $result MPDOResult */ $result = DeviceAction::getCount( $deviceId, $enabled, $applicationId );
+
+        /* @var $result MPDOResult */ $result = DeviceAction::getCount( $deviceId, $enabled, $applicationId, $type, $text );
         $this->deviceCount = $result->getData( 0, 'DeviceCount' );
 
-        $this->devices = DeviceBook::getDevices( $deviceId, $enabled, $applicationId, $perPage, $currentPage );
+        $this->devices = DeviceBook::getDevices( $deviceId, $enabled, $applicationId, $type, $text, $perPage, $currentPage );
     }
 
     protected function disableDevice()
@@ -88,4 +90,5 @@ class Devices extends BasePage
     {
         return $this->deviceCount;
     }
+
 }

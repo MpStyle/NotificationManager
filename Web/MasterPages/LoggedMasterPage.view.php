@@ -22,6 +22,8 @@ use BusinessLogic\Enum\Post;
 
         <!-- JSON RPC Client -->
         <script src="Javascripts/JsonRpcClient/jquery.jsonrpcclient.min.js"></script>
+
+        <script src="Javascripts/LoggedMasterPage.js"></script>
     </head>
     <body>
 
@@ -53,20 +55,37 @@ use BusinessLogic\Enum\Post;
                 <div id="LeftColumn" class="hidden-xs col-sm-3 col-md-2 col-lg-2">
                     <ul id="menu" role="navigation">
                         <li>
-                            <a href="Apps.php">
-                                <span class="glyphicon glyphicon-th" title="List of the apps"></span>
+                            <a href="Apps.php" data-toggle="tooltip" data-placement="right" title="List of the apps">
+                                <span class="glyphicon glyphicon-th"></span>
                                 Apps
                             </a>
-                            <a href="Devices.php">
-                                <span class="glyphicon glyphicon-phone" title="List of the devices"></span>
+                        </li>
+                        <li>
+                            <a href="Devices.php" data-toggle="tooltip" data-placement="right" title="List of the devices">
+                                <span class="glyphicon glyphicon-phone"></span>
                                 Devices
                             </a>
-                            <a href="Notifications.php">
-                                <span class="glyphicon glyphicon-envelope" title="List of the notifications"></span>
+                        </li>
+                        <li>
+                            <a href="Notifications.php" data-toggle="tooltip" data-placement="right" title="List of the notifications">
+                                <span class="glyphicon glyphicon-envelope"></span>
                                 Notifications
                             </a>
                         </li>
-
+                        <li>
+                            <a href="#">
+                                <span class="glyphicon glyphicon-upload"></span>
+                                Web services
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="WebServicesV1.php" data-toggle="tooltip" data-placement="right" title="Version 1.0">
+                                        <span class="glyphicon glyphicon-stop"></span>
+                                        Version 1.0
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>   
 
                     </ul>
                 </div>

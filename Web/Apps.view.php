@@ -18,10 +18,10 @@ use BusinessLogic\Application\ApplicationBook;
             <?php break; ?>
     <?php endswitch; ?>
 
-            <h2>App list <small>(<?php echo $this->getApplicationCount() ?>)</small></h2>
+    <h2>App list <small>(<?php echo $this->getApplicationCount() ?>)</small></h2>
 
     <form method="post">
-        <button name="action" value="createNewApp" class="btn btn-default">
+        <button name="action" value="createNewApp" class="btn btn-default AddButton">
             <span class="glyphicon glyphicon-plus"></span>
             Create new app
         </button>
@@ -32,7 +32,7 @@ use BusinessLogic\Application\ApplicationBook;
             <thead>
                 <tr>
                     <td class="NoWrap">App name</td>
-                    <td class="hidden-xs">Client ID</td>
+                    <td class="hidden-xs">Client ID <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="Use this code as perameter in the web services"></span></td>
                     <td class="hidden-xs hidden-sm">Google client key</td>
                     <td class="hidden-xs hidden-sm">Microsoft client key</td>
                     <td>Show</td>

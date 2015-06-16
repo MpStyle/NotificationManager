@@ -15,6 +15,8 @@ class Notification extends MObject
      * @var string
      */
     protected $title;
+    
+    protected $shortMessage;
 
     /**
      * @var string
@@ -36,8 +38,11 @@ class Notification extends MObject
     protected $applicationName = null;
     protected $iconId = null;
     protected $deviceType = null;
+    
     protected $startDateValidation = null;
     protected $endDateValidation = null;
+    protected $linkType=null;
+    protected $link;
 
     public function getId()
     {
@@ -164,5 +169,39 @@ class Notification extends MObject
         $this->endDateValidation = $endDateValidation;
         return $this;
     }
+
+    public function getShortMessage()
+    {
+        return $this->shortMessage;
+    }
+
+    public function setShortMessage( $shortMessage )
+    {
+        $this->shortMessage = $shortMessage;
+        return $this;
+    }
+    
+    public function getLinkType()
+    {
+        return $this->linkType;
+    }
+
+    public function getLink()
+    {
+        return $this->link;
+    }
+
+    public function setLinkType( $linkType )
+    {
+        $this->linkType = $linkType;
+        return $this;
+    }
+
+    public function setLink( $link )
+    {
+        $this->link = $link;
+        return $this;
+    }
+
 
 }

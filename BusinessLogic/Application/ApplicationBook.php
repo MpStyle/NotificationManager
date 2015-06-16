@@ -44,37 +44,4 @@ final class ApplicationBook
         return $applications;
     }
 
-    /**
-     * @param string $name
-     * @param int $applicationId
-     * @return \MToolkit\Core\MList
-     */
-    public static function getApplicationLinks( $name = null, $applicationId = null )
-    {
-        MDataType::mustBeNullableInt( $applicationId );
-        MDataType::mustBeNullableString( $name );
-
-        /* @var $applicationList MPDOResult */ $applicationList = ApplicationAction::getAppLink( $name, $applicationId );
-        /* @var $applications MList */ $applications = new \MToolkit\Core\MList();
-
-        if( $applicationList != null )
-        {
-            foreach( $applicationList as $currentApplication )
-            {
-                
-                $application = new ApplicationLink();
-
-                foreach( $currentApplication as $key => $value )
-                {                    
-                    $codeKey = lcfirst( $key );
-                    $application->$codeKey = $value;
-                }
-                
-                $applications->append( $application );
-            }
-        }
-
-        return $applications;
-    }
-
 }

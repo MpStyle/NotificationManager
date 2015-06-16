@@ -2,14 +2,15 @@
 
 namespace BusinessLogic\Notification;
 
-final class NotificationStatus
+final class DeliveryStatus
 {
-    const DRAFT = 1;
-    const APPROVED = 2;
-    
+    const NOT_SEND = 1;
+    const SENDING = 2;
+    const SENT = 3;
+
     protected $id;
     Protected $name;
-    
+
     public function getId()
     {
         return $this->id;
@@ -31,4 +32,5 @@ final class NotificationStatus
         $this->name = $name;
         return $this;
     }
+
 }

@@ -4,10 +4,11 @@ namespace Web\WebServices;
 
 require_once __DIR__ . '/../../Settings.php';
 
+use BusinessLogic\Enum\Session;
 use BusinessLogic\GoogleApiServices\GoogleApiServices;
 use MToolkit\Network\MNetworkSession;
-use BusinessLogic\Enum\Session;
 use MToolkit\Network\RPC\Json\MRPCJsonResponse;
+use Settings;
 
 class Login extends AbstractBaseWebService
 {
@@ -27,7 +28,7 @@ class Login extends AbstractBaseWebService
         if( $googleClient->isValidToken() )
         {
             $userInfo = $googleClient->userInfo();
-            $isValidUser = ( in_array( $userInfo['id'], \Settings::authorizedGooglePlusUserIdArray() ) || in_array( "*", \Settings::authorizedGooglePlusUserIdArray() ) );
+            $isValidUser = ( in_array( $userInfo['id'], Settings::authorizedGooglePlusUserIdArray() ) || in_array( "*", Settings::authorizedGooglePlusUserIdArray() ) );
 
             if( $isValidUser === false )
             {

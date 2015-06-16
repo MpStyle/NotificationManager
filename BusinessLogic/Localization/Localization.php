@@ -1,11 +1,17 @@
 <?php
 
-namespace BusinessLogic\Notification;
+namespace BusinessLogic\Link;
 
-final class NotificationStatus
+use MToolkit\Core\MObject;
+
+class Localization extends MObject
 {
-    const DRAFT = 1;
-    const APPROVED = 2;
+    const IT=1;
+    const EN=2;
+    const ES=3;
+    const DE=4;
+    const FR=5;
+    const RU=6;
     
     protected $id;
     Protected $name;

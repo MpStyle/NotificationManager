@@ -1,1 +1,11 @@
 @import "LoggedMasterPage";
+
+#InternalLinkGroup, #ExternalLinkGroup
+{
+    display: none;
+}
+
+#InternalLinkGroup.ShowLinkGroup, #ExternalLinkGroup.ShowLinkGroup
+{
+    display: block;
+}

@@ -16,12 +16,17 @@ final class DeviceBook
      * @param string $name
      * @return MList
      */
-    public static function getDevices( $id = null, $enabled = null, $applicationId=null, $perPage=10000000, $page=0 )
+    public static function getDevices( $id = null, $enabled = null, $applicationId=null, $type=null, $freeSearch=null, $perPage=10000000, $page=0 )
     {
         MDataType::mustBeNullableInt( $id );
         MDataType::mustBeNullableInt( $enabled );
+        MDataType::mustBeNullableInt( $applicationId );
+        MDataType::mustBeNullableString( $type );
+        MDataType::mustBeNullableString( $freeSearch );
+        MDataType::mustBeInt( $perPage );
+        MDataType::mustBeInt( $page );
 
-        /* @var $deviceList MPDOResult */ $deviceList = DeviceAction::get( $id, $enabled, $applicationId, $perPage, $page );
+        /* @var $deviceList MPDOResult */ $deviceList = DeviceAction::get( $id, $enabled, $applicationId, $type, $freeSearch, $perPage, $page );
         /* @var $devices MList */ $devices = new MList();
 
         if( $deviceList != null )
@@ -45,4 +50,19 @@ final class DeviceBook
         return $devices;
     }
 
+    public static function getDeviceType()
+    {
+        /* @var $typeList MPDOResult */ $typeList = DeviceAction::getType();
+        /* @var $types MList */ $types = new MList();
+
+        if( $typeList != null )
+        {
+            foreach( $typeList as $currentType )
+            {
+                $types->append( $currentType["Name"] );
+            }
+        }
+
+        return $types;
+    }
 }

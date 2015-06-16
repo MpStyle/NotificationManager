@@ -1,7 +1,10 @@
 <?php
 namespace Web;
 
+use BusinessLogic\Application\Application;
+use BusinessLogic\Application\ApplicationBook;
 use BusinessLogic\Device\Device;
+use BusinessLogic\Device\DeviceBook;
 
 /* @var $this Devices */
 ?>
@@ -19,32 +22,81 @@ use BusinessLogic\Device\Device;
             <?php break; ?>
     <?php endswitch; ?>
 
-    <h2>Device list <small>(<?php echo $this->getDeviceCount() ?>)</small></h2>
+    <h2 class="col-md-6 Title">Device list <small>(<?php echo $this->getDeviceCount() ?>)</small></h2>
+    <span class="pull-right ShowFilter"><span class="glyphicon glyphicon-search"></span>Show filter</span>
 
-    <div class="table-responsive">
+    <form method="post" class="form-horizontal FiltersForm">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Application:</label>
+            <div class="col-sm-10">
+                <select name="application_id" class="form-control">
+                    <option>All</option>
+                    <?php foreach( ApplicationBook::getApplications() as /* @var $application Application */ $application ): ?>
+                        <option value="<?php echo $application->getId() ?>" <?php echo ($this->getPost()->getValue( "application_id" ) == $application->getId() ? "selected" : ""); ?>><?php echo $application->getName() ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">OS:</label>
+            <div class="col-sm-10">
+                <select name="type" class="form-control">
+                    <option>All</option>
+                    <?php foreach( DeviceBook::getDeviceType() as $deviceType ): ?>
+                        <option value="<?php echo $deviceType ?>" <?php echo ($this->getPost()->getValue( "type" ) == $deviceType ? "selected" : ""); ?>><?php echo $deviceType ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Free text:</label>
+            <div class="col-sm-10">
+                <input type="text" name="free_search" class="form-control" value="<?php echo $this->getPost()->getValue( "free_search" ) ?>" placeholder="Mobile ID, brand, model, app name and version..." />
+            </div>
+        </div>
+
+        <div class="pull-right">
+
+            <button type="submit" class="btn btn-primary">
+                Search
+            </button>
+
+            <span class="btn btn-default">Clear</span>
+
+        </div>
+    </form>
+
+    <div class="table-responsive EntityListContainer">
         <table class="table table-striped table-bordered EntityList">
             <thead>
                 <tr>
                     <td>Mobile ID</td>
                     <td class="hidden-xs">OS</td>
-                    <td class="hidden-xs hidden-sm">OS version</td>
-                    <td class="hidden-xs hidden-sm">App name</td>
-                    <td class="hidden-xs hidden-sm">App version</td>
-                    <td class="hidden-xs hidden-sm">Brand</td>
-                    <td class="hidden-xs hidden-sm">Model</td>
+                    <td class="hidden-xs hidden-sm">App info</td>
+                    <td class="hidden-xs hidden-sm">Brand and model</td>
                     <td></td>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach( $this->getDevices() as /* @var $device Device */ $device ): ?>
                     <tr class="<?php echo ($device->getEnabled()? : 'warning'); ?>">
-                        <td><?php echo $device->getMobileId() ?></td>
-                        <td class="hidden-xs"><?php echo $device->getType() ?></td>
-                        <td class="hidden-xs hidden-sm"><?php echo $device->getOsVersion() ?></td>
-                        <td class="hidden-xs hidden-sm"><?php echo $device->getApplicationName() ?></td>
-                        <td class="hidden-xs hidden-sm"><?php echo $device->getApplicationVersion() ?></td>
-                        <td class="hidden-xs hidden-sm"><?php echo $device->getBrand() ?></td>
-                        <td class="hidden-xs hidden-sm"><?php echo $device->getModel() ?></td>
+                        <td class="MobileIdCell">
+                            <span title="<?php echo $device->getMobileId() ?>"><?php echo $device->getMobileId() ?></span>
+                        </td>
+                        <td class="hidden-xs">
+                            <?php echo $device->getType() ?> <br />
+                            <?php echo $device->getOsVersion() ?>
+                        </td>
+                        <td class="hidden-xs hidden-sm">
+                            <?php echo $device->getApplicationName() ?> <br />
+                            <?php echo $device->getApplicationVersion() ?>
+                        </td>
+                        <td class="hidden-xs hidden-sm">
+                            <?php echo $device->getBrand() ?> <br />
+                            <?php echo $device->getModel() ?>
+                        </td>
                         <td>
                             <form method="post">
                                 <?php if( $device->getEnabled() ): ?>

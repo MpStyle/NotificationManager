@@ -12,9 +12,50 @@ body
 
 /* CLASSES */
 
-.EntityList
+.Title
 {
-    margin-top: 20px;
+    margin: 0px 0px 20px 0px;
+    padding: 0px;
+}
+
+.AddButton
+{
+    margin: 10px 0px 20px 0px;
+}
+
+.ShowFilter
+{
+    @include user-select(none);
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.ShowFilter:hover
+{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.FiltersForm
+{
+    clear: both;
+    display: none;
+    overflow: hidden;
+}
+
+.AddEntityForm
+{
+    clear: both;
+}
+
+.EntityListContainer
+{
+    clear: both;
+    
+    .EntityList
+    {
+        margin-top: 20px;
+    }
 }
 
 #Wrapper
@@ -156,7 +197,7 @@ body
 
 #Container
 {
-    margin: 75px 0px 0px 0px;
+    margin: 75px 0px 50px 0px;
     padding-left: 0px;
     padding-right: 0px;
     overflow: hidden;

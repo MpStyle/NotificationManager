@@ -24,8 +24,39 @@ body {
   color: #333; }
 
 /* CLASSES */
-.EntityList {
-  margin-top: 20px; }
+.Title {
+  margin: 0px 0px 20px 0px;
+  padding: 0px; }
+
+.AddButton {
+  margin: 10px 0px 20px 0px; }
+
+.ShowFilter {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  overflow: hidden;
+  margin-bottom: 20px; }
+
+.ShowFilter:hover {
+  text-decoration: underline;
+  cursor: pointer; }
+
+.FiltersForm {
+  clear: both;
+  display: none;
+  overflow: hidden; }
+
+.AddEntityForm {
+  clear: both; }
+
+.EntityListContainer {
+  clear: both; }
+  .EntityListContainer .EntityList {
+    margin-top: 20px; }
 
 #Wrapper {
   padding: 0px; }
@@ -121,7 +152,7 @@ body {
   padding-right: 10px; }
 
 #Container {
-  margin: 75px 0px 0px 0px;
+  margin: 75px 0px 50px 0px;
   padding-left: 0px;
   padding-right: 0px;
   overflow: hidden; }

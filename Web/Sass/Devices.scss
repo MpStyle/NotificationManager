@@ -1,1 +1,8 @@
 @import "LoggedMasterPage";
+
+.MobileIdCell
+{
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

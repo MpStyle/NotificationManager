@@ -29,7 +29,7 @@ use BusinessLogic\Enum\Post;
             </div>
 
             <div class="form-group">
-                <label>Goolge client key</label>
+                <label>Google client key</label>
                 <input type="text" name="app_google_client_key" value="<?php echo $this->getCurrentApp()->getGoogleKey() ?>" class="form-control" placeholder="Enter the Google client key" maxlength="1024" />
             </div>
 
@@ -39,12 +39,12 @@ use BusinessLogic\Enum\Post;
             </div>
 
             <div class="form-group">
-                <label>Client ID</label>
+                <label>Client ID <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="Use this code as perameter in the web services"></span></label>
                 <input type="text" name="client_id" value="<?php echo ($this->getGet()->getValue( "id" ) == null ? sha1( uniqid() ) : $this->getCurrentApp()->getClientId()) ?>" class="form-control" readonly="readonly" maxlength="1024" />
             </div>
             
             <div class="form-group">
-                <label>Links <small>(use coma as separator)</small></label>
+                <label>Links <small>(use coma as separator)</small> <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="Internal links used in the app"></span></label>
                 <input type="text" name="links" value="<?php echo $this->getInternalLinks() ?>" class="form-control" placeholder="Enter the internal link of the app" />
             </div>
 
