@@ -30,6 +30,30 @@ function EditNotification()
     });
 }
 
+EditNotification.prototype.loadInternalLinks = function (applicationId) {
+    var foo = new $.JsonRpcClient({ajaxUrl: 'WebServices/GetApplicationLinks.php'});
+    foo.call('get', {
+        "applicationId": applicationId
+    }, function (data) {
+        if (data.Result === true)
+        {
+            var $InternalLinks = $("#InternalLinks");
+            
+            $InternalLinks.empty();
+            
+            for (var i = 0; i < data.ApplicationLinks.length; i++) 
+            {
+                $InternalLinks.append('<option value="' + data.ApplicationLinks[i].id + '">' + data.ApplicationLinks[i].name + '</option>');
+            }
+        }
+    }, function (error) {
+    });
+};
+
 $(function () {
     var editNotification = new EditNotification();
+
+    $("#ApplicationId").change(function () {
+        editNotification.loadInternalLinks($("#ApplicationId").val());
+    });
 });

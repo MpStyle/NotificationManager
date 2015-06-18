@@ -33,9 +33,7 @@ use BusinessLogic\Application\ApplicationBook;
                 <tr>
                     <td class="NoWrap">App name</td>
                     <td class="hidden-xs">Client ID <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="Use this code as perameter in the web services"></span></td>
-                    <td class="hidden-xs hidden-sm">Google client key</td>
-                    <td class="hidden-xs hidden-sm">Microsoft client key</td>
-                    <td>Show</td>
+                    <td class="hidden-xs hidden-sm">Show</td>
                     <td></td>
                 </tr>
             </thead>
@@ -44,9 +42,7 @@ use BusinessLogic\Application\ApplicationBook;
                     <tr>
                         <td class="NoWrapEllipsis"><?php echo $application->getName() ?></td>
                         <td class="hidden-xs"><?php echo $application->getClientId() ?></td>
-                        <td class="hidden-xs hidden-sm"><?php echo $application->getGoogleKey() ?></td>
-                        <td class="hidden-xs hidden-sm"><?php echo $application->getWindowsPhoneKey() ?></td>
-                        <td class="NoWrap">
+                        <td class="NoWrap hidden-xs hidden-sm">
                             <a href="Devices.php?applicationId=<?php echo $application->getId() ?>" class="btn btn-default">Devices</a>
                             <a href="Notifications.php?applicationId=<?php echo $application->getId() ?>" class="btn btn-default">Notifications</a>
                         </td>

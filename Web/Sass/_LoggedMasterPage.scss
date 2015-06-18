@@ -65,6 +65,11 @@ body
 
 /* HEADER */
 
+#Header
+{
+    padding: 7px 5px;
+}
+
 #TitleLogoContainer
 {
     vertical-align: top;
@@ -95,17 +100,7 @@ body
     margin: 5px 0px 0px 10px;
 }
 
-#UserContainer
-{
-    margin: 5px 10px 5px 0px;
-}
-
 @media all and (max-width: 768px) {
-    #UserContainer
-    {
-        margin: 0px -10px 5px 0px;
-    }
-
     #menu li ul
     {
         display: block;

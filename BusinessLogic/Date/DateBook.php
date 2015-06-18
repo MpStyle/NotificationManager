@@ -28,7 +28,7 @@ class DateBook
      */
     public static function fromDatabaseDateToDatePickerDate($databaseDate)
     {
-        var_dump($databaseDate);
+//        var_dump($databaseDate);
         
         $date=DateBook::fromDatabaseDateToPHPDateTime($databaseDate);
         

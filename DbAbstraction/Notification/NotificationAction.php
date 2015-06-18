@@ -34,21 +34,23 @@ class NotificationAction
             , $endDate
             , $applicationId
             , $linkType
-            , $link
+            , $externalLink
+            , $internalLinkId
             , $iconId )
     {
         MDataType::mustBeNullableString( $title );
         MDataType::mustBeNullableString( $shortMessage );
-        MDataType::mustBeNullableString( $statusId );
+        MDataType::mustBeInt( $statusId );
         MDataType::mustBeNullableString( $deviceType );
         MDataType::mustBeNullableString( $startDate );
         MDataType::mustBeNullableString( $endDate );
-        MDataType::mustBeNullableInt( $applicationId );
+        MDataType::mustBeInt( $applicationId );
         MDataType::mustBeNullableString( $linkType );
-        MDataType::mustBeNullableString( $link );
+        MDataType::mustBeNullableInt( $internalLinkId );
+        MDataType::mustBeNullableString( $externalLink );
         MDataType::mustBeNullableInt( $iconId );
 
-        $query = "CALL notificationInsert(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $query = "CALL notificationInsert(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         /* @var $connection \PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
@@ -62,7 +64,8 @@ class NotificationAction
         $sql->bindValue( $endDate );
         $sql->bindValue( $applicationId );
         $sql->bindValue( $linkType );
-        $sql->bindValue( $link );
+        $sql->bindValue( $externalLink );
+        $sql->bindValue( $internalLinkId );
         $sql->bindValue( $iconId );
 
         $sql->exec();
@@ -81,22 +84,24 @@ class NotificationAction
 		, $endDate
 		, $applicationId
 		, $linkType
-		, $link
+		, $externalLink
+                , $internalLinkId
 		, $iconId )
     {
         MDataType::mustBeInt( $id );
         MDataType::mustBeNullableString( $title );
         MDataType::mustBeNullableString( $shortMessage );
-        MDataType::mustBeNullableString( $statusId );
+        MDataType::mustBeInt( $statusId );
         MDataType::mustBeNullableString( $deviceType );
         MDataType::mustBeNullableString( $startDate );
         MDataType::mustBeNullableString( $endDate );
         MDataType::mustBeNullableInt( $applicationId );
         MDataType::mustBeNullableString( $linkType );
-        MDataType::mustBeNullableString( $link );
+        MDataType::mustBeNullableString( $externalLink );
+        MDataType::mustBeNullableInt( $internalLinkId );
         MDataType::mustBeNullableInt( $iconId );
 
-        $query = "CALL notificationUpdate(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $query = "CALL notificationUpdate(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         /* @var $connection \PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
@@ -111,7 +116,8 @@ class NotificationAction
         $sql->bindValue( $endDate );
         $sql->bindValue( $applicationId );
         $sql->bindValue( $linkType );
-        $sql->bindValue( $link );
+        $sql->bindValue( $externalLink );
+        $sql->bindValue( $internalLinkId );
         $sql->bindValue( $iconId );
 
         $sql->exec();

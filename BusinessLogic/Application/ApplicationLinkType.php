@@ -1,8 +1,8 @@
 <?php
 
-namespace BusinessLogic\Link;
+namespace BusinessLogic\Application;
 
-final class LinkType
+final class ApplicationLinkType
 {
     const INTERNAL="INTERNAL";
     const EXTERNAL="EXTERNAL";

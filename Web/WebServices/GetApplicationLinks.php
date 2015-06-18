@@ -4,7 +4,7 @@ namespace Web\WebServices;
 
 require_once __DIR__ . '/../../Settings.php';
 
-use BusinessLogic\Application\ApplicationBook;
+use BusinessLogic\ApplicationInternalLink\ApplicationInternalLinkBook;
 use MToolkit\Network\RPC\Json\MRPCJsonResponse;
 
 class GetApplicationLinks extends AbstractBaseWebService
@@ -21,10 +21,17 @@ class GetApplicationLinks extends AbstractBaseWebService
             return;
         }
 
-        $appId = $params['app_id'];
-        $applicationlinks = ApplicationBook::getApplications( $appId );
+        $appId = (int) $params['applicationId'];
+        $applicationlinks = ApplicationInternalLinkBook::get( null, null, $appId );
 
-        $rawResponse = array( "ApplicationLink" => $applicationlinks->__toArray() );
+        $links = array();
+
+        foreach( $applicationlinks->__toArray() as /* @var $link \BusinessLogic\ApplicationInternalLink\ApplicationInternalLink */ $link )
+        {
+            $links[] = array( "id" => $link->getId(), "name" => $link->getName() );
+        }
+
+        $rawResponse = array( "Result" => true, "ApplicationLinks" => $links );
         $response = new MRPCJsonResponse();
         $response->setResult( $rawResponse );
         $this->setResponse( $response );

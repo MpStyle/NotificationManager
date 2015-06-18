@@ -1,24 +1,26 @@
 <?php
 
-namespace DbAbstraction\Link;
+namespace DbAbstraction\ApplicationInternalLink;
 
 use MToolkit\Core\MDataType;
 use MToolkit\Model\Sql\MDbConnection;
-use MToolkit\Model\Sql\MPDOResult;
 use MToolkit\Model\Sql\MPDOQuery;
+use PDO;
 
-class LinkAction
+class ApplicationInternalLinkAction
 {
-    public static function get( $name=null, $applicationId=null )
+    public static function get( $id=null, $name=null, $applicationId=null )
     {
+        MDataType::mustBeNullableInt( $id );
         MDataType::mustBeNullableInt( $applicationId );
         MDataType::mustBeNullableString( $name );
 
-        $query = "CALL applicationLinkGet(?, ?)";
-        /* @var $connection \PDO */
+        $query = "CALL applicationInternalLinkGet(?, ?, ?)";
+        /* @var $connection PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
 
+        $sql->bindValue( $id );
         $sql->bindValue( $name );
         $sql->bindValue( $applicationId );
 
@@ -32,8 +34,8 @@ class LinkAction
         MDataType::mustBeNullableInt( $applicationId );
         MDataType::mustBeNullableString( $name );
 
-        $query = "CALL applicationLinkInsert(?, ?)";
-        /* @var $connection \PDO */
+        $query = "CALL applicationInternalLinkInsert(?, ?)";
+        /* @var $connection PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
 
@@ -49,8 +51,8 @@ class LinkAction
     {
         MDataType::mustBeNullableInt( $applicationId );
 
-        $query = "CALL applicationLinkDelete(?)";
-        /* @var $connection \PDO */
+        $query = "CALL applicationInternalLinkDelete(?)";
+        /* @var $connection PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
 

@@ -39,7 +39,7 @@ class Devices extends BasePage
         /* @var $result MPDOResult */ $result = DeviceAction::getCount( $deviceId, $enabled, $applicationId, $type, $text, null );
         $this->deviceCount = $result->getData( 0, 'DeviceCount' );
 
-        $this->devices = DeviceBook::getDevices( $deviceId, $enabled, $applicationId, $type, $text, $perPage, null, $currentPage );
+        $this->devices = DeviceBook::getDevices( $deviceId, $enabled, $applicationId, $type, $text, null, $perPage, $currentPage );
     }
 
     protected function disableDevice()

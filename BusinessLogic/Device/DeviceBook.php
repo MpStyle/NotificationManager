@@ -10,14 +10,15 @@ use MToolkit\Model\Sql\MPDOResult;
 
 final class DeviceBook
 {
-    public static function getDevices( $id = null, $enabled = null, $applicationId=null, $type=null, $freeSearch=null, $mobileId=null, $perPage=10000000, $page=0 )
+
+    public static function getDevices( $id = null, $enabled = null, $applicationId = null, $type = null, $freeSearch = null, $mobileId = null, $perPage = 10000000, $page = 0 )
     {
         MDataType::mustBeNullableInt( $id );
         MDataType::mustBeNullableInt( $enabled );
         MDataType::mustBeNullableInt( $applicationId );
         MDataType::mustBeNullableString( $type );
         MDataType::mustBeNullableString( $freeSearch );
-		MDataType::mustBeNullableString( $mobileId );
+        MDataType::mustBeNullableString( $mobileId );
         MDataType::mustBeInt( $perPage );
         MDataType::mustBeInt( $page );
 
@@ -28,13 +29,13 @@ final class DeviceBook
         {
             foreach( $deviceList as $currentDevice )
             {
-                
+
                 $device = new Device();
 
                 foreach( $currentDevice as $key => $value )
-                {                    
+                {
                     $codeKey = lcfirst( $key );
-                    
+
                     $device->$codeKey = $value;
                 }
 
@@ -44,26 +45,26 @@ final class DeviceBook
 
         return $devices;
     }
-	
-	public static function getNotification( $deviceId, $applicationId )
-	{
-		MDataType::mustBeInt($deviceId);
-        MDataType::mustBeInt($applicationId);
-		
-		/* @var $notificationList MPDOResult */ $notificationList = DeviceAction::getNotification( $deviceId, $applicationId );
+
+    public static function getNotification( $deviceId, $applicationId )
+    {
+        MDataType::mustBeInt( $deviceId );
+        MDataType::mustBeInt( $applicationId );
+
+        /* @var $notificationList MPDOResult */ $notificationList = DeviceAction::getNotification( $deviceId, $applicationId );
         /* @var $notifications MList */ $notifications = new MList();
 
         if( $notificationList != null )
         {
             foreach( $notificationList as $currentNotification )
             {
-                
+
                 $notification = new Notification();
 
                 foreach( $currentNotification as $key => $value )
-                {                    
+                {
                     $codeKey = lcfirst( $key );
-                    
+
                     $notification->$codeKey = $value;
                 }
 
@@ -72,7 +73,7 @@ final class DeviceBook
         }
 
         return $notifications;
-	}
+    }
 
     public static function getDeviceType()
     {
@@ -89,4 +90,5 @@ final class DeviceBook
 
         return $types;
     }
+
 }

@@ -5,12 +5,11 @@ namespace Web;
 require_once '../Settings.php';
 
 use BusinessLogic\Application\Application;
-use BusinessLogic\Application\ApplicationBook;
 use BusinessLogic\Application\ApplicationLink;
+use BusinessLogic\ApplicationInternalLink\ApplicationInternalLinkBook;
 use DbAbstraction\Application\ApplicationAction;
-use DbAbstraction\Link\LinkAction;
+use DbAbstraction\ApplicationInternalLink\ApplicationInternalLinkAction;
 use Web\MasterPages\LoggedMasterPage;
-use BusinessLogic\Link\LinkBook;
 
 class EditApp extends BasePage
 {
@@ -26,7 +25,7 @@ class EditApp extends BasePage
         $this->addJavascript( "Javascripts/EditApp.js" );
         $this->addCss( "Styles/EditApp.css" );
 
-        $internalLinks = LinkBook::get( null, (int) $this->getCurrentApp()->getId() )->__toArray();
+        $internalLinks = ApplicationInternalLinkBook::get( null, null, (int) $this->getCurrentApp()->getId() )->__toArray();
         foreach( $internalLinks as /* @var $internalLink ApplicationLink */ $internalLink )
         {
             $this->internalLinks[]=$internalLink->getName();
@@ -60,11 +59,11 @@ class EditApp extends BasePage
 
         if( $result != null )
         {
-            LinkAction::delete( (int) $this->getCurrentApp()->getId() );
+            ApplicationInternalLinkAction::delete( (int) $this->getCurrentApp()->getId() );
 
             foreach( explode( ",", $this->getPost()->getValue( "links" ) ) as $link )
             {
-                LinkAction::insert( trim( $link ), (int) $this->getCurrentApp()->getId() );
+                ApplicationInternalLinkAction::insert( trim( $link ), (int) $this->getCurrentApp()->getId() );
             }
 
             // ok

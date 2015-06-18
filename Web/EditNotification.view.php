@@ -3,12 +3,11 @@ namespace Web;
 
 use BusinessLogic\Application\Application;
 use BusinessLogic\Application\ApplicationBook;
+use BusinessLogic\Application\ApplicationLink;
+use BusinessLogic\Application\ApplicationLinkType;
+use BusinessLogic\ApplicationInternalLink\ApplicationInternalLinkBook;
 use BusinessLogic\Date\DateBook;
-use BusinessLogic\Link\Link;
-use BusinessLogic\Link\LinkBook;
-use BusinessLogic\Link\LinkType;
 use BusinessLogic\Notification\DeliveryStatus;
-use BusinessLogic\Notification\NotificationStatus;
 use DbAbstraction\Device\DeviceAction;
 
 /* @var $this EditNotification */
@@ -61,25 +60,25 @@ use DbAbstraction\Device\DeviceAction;
             <div class="form-group">
                 <label>Link type:</label>
                 <select id="LinkType" name="link_type" class="form-control" required="required">
-                    <option value="" disabled></option>
-                    <option value="<?php echo LinkType::INTERNAL ?>" <?php echo ($this->getCurrentNotification()->getLinkType() == LinkType::INTERNAL ? "selected" : "") ?>><?php echo LinkType::INTERNAL ?></option>
-                    <option value="<?php echo LinkType::EXTERNAL ?>" <?php echo ($this->getCurrentNotification()->getLinkType() == LinkType::EXTERNAL ? "selected" : "") ?>><?php echo LinkType::EXTERNAL ?></option>
+                    <option></option>
+                    <option value="<?php echo ApplicationLinkType::INTERNAL ?>" <?php echo ($this->getCurrentNotification()->getLinkType() == ApplicationLinkType::INTERNAL ? "selected" : "") ?>><?php echo ApplicationLinkType::INTERNAL ?></option>
+                    <option value="<?php echo ApplicationLinkType::EXTERNAL ?>" <?php echo ($this->getCurrentNotification()->getLinkType() == ApplicationLinkType::EXTERNAL ? "selected" : "") ?>><?php echo ApplicationLinkType::EXTERNAL ?></option>
                 </select>
             </div>
 
-            <div id="InternalLinkGroup" class="form-group <?php echo ($this->getCurrentNotification()->getLinkType() == LinkType::INTERNAL ? "ShowLinkGroup" : "") ?>">
+            <div id="InternalLinkGroup" class="form-group <?php echo ($this->getCurrentNotification()->getLinkType() == ApplicationLinkType::INTERNAL ? "ShowLinkGroup" : "") ?>">
                 <label>Internal link:</label>
                 <select name="internal_link" class="form-control" id="InternalLinks">
                     <option value="" disabled selected></option>
-                    <?php foreach( LinkBook::get( null, (int) $this->getCurrentNotification()->getApplicationId() ) as /* @var $link Link */ $link ): ?>
-                        <option value="<?php echo $link->getName() ?>" <?php echo ($link->getName() == $this->getCurrentNotification()->getLink() ? "selected" : ""); ?>><?php echo $link->getName() ?></option>
+                    <?php foreach( ApplicationInternalLinkBook::get( null, null, (int) $this->getCurrentNotification()->getApplicationId() ) as /* @var $link ApplicationLink */ $link ): ?>
+                    <option value="<?php echo $link->getId() ?>" <?php echo ($link->getId() == $this->getCurrentNotification()->getInternalLinkId() ? "selected" : ""); ?>><?php echo $link->getName() ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
 
-            <div id="ExternalLinkGroup" class="form-group <?php echo ($this->getCurrentNotification()->getLinkType() == LinkType::EXTERNAL ? "ShowLinkGroup" : "") ?>">
+            <div id="ExternalLinkGroup" class="form-group <?php echo ($this->getCurrentNotification()->getLinkType() == ApplicationLinkType::EXTERNAL ? "ShowLinkGroup" : "") ?>">
                 <label>External link:</label>
-                <input type="text" name="extenal_link" value="<?php echo $this->getCurrentNotification()->getLink() ?>" class="form-control" placeholder="Enter the URL" />
+                <input type="text" name="extenal_link" value="<?php echo $this->getCurrentNotification()->getExternalLink() ?>" class="form-control" placeholder="Enter the URL" />
             </div>
 
             <div class="form-group">
@@ -133,7 +132,7 @@ use DbAbstraction\Device\DeviceAction;
                     type="submit" 
                     name="action" 
                     value="saveDraft" 
-                    class="btn btn-primary"
+                    class="btn btn-default"
                     <?php echo ($this->getCurrentNotification()->getDeliveryStatus() == DeliveryStatus::SENDING ? "disabled" : ""); ?>>
                     Save draft
                 </button>

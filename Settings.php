@@ -1,4 +1,6 @@
 <?php            
+session_save_path('/tmp');
+
 require_once __DIR__ . '/vendor/autoload.php';
 
 use MToolkit\Core\MApplication;

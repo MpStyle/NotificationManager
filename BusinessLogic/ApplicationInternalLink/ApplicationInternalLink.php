@@ -1,10 +1,10 @@
 <?php
 
-namespace BusinessLogic\Link;
+namespace BusinessLogic\ApplicationInternalLink;
 
 use MToolkit\Core\MObject;
 
-class Link extends MObject
+class ApplicationInternalLink extends MObject
 {
     protected $id;
     protected $name;

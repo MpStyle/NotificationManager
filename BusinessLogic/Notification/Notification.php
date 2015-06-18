@@ -42,7 +42,9 @@ class Notification extends MObject
     protected $startDateValidation = null;
     protected $endDateValidation = null;
     protected $linkType = null;
-    protected $link;
+    protected $externalLink;
+    protected $internalLink;
+    protected $internalLinkId;
 
     /**
      * Could be: UNREADED, READED, REMOVED
@@ -196,20 +198,9 @@ class Notification extends MObject
         return $this->linkType;
     }
 
-    public function getLink()
-    {
-        return $this->link;
-    }
-
     public function setLinkType($linkType)
     {
         $this->linkType = $linkType;
-        return $this;
-    }
-
-    public function setLink($link)
-    {
-        $this->link = $link;
         return $this;
     }
 
@@ -265,6 +256,39 @@ class Notification extends MObject
     public function setDeliveryStatusId($deliveryStatusId)
     {
         $this->deliveryStatusId = $deliveryStatusId;
+        return $this;
+    }
+
+    public function getExternalLink()
+    {
+        return $this->externalLink;
+    }
+
+    public function getInternalLink()
+    {
+        return $this->internalLink;
+    }
+
+    public function getInternalLinkId()
+    {
+        return $this->internalLinkId;
+    }
+
+    public function setExternalLink( $externalLink )
+    {
+        $this->externalLink = $externalLink;
+        return $this;
+    }
+
+    public function setInternalLink( $internalLink )
+    {
+        $this->internalLink = $internalLink;
+        return $this;
+    }
+
+    public function setInternalLinkId( $internalLinkId )
+    {
+        $this->internalLinkId = $internalLinkId;
         return $this;
     }
 

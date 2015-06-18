@@ -1,25 +1,26 @@
 <?php
 
-namespace BusinessLogic\Link;
+namespace BusinessLogic\ApplicationInternalLink;
 
-use DbAbstraction\Link\LinkAction;
+use BusinessLogic\Application\ApplicationLink;
+use DbAbstraction\ApplicationInternalLink\ApplicationInternalLinkAction;
 use MToolkit\Core\MDataType;
 use MToolkit\Core\MList;
 use MToolkit\Model\Sql\MPDOResult;
 
-final class LinkBook
+final class ApplicationInternalLinkBook
 {
     /**
      * @param int|null $name
      * @param string|null $applicationId
      * @return MList
      */
-    public static function get($name=null, $applicationId=null)
+    public static function get($id=null, $name=null, $applicationId=null)
     {
         MDataType::mustBeNullableInt( $applicationId );
         MDataType::mustBeNullableString( $name );
 
-        /* @var $linkList MPDOResult */ $linkList = LinkAction::get( $name, $applicationId );
+        /* @var $linkList MPDOResult */ $linkList = ApplicationInternalLinkAction::get( $id, $name, $applicationId );
         /* @var $links MList */ $links = new MList();
 
         if( $linkList != null )
@@ -27,7 +28,7 @@ final class LinkBook
             foreach( $linkList as $currentLink )
             {
                 
-                $link = new Link();
+                $link = new ApplicationLink();
 
                 foreach( $currentLink as $key => $value )
                 {                    

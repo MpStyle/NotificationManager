@@ -13,7 +13,7 @@ use BusinessLogic\Notification\NotificationStatus;
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
 <div id="content">
-    <?php switch ($this->getGet()->getValue("error")): ?><?php case "00": ?>
+    <?php switch( $this->getGet()->getValue( "error" ) ): ?><?php case "00": ?>
             <div class="alert alert-success ErrorMessage-MarginBottom20" role="alert">The Notifications was successfully saved.</div>
             <?php break; ?><?php case "01": ?>
             <div class="alert alert-danger ErrorMessage-MarginBottom20" role="alert">The Notifications was not deleted.</div>
@@ -22,7 +22,7 @@ use BusinessLogic\Notification\NotificationStatus;
             <?php break; ?>
     <?php endswitch; ?>
 
-    <h2 class="col-md-6 Title">Notification list</h2>
+    <h2 class="col-xs-8 col-sm-8 col-md-8 col-lg-8 Title">Notification list</h2>
     <span class="pull-right ShowFilter"><span class="glyphicon glyphicon-search"></span>Show filter</span>
 
     <form method="post" class="FiltersForm">
@@ -30,8 +30,8 @@ use BusinessLogic\Notification\NotificationStatus;
             <label>Application:</label>
             <select name="application_id" class="form-control">
                 <option></option>
-                <?php foreach (ApplicationBook::getApplications() as /* @var $application Application */ $application): ?>
-                    <option value="<?php echo $application->getId() ?>" <?php echo ($this->getPost()->getValue("application_id") == $application->getId() ? "selected" : ""); ?>><?php echo $application->getName() ?></option>
+                <?php foreach( ApplicationBook::getApplications() as /* @var $application Application */ $application ): ?>
+                    <option value="<?php echo $application->getId() ?>" <?php echo ($this->getPost()->getValue( "application_id" ) == $application->getId() ? "selected" : ""); ?>><?php echo $application->getName() ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
@@ -40,8 +40,8 @@ use BusinessLogic\Notification\NotificationStatus;
             <label>Type:</label>
             <select name="type" class="form-control">
                 <option></option>
-                <?php foreach (DeviceBook::getDeviceType() as $deviceType): ?>
-                    <option value="<?php echo $deviceType ?>" <?php echo ($this->getPost()->getValue("type") == $deviceType ? "selected" : ""); ?>><?php echo $deviceType ?></option>
+                <?php foreach( DeviceBook::getDeviceType() as $deviceType ): ?>
+                    <option value="<?php echo $deviceType ?>" <?php echo ($this->getPost()->getValue( "type" ) == $deviceType ? "selected" : ""); ?>><?php echo $deviceType ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
@@ -70,23 +70,23 @@ use BusinessLogic\Notification\NotificationStatus;
                 <tr>
                     <td>Application</td>
                     <td>Title</td>
-                    <td>Short message/Message</td>
-                    <td>Device type</td>
-                    <td>Status</td>
+                    <td class="hidden-xs hidden-sm">Short message/Message</td>
+                    <td class="hidden-xs">Device type</td>
+                    <td class="hidden-xs hidden-sm">Status</td>
                     <td></td>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($this->getNotifications() as /* @var $notification Notification */ $notification): ?>
-                    <tr class="<?php echo ($notification->getStatus() == NotificationStatus::DRAFT? : 'warning'); ?>">
+                <?php foreach( $this->getNotifications() as /* @var $notification Notification */ $notification ): ?>
+                    <tr class="<?php echo ($notification->getStatusId() == NotificationStatus::DRAFT ? 'warning' : ''); ?>">
                         <td><?php echo $notification->getApplicationName() ?></td>
                         <td><?php echo $notification->getTitle() ?></td>
-                        <td>
+                        <td class="hidden-xs hidden-sm">
                             <p><?php echo $notification->getShortMessage() ?></p>
                             <p><?php echo $notification->getMessage() ?></p>
                         </td>
-                        <td><?php echo $notification->getDeviceType() ?></td>
-                        <td><?php echo $notification->getStatus() ?></td>
+                        <td class="hidden-xs"><?php echo $notification->getDeviceType() ?></td>
+                        <td class="hidden-xs hidden-sm"><?php echo $notification->getStatus() ?></td>
                         <td>
                             <form method="post">
                                 <a href="EditNotification.php?id=<?php echo $notification->getId() ?>" class="btn btn-default">
@@ -111,7 +111,7 @@ use BusinessLogic\Notification\NotificationStatus;
     </div>
 
     <ul class="pagination">
-        <?php for ($i = 0; $i < $this->getPages(); $i++): ?>
+        <?php for( $i = 0; $i < $this->getPages(); $i++ ): ?>
             <li class="<?php echo ($this->getCurrentPage() == $i ? "active" : "") ?>"><a href="?applicationId=<?php $this->getApplicationId() ?>&page=<?php echo $i ?>"><?php echo $i + 1 ?></a></li>
         <?php endfor; ?>
     </ul>

@@ -22,7 +22,7 @@ use BusinessLogic\Device\DeviceBook;
             <?php break; ?>
     <?php endswitch; ?>
 
-    <h2 class="col-md-6 Title">Device list <small>(<?php echo $this->getDeviceCount() ?>)</small></h2>
+    <h2 class="col-xs-6 col-sm-6 col-md-6 col-lg-6 Title">Device list <small>(<?php echo $this->getDeviceCount() ?>)</small></h2>
     <span class="pull-right ShowFilter"><span class="glyphicon glyphicon-search"></span>Show filter</span>
 
     <form method="post" class="form-horizontal FiltersForm">

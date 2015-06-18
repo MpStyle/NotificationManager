@@ -29,25 +29,27 @@ use BusinessLogic\Enum\Post;
 
         <div id="Wrapper" class="container-fluid">
 
-            <div id="header" class="navbar navbar-default navbar-fixed-top" role="navigation">
-                <div id="TitleLogoContainer" class="pull-left">
-                    <a id="TitleLink" href="Home.php">
-                        <h1 id="Title" class="hidden-xs"><?php echo \Settings::APP_NAME ?></h1>
-                    </a>
-                </div>
+            <div id="Header" class="navbar navbar-default navbar-fixed-top" role="navigation">
+                <div class="row">
+                    <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+                        <a class="navbar-brand" href="Home.php">
+                            <?php echo \Settings::APP_NAME ?>
+                        </a>
+                    </div>
 
-                <div id="UserContainer" class="pull-right row">
-                    <span id="UserInfo" class="col-xs-12 col-sm-8 col-md-8 col-lg-8 text-right">                    
-                        <span id="user_name"><?php echo $this->getUserName() ?></span>
-                        <br />
-                        <form action="" method="post" style="display: inline-block">
-                            <button type="submit" value="logout" name="logout_button" id="logout_button" class="btn btn-info">Logout</button>
-                        </form>
-                    </span>
+                    <div id="UserContainer" class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                        <span id="UserInfo" class="col-xs-12 col-sm-8 col-md-8 col-lg-8 text-right">                    
+                            <span id="user_name"><?php echo $this->getUserName() ?></span>
+                            <br />
+                            <form action="" method="post" style="display: inline-block">
+                                <button type="submit" value="logout" name="logout_button" id="logout_button" class="btn btn-info">Logout</button>
+                            </form>
+                        </span>
 
-                    <span class="hidden-xs col-sm-4 col-md-4">
-                        <img id="UserAvatar" src="<?php echo $this->getUserAvatar() ?>" />
-                    </span>
+                        <span class="hidden-xs col-sm-4 col-md-4">
+                            <img id="UserAvatar" src="<?php echo $this->getUserAvatar() ?>" />
+                        </span>
+                    </div>
                 </div>
             </div>
 
