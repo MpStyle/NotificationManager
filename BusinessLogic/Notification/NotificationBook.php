@@ -49,4 +49,15 @@ class NotificationBook
         return $notifications;
     }
 
+	/**
+	public static function sendNotificationUsingGCM($notificationId, $deviceId)
+	{
+		
+	}
+	
+	public static function sendNotificationUsingMPNS($notificationId, $deviceId)
+	{
+		
+	}
+	*/
 }
