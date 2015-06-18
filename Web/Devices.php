@@ -33,13 +33,13 @@ class Devices extends BasePage
         $perPage = 10;
         $currentPage = $this->getCurrentPage();
 
-        /* @var $result MPDOResult */ $result = DeviceAction::getPageCount( $deviceId, $enabled, $applicationId, $type, $text, $perPage );
+        /* @var $result MPDOResult */ $result = DeviceAction::getPageCount( $deviceId, $enabled, $applicationId, $type, $text, null, $perPage );
         $this->pages = $result->getData( 0, 'PageCount' );
 
-        /* @var $result MPDOResult */ $result = DeviceAction::getCount( $deviceId, $enabled, $applicationId, $type, $text );
+        /* @var $result MPDOResult */ $result = DeviceAction::getCount( $deviceId, $enabled, $applicationId, $type, $text, null );
         $this->deviceCount = $result->getData( 0, 'DeviceCount' );
 
-        $this->devices = DeviceBook::getDevices( $deviceId, $enabled, $applicationId, $type, $text, $perPage, $currentPage );
+        $this->devices = DeviceBook::getDevices( $deviceId, $enabled, $applicationId, $type, $text, $perPage, null, $currentPage );
     }
 
     protected function disableDevice()

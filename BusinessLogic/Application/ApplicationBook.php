@@ -16,12 +16,13 @@ final class ApplicationBook
      * @param string $name
      * @return \MToolkit\Core\MList
      */
-    public static function getApplications( $id = null, $name = null, $perPage=10000000, $page=0 )
+    public static function getApplications( $id = null, $name = null, $clientId=null, $perPage=10000000, $page=0 )
     {
         MDataType::mustBeNullableInt( $id );
         MDataType::mustBeNullableString( $name );
+        MDataType::mustBeNullableString( $clientId );
 
-        /* @var $applicationList MPDOResult */ $applicationList = ApplicationAction::get( $id, $name, $perPage, $page );
+        /* @var $applicationList MPDOResult */ $applicationList = ApplicationAction::get( $id, $name, $clientId, $perPage, $page );
         /* @var $applications MList */ $applications = new \MToolkit\Core\MList();
 
         if( $applicationList != null )

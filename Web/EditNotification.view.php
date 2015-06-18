@@ -7,6 +7,7 @@ use BusinessLogic\Date\DateBook;
 use BusinessLogic\Link\Link;
 use BusinessLogic\Link\LinkBook;
 use BusinessLogic\Link\LinkType;
+use BusinessLogic\Notification\DeliveryStatus;
 use BusinessLogic\Notification\NotificationStatus;
 use DbAbstraction\Device\DeviceAction;
 
@@ -35,7 +36,9 @@ use DbAbstraction\Device\DeviceAction;
                 <select id="ApplicationId" name="application_id" class="form-control" required="required">
                     <option value="" disabled selected>Select an application</option>
                     <?php foreach( ApplicationBook::getApplications() as /* @var $application Application */ $application ): ?>
-                        <option value="<?php echo $application->getId() ?>" <?php echo ($this->getCurrentNotification()->getApplicationId() == $application->getId() ? "selected" : "") ?>><?php echo $application->getName() ?></option>
+                        <option value="<?php echo $application->getId() ?>" <?php echo ($this->getCurrentNotification()->getApplicationId() == $application->getId() ? "selected" : "") ?>>
+							<?php echo $application->getName() ?>
+						</option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -80,15 +83,6 @@ use DbAbstraction\Device\DeviceAction;
             </div>
 
             <div class="form-group">
-                <label>Status (draft or approved):</label>
-                <select name="notification_status" class="form-control" required="required">
-                    <option value="" disabled>Is a draft or an approved notification?</option>
-                    <option value="<?php echo NotificationStatus::DRAFT ?>" <?php echo ($this->getCurrentNotification()->getStatus() == NotificationStatus::DRAFT ? "selected" : "") ?>>Draft</option>
-                    <option value="<?php echo NotificationStatus::APPROVED ?>" <?php echo ($this->getCurrentNotification()->getStatus() == NotificationStatus::APPROVED ? "selected" : "") ?>>Approved</option>
-                </select>
-            </div>
-
-            <div class="form-group">
                 <label>Device type:</label>
                 <select name="device_type" class="form-control">
                     <option>Everyone</option>
@@ -126,12 +120,22 @@ use DbAbstraction\Device\DeviceAction;
 
             <div class="pull-right">
 
-                <button type="submit" name="action" value="confirmEdit" class="btn btn-primary">
-                    <?php if( $this->getGet()->getValue( "id" ) == null ): ?>
-                        Create
-                    <?php else: ?>
-                        Save
-                    <?php endif; ?>
+                <button 
+                    type="submit" 
+                    name="action" 
+                    value="confirmEdit" 
+                    class="btn btn-primary"
+                    <?php echo ($this->getCurrentNotification()->getDeliveryStatus() == DeliveryStatus::SENDING ? "disabled" : ""); ?>>
+                    Save
+                </button>
+                
+                <button 
+                    type="submit" 
+                    name="action" 
+                    value="saveDraft" 
+                    class="btn btn-primary"
+                    <?php echo ($this->getCurrentNotification()->getDeliveryStatus() == DeliveryStatus::SENDING ? "disabled" : ""); ?>>
+                    Save draft
                 </button>
 
                 <a href="Notifications.php" class="btn btn-default">Cancel</a>

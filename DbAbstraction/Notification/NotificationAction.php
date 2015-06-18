@@ -14,7 +14,7 @@ class NotificationAction
      * @param string $title
      * @param string $shortMessage
      * @param string $message
-     * @param string $status
+     * @param string $statusId
      * @param string $deviceType
      * @param string $startDate
      * @param string $endDate
@@ -28,7 +28,7 @@ class NotificationAction
             $title
             , $shortMessage
             , $message
-            , $status
+            , $statusId
             , $deviceType
             , $startDate
             , $endDate
@@ -39,7 +39,7 @@ class NotificationAction
     {
         MDataType::mustBeNullableString( $title );
         MDataType::mustBeNullableString( $shortMessage );
-        MDataType::mustBeNullableString( $status );
+        MDataType::mustBeNullableString( $statusId );
         MDataType::mustBeNullableString( $deviceType );
         MDataType::mustBeNullableString( $startDate );
         MDataType::mustBeNullableString( $endDate );
@@ -56,7 +56,7 @@ class NotificationAction
         $sql->bindValue( $title );
         $sql->bindValue( $shortMessage );
         $sql->bindValue( $message );
-        $sql->bindValue( $status );
+        $sql->bindValue( $statusId );
         $sql->bindValue( $deviceType );
         $sql->bindValue( $startDate );
         $sql->bindValue( $endDate );
@@ -70,21 +70,24 @@ class NotificationAction
         return $sql->getResult();
     }
 
-    /**
-     * Update a notification with id <i>$id</i>.
-     * 
-     * @param int $id
-     * @param string $title
-     * @param string $subtitle
-     * @param string $message
-     * @return MPDOResult
-     */
-    public static function update( $id, $title, $shortMessage, $message, $status, $deviceType, $startDate, $endDate, $applicationId, $linkType, $link, $iconId )
+    public static function update( 
+		$id
+		, $title
+		, $shortMessage
+		, $message
+		, $statusId
+		, $deviceType
+		, $startDate
+		, $endDate
+		, $applicationId
+		, $linkType
+		, $link
+		, $iconId )
     {
         MDataType::mustBeInt( $id );
         MDataType::mustBeNullableString( $title );
         MDataType::mustBeNullableString( $shortMessage );
-        MDataType::mustBeNullableString( $status );
+        MDataType::mustBeNullableString( $statusId );
         MDataType::mustBeNullableString( $deviceType );
         MDataType::mustBeNullableString( $startDate );
         MDataType::mustBeNullableString( $endDate );
@@ -102,7 +105,7 @@ class NotificationAction
         $sql->bindValue( $title );
         $sql->bindValue( $shortMessage );
         $sql->bindValue( $message );
-        $sql->bindValue( $status );
+        $sql->bindValue( $statusId );
         $sql->bindValue( $deviceType );
         $sql->bindValue( $startDate );
         $sql->bindValue( $endDate );

@@ -96,20 +96,22 @@ class ApplicationAction
      * @param int $page
      * @return MPDOResult
      */
-    public static function get( $id = null, $name = null, $perPage=10, $page=0 )
+    public static function get( $id = null, $name = null, $clientId=null, $perPage=10, $page=0 )
     {
         MDataType::mustBeNullableInt( $id );
         MDataType::mustBeNullableString( $name );
+        MDataType::mustBeNullableString( $clientId );
         MDataType::mustBeInt( $perPage );
         MDataType::mustBeInt( $page );
 
-        $query = "CALL applicationGet(?, ?, ?, ?)";
+        $query = "CALL applicationGet(?, ?, ?, ?, ?)";
         /* @var $connection \PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
 
         $sql->bindValue( $id );
         $sql->bindValue( $name );
+        $sql->bindValue( $clientId );
         $sql->bindValue( $perPage );
         $sql->bindValue( $page );
 
