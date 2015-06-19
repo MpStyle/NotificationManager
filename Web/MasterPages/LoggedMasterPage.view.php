@@ -30,27 +30,26 @@ use BusinessLogic\Enum\Post;
         <div id="Wrapper" class="container-fluid">
 
             <div id="Header" class="navbar navbar-default navbar-fixed-top" role="navigation">
-                <div class="row">
-                    <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
-                        <a class="navbar-brand" href="Home.php">
-                            <?php echo \Settings::APP_NAME ?>
-                        </a>
-                    </div>
 
-                    <div id="UserContainer" class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
-                        <span id="UserInfo" class="col-xs-12 col-sm-8 col-md-8 col-lg-8 text-right">                    
-                            <span id="user_name"><?php echo $this->getUserName() ?></span>
-                            <br />
-                            <form action="" method="post" style="display: inline-block">
-                                <button type="submit" value="logout" name="logout_button" id="logout_button" class="btn btn-info">Logout</button>
-                            </form>
-                        </span>
+                <h1 id="AppNameContainer">
+                    <a href="Home.php">
+                        <?php echo \Settings::APP_NAME ?>
+                    </a>
+                </h1>
 
-                        <span class="hidden-xs col-sm-4 col-md-4">
-                            <img id="UserAvatar" src="<?php echo $this->getUserAvatar() ?>" />
-                        </span>
-                    </div>
+
+
+                <div id="AvatarContainer" class="hidden-xs">
+                    <img id="UserAvatar" src="<?php echo $this->getUserAvatar() ?>" />
                 </div>
+
+                <div id="UserInfo">                    
+                    <div id="user_name"><?php echo $this->getUserName() ?></div>
+                    <form action="" method="post" style="display: inline-block">
+                        <button type="submit" value="logout" name="logout_button" id="logout_button" class="btn btn-info">Logout</button>
+                    </form>
+                </div>
+
             </div>
 
             <div id="Container" class="row">

@@ -27,39 +27,41 @@ use BusinessLogic\Application\ApplicationBook;
         </button>
     </form>
 
-    <div class="table-responsive">
-        <table class="table table-striped table-bordered EntityList">
-            <thead>
-                <tr>
-                    <td class="NoWrap">App name</td>
-                    <td class="hidden-xs">Client ID <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="Use this code as perameter in the web services"></span></td>
-                    <td class="hidden-xs hidden-sm">Show</td>
-                    <td></td>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach( ApplicationBook::getApplications() as /* @var $application Application */ $application ): ?>
-                    <tr>
-                        <td class="NoWrapEllipsis"><?php echo $application->getName() ?></td>
-                        <td class="hidden-xs"><?php echo $application->getClientId() ?></td>
-                        <td class="NoWrap hidden-xs hidden-sm">
-                            <a href="Devices.php?applicationId=<?php echo $application->getId() ?>" class="btn btn-default">Devices</a>
-                            <a href="Notifications.php?applicationId=<?php echo $application->getId() ?>" class="btn btn-default">Notifications</a>
-                        </td>
-                        <td class="NoWrap">
-                            <form method="post">
-                                <a href="EditApp.php?id=<?php echo $application->getId() ?>" class="btn btn-default">Edit</a>
-                                <button id="DeleteApplicationButton" type="button" class="btn btn-danger" data-toggle="modal" data-target=".DeleteApplicationModal">Delete</button>
 
-                                <input type="hidden" class="ApplicationName" value="<?php echo $application->getName() ?>" />
-                                <input type="hidden" class="ApplicationId" value="<?php echo $application->getId() ?>" />
-                                </from>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
+    <table class="table table-striped table-bordered EntityList">
+        <thead>
+            <tr>
+                <td class="NoWrap">App name</td>
+                <td class="hidden-xs">Client ID <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="Use this code as perameter in the web services"></span></td>
+                <td class="hidden-xs hidden-sm">Show</td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach( ApplicationBook::getApplications() as /* @var $application Application */ $application ): ?>
+                <tr>
+                    <td class="NoWrapEllipsis"><?php echo $application->getName() ?></td>
+                    <td class="hidden-xs">
+                        <div class="ClientIdContainer"><?php echo $application->getClientId() ?></div>
+                    </td>
+                    <td class="NoWrap hidden-xs hidden-sm">
+                        <a href="Devices.php?applicationId=<?php echo $application->getId() ?>" class="btn btn-default">Devices</a>
+                        <a href="Notifications.php?applicationId=<?php echo $application->getId() ?>" class="btn btn-default">Notifications</a>
+                    </td>
+                    <td class="NoWrap">
+                        <form method="post">
+                            <a href="EditApp.php?id=<?php echo $application->getId() ?>" class="btn btn-default">Edit</a>
+                            <button id="DeleteApplicationButton" type="button" class="btn btn-danger" data-toggle="modal" data-target=".DeleteApplicationModal">Delete</button>
+
+                            <input type="hidden" class="ApplicationName" value="<?php echo $application->getName() ?>" />
+                            <input type="hidden" class="ApplicationId" value="<?php echo $application->getId() ?>" />
+                            </from>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+
 
     <div class="modal fade DeleteApplicationModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">

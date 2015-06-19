@@ -28,6 +28,9 @@ body {
   margin: 0px 0px 20px 0px;
   padding: 0px; }
 
+@media all and (max-width: 400px) {
+  .Title {
+    font-size: 1.5em; } }
 .AddButton {
   margin: 10px 0px 20px 0px; }
 
@@ -65,25 +68,29 @@ body {
 #Header {
   padding: 7px 5px; }
 
-#TitleLogoContainer {
-  vertical-align: top; }
+#AppNameContainer {
+  float: left;
+  height: 50px;
+  margin: 0px;
+  padding: 0px; }
+  #AppNameContainer a {
+    text-decoration: none; }
 
-#LogoImage {
-  width: 50px;
-  margin: 5px 0px 0px 20px;
-  float: left; }
+@media all and (max-width: 550px) {
+  #AppNameContainer {
+    font-size: 1.5em;
+    padding-top: 14px; } }
+@media all and (max-width: 400px) {
+  #AppNameContainer {
+    font-size: 1em;
+    padding-top: 17px; } }
+#UserInfo, #AvatarContainer {
+  float: right;
+  height: 50px; }
 
-#LogoImageMenu {
-  width: 72px;
-  margin: 5px 0px 0px 0px;
-  float: left; }
-
-#TitleLink {
-  float: left; }
-
-#Title {
-  display: inline-block;
-  margin: 5px 0px 0px 10px; }
+#UserInfo {
+  margin-right: 30px;
+  text-align: right; }
 
 @media all and (max-width: 768px) {
   #menu li ul {
@@ -165,3 +172,9 @@ body {
     margin-left: 0px; } }
 #content h2 {
   margin-top: 0px; }
+
+.ClientIdContainer {
+  max-width: 300px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden; }

@@ -64,51 +64,50 @@ use BusinessLogic\Notification\NotificationStatus;
         </button>
     </form>
 
-    <div class="table-responsive">
-        <table class="table table-striped table-bordered EntityList">
-            <thead>
-                <tr>
-                    <td>Application</td>
-                    <td>Title</td>
-                    <td class="hidden-xs hidden-sm">Short message/Message</td>
-                    <td class="hidden-xs">Device type</td>
-                    <td class="hidden-xs hidden-sm">Status</td>
-                    <td></td>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach( $this->getNotifications() as /* @var $notification Notification */ $notification ): ?>
-                    <tr class="<?php echo ($notification->getStatusId() == NotificationStatus::DRAFT ? 'warning' : ''); ?>">
-                        <td><?php echo $notification->getApplicationName() ?></td>
-                        <td><?php echo $notification->getTitle() ?></td>
-                        <td class="hidden-xs hidden-sm">
-                            <p><?php echo $notification->getShortMessage() ?></p>
-                            <p><?php echo $notification->getMessage() ?></p>
-                        </td>
-                        <td class="hidden-xs"><?php echo $notification->getDeviceType() ?></td>
-                        <td class="hidden-xs hidden-sm"><?php echo $notification->getStatus() ?></td>
-                        <td>
-                            <form method="post">
-                                <a href="EditNotification.php?id=<?php echo $notification->getId() ?>" class="btn btn-default">
-                                    Edit
-                                </a>
-                                <button id="DeleteNotificationButton" 
-                                        type="button" 
-                                        class="btn btn-danger" 
-                                        <?php echo ($notification->getDeliveryStatus() == DeliveryStatus::SENDING ? "disabled" : ""); ?>
-                                        data-toggle="modal" data-target=".DeleteNotificationModal">
-                                    Delete
-                                </button>
+    <table class="table table-striped table-bordered EntityList">
+        <thead>
+            <tr>
+                <td>Application</td>
+                <td>Title</td>
+                <td class="hidden-xs hidden-sm">Short message/Message</td>
+                <td class="hidden-xs">Device type</td>
+                <td class="hidden-xs hidden-sm">Status</td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach( $this->getNotifications() as /* @var $notification Notification */ $notification ): ?>
+                <tr class="<?php echo ($notification->getStatusId() == NotificationStatus::DRAFT ? 'warning' : ''); ?>">
+                    <td><?php echo $notification->getApplicationName() ?></td>
+                    <td><?php echo $notification->getTitle() ?></td>
+                    <td class="hidden-xs hidden-sm">
+                        <p><?php echo $notification->getShortMessage() ?></p>
+                        <p><?php echo $notification->getMessage() ?></p>
+                    </td>
+                    <td class="hidden-xs"><?php echo $notification->getDeviceType() ?></td>
+                    <td class="hidden-xs hidden-sm"><?php echo $notification->getStatus() ?></td>
+                    <td>
+                        <form method="post">
+                            <a href="EditNotification.php?id=<?php echo $notification->getId() ?>" class="btn btn-default">
+                                Edit
+                            </a>
+                            <button id="DeleteNotificationButton" 
+                                    type="button" 
+                                    class="btn btn-danger" 
+                                    <?php echo ($notification->getDeliveryStatus() == DeliveryStatus::SENDING ? "disabled" : ""); ?>
+                                    data-toggle="modal" data-target=".DeleteNotificationModal">
+                                Delete
+                            </button>
 
-                                <input type="hidden" class="NotificationId" name="NotificationId" value="<?php echo $notification->getIconId() ?>" />
-                                <input type="hidden" class="NotificationTitle" name="NotificationTitle" value="<?php echo $notification->getTitle() ?>" />
-                            </form>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
+                            <input type="hidden" class="NotificationId" name="NotificationId" value="<?php echo $notification->getIconId() ?>" />
+                            <input type="hidden" class="NotificationTitle" name="NotificationTitle" value="<?php echo $notification->getTitle() ?>" />
+                        </form>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+
 
     <ul class="pagination">
         <?php for( $i = 0; $i < $this->getPages(); $i++ ): ?>
