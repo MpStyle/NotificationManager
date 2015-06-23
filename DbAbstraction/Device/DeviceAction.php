@@ -30,7 +30,7 @@ class DeviceAction
     {
         MDataType::mustBeInt($notificationId);
 
-        $query = "CALL deviceSetNotifications(?, ?, ?)";
+        $query = "CALL deviceSetNotifications(?)";
         /* @var $connection \PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery($query, $connection);

@@ -43,9 +43,12 @@ class EditNotification extends BasePage
     {
         /* @var \MToolkit\Model\Sql\MPDOResult $result */
 
+        $startDateForm = $this->getPost()->getValue( "start_date" );
+        $endDateForm = $this->getPost()->getValue( "end_date" );
+
         $notificationId = (int) $this->getCurrentNotification()->getId();
-        $startDate = DateBook::fromDatePickerDateToDatabaseDate( $this->getPost()->getValue( "start_date" ) );
-        $endDate = DateBook::fromDatePickerDateToDatabaseDate( $this->getPost()->getValue( "end_date" ) );
+        $startDate = ($startDateForm == null ? null : DateBook::fromDatePickerDateToDatabaseDate( $startDateForm ));
+        $endDate = ($endDateForm == null ? null : DateBook::fromDatePickerDateToDatabaseDate( $endDateForm ));
 
         MDbConnection::getDbConnection()->beginTransaction();
 
@@ -57,7 +60,7 @@ class EditNotification extends BasePage
                             $this->getPost()->getValue( "notification_title" )
                             , $this->getPost()->getValue( "notification_short_message" )
                             , $this->getPost()->getValue( "notification_message" )
-                            , ($isDraft ? NotificationStatus::DRAFT : NotificationStatus::APPROVED )
+                            , (int)($isDraft ? NotificationStatus::DRAFT : NotificationStatus::APPROVED )
                             , $this->getPost()->getValue( "device_type" )
                             , $startDate
                             , $endDate
@@ -66,6 +69,7 @@ class EditNotification extends BasePage
                             , $this->getPost()->getValue( "link_type" ) == ApplicationLinkType::EXTERNAL ? $this->getPost()->getValue( "extenal_link" ) : null
                             , $this->getPost()->getValue( "link_type" ) == ApplicationLinkType::INTERNAL ? (int) $this->getPost()->getValue( "internal_link" ) : null
                             , null
+                            , $this->getPost()->getValue( "localization_id" ) == "" ? null : (int)$this->getPost()->getValue( "localization_id" )
             );
 
             $notificationId = $result->getData( 0, "NotificationId" );
@@ -78,7 +82,7 @@ class EditNotification extends BasePage
                             , $this->getPost()->getValue( "notification_title" )
                             , $this->getPost()->getValue( "notification_short_message" )
                             , $this->getPost()->getValue( "notification_message" )
-                            , ($isDraft ? NotificationStatus::DRAFT : NotificationStatus::APPROVED )
+                            , (int)($isDraft ? NotificationStatus::DRAFT : NotificationStatus::APPROVED )
                             , $this->getPost()->getValue( "device_type" )
                             , $startDate
                             , $endDate
@@ -87,16 +91,17 @@ class EditNotification extends BasePage
                             , $this->getPost()->getValue( "link_type" ) == ApplicationLinkType::EXTERNAL ? $this->getPost()->getValue( "extenal_link" ) : null
                             , $this->getPost()->getValue( "link_type" ) == ApplicationLinkType::INTERNAL ? (int) $this->getPost()->getValue( "internal_link" ) : null
                             , null
+                            , $this->getPost()->getValue( "localization_id" ) == "" ? null : (int)$this->getPost()->getValue( "localization_id" )
             );
         }
 
         if( !$isDraft )
         {
             // Remove all recipients of the current notification     
-            DeviceAction::deleteNotification( (int)$notificationId );
+            DeviceAction::deleteNotification( (int) $notificationId );
 
             // Set the notification recipients
-            DeviceAction::setNotification( (int)$notificationId );
+            DeviceAction::setNotification( (int) $notificationId );
         }
 
         MDbConnection::getDbConnection()->commit();

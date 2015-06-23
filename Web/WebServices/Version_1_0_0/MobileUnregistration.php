@@ -34,6 +34,8 @@ class MobileUnregistration extends AbstractWebService
             DeviceAction::update($device->getId, false);
 
             MDbConnection::getDbConnection()->commit();
+            
+            parent::setResult(true);
         }
         catch (OutOfBoundException $ex)
         {

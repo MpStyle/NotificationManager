@@ -22,28 +22,43 @@ use BusinessLogic\Notification\NotificationStatus;
             <?php break; ?>
     <?php endswitch; ?>
 
-    <h2 class="col-xs-8 col-sm-8 col-md-8 col-lg-8 Title">Notification list</h2>
+    <h2 class="col-xs-8 col-sm-8 col-md-8 col-lg-8 Title">Notification list<small> (<?php echo $this->getNotificationCount() ?>)</small></h2>
     <span class="pull-right ShowFilter"><span class="glyphicon glyphicon-search"></span>Show filter</span>
 
-    <form method="post" class="FiltersForm">
+    <form method="post" class="form-horizontal FiltersForm">
         <div class="form-group">
-            <label>Application:</label>
-            <select name="application_id" class="form-control">
-                <option></option>
-                <?php foreach( ApplicationBook::getApplications() as /* @var $application Application */ $application ): ?>
-                    <option value="<?php echo $application->getId() ?>" <?php echo ($this->getPost()->getValue( "application_id" ) == $application->getId() ? "selected" : ""); ?>><?php echo $application->getName() ?></option>
-                <?php endforeach; ?>
-            </select>
+            <label class="col-sm-2 control-label">Application:</label>
+            <div class="col-sm-10">
+                <select name="application_id" class="form-control">
+                    <option></option>
+                    <?php foreach( ApplicationBook::getApplications() as /* @var $application Application */ $application ): ?>
+                        <option value="<?php echo $application->getId() ?>" <?php echo ($this->getPost()->getValue( "application_id" ) == $application->getId() ? "selected" : ""); ?>><?php echo $application->getName() ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
         </div>
 
         <div class="form-group">
-            <label>Type:</label>
-            <select name="type" class="form-control">
-                <option></option>
-                <?php foreach( DeviceBook::getDeviceType() as $deviceType ): ?>
-                    <option value="<?php echo $deviceType ?>" <?php echo ($this->getPost()->getValue( "type" ) == $deviceType ? "selected" : ""); ?>><?php echo $deviceType ?></option>
-                <?php endforeach; ?>
-            </select>
+            <label class="col-sm-2 control-label">Device type:</label>
+            <div class="col-sm-10">
+                <select name="type" class="form-control">
+                    <option></option>
+                    <?php foreach( DeviceBook::getDeviceType() as $deviceType ): ?>
+                        <option value="<?php echo $deviceType ?>" <?php echo ($this->getPost()->getValue( "type" ) == $deviceType ? "selected" : ""); ?>><?php echo $deviceType ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Notification status:</label>
+            <div class="col-sm-10">
+                <select name="status" class="form-control">
+                    <option></option>
+                    <option value="<?php echo NotificationStatus::DRAFT ?>" <?php echo ($this->getPost()->getValue( "status" ) == NotificationStatus::DRAFT ? "selected" : "") ?>>Draft</option>
+                    <option value="<?php echo NotificationStatus::APPROVED ?>" <?php echo ($this->getPost()->getValue( "status" ) == NotificationStatus::APPROVED ? "selected" : "") ?>>Approved</option>
+                </select>
+            </div>
         </div>
 
         <div class="pull-right">
@@ -52,7 +67,7 @@ use BusinessLogic\Notification\NotificationStatus;
                 Search
             </button>
 
-            <span class="btn btn-default">Clear</span>
+            <a href="?page=<?php echo $this->getGet()->getKey( "page" ) ?>" class="btn btn-default">Clear</a>
 
         </div>
     </form>
@@ -85,7 +100,9 @@ use BusinessLogic\Notification\NotificationStatus;
                         <p><?php echo $notification->getMessage() ?></p>
                     </td>
                     <td class="hidden-xs"><?php echo $notification->getDeviceType() ?></td>
-                    <td class="hidden-xs hidden-sm"><?php echo $notification->getStatus() ?></td>
+                    <td class="hidden-xs hidden-sm">
+                        <?php echo ($notification->getStatusId() == NotificationStatus::APPROVED ? "Approved" : "Draft") ?>
+                    </td>
                     <td>
                         <form method="post">
                             <a href="EditNotification.php?id=<?php echo $notification->getId() ?>" class="btn btn-default">

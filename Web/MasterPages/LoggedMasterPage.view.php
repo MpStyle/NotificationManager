@@ -80,7 +80,7 @@ use BusinessLogic\Enum\Post;
                             </a>
                             <ul>
                                 <li>
-                                    <a href="WebServicesV1.php" data-toggle="tooltip" data-placement="right" title="Version 1.0">
+                                    <a href="WebServicesV100.php" data-toggle="tooltip" data-placement="right" title="Version 1.0">
                                         <span class="glyphicon glyphicon-stop"></span>
                                         Version 1.0
                                     </a>

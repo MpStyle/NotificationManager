@@ -7,6 +7,7 @@ use BusinessLogic\Application\ApplicationLink;
 use BusinessLogic\Application\ApplicationLinkType;
 use BusinessLogic\ApplicationInternalLink\ApplicationInternalLinkBook;
 use BusinessLogic\Date\DateBook;
+use BusinessLogic\Localization\Localization;
 use BusinessLogic\Notification\DeliveryStatus;
 use DbAbstraction\Device\DeviceAction;
 
@@ -36,10 +37,25 @@ use DbAbstraction\Device\DeviceAction;
                     <option value="" disabled selected>Select an application</option>
                     <?php foreach( ApplicationBook::getApplications() as /* @var $application Application */ $application ): ?>
                         <option value="<?php echo $application->getId() ?>" <?php echo ($this->getCurrentNotification()->getApplicationId() == $application->getId() ? "selected" : "") ?>>
-							<?php echo $application->getName() ?>
-						</option>
+                            <?php echo $application->getName() ?>
+                        </option>
                     <?php endforeach; ?>
                 </select>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Languages:</label>
+
+                <select name="localization_id" class="form-control">
+                    <option>All</option>
+                    <option value="<?php echo Localization::EN ?>">English</option>
+                    <option value="<?php echo Localization::DE ?>">German</option>
+                    <option value="<?php echo Localization::ES ?>">Spanish</option>
+                    <option value="<?php echo Localization::FR ?>">France</option>
+                    <option value="<?php echo Localization::IT ?>">Italy</option>
+                    <option value="<?php echo Localization::RU ?>">Russia</option>
+                </select>
+
             </div>
 
             <div class="form-group">
@@ -71,7 +87,7 @@ use DbAbstraction\Device\DeviceAction;
                 <select name="internal_link" class="form-control" id="InternalLinks">
                     <option value="" disabled selected></option>
                     <?php foreach( ApplicationInternalLinkBook::get( null, null, (int) $this->getCurrentNotification()->getApplicationId() ) as /* @var $link ApplicationLink */ $link ): ?>
-                    <option value="<?php echo $link->getId() ?>" <?php echo ($link->getId() == $this->getCurrentNotification()->getInternalLinkId() ? "selected" : ""); ?>><?php echo $link->getName() ?></option>
+                        <option value="<?php echo $link->getId() ?>" <?php echo ($link->getId() == $this->getCurrentNotification()->getInternalLinkId() ? "selected" : ""); ?>><?php echo $link->getName() ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -127,7 +143,7 @@ use DbAbstraction\Device\DeviceAction;
                     <?php echo ($this->getCurrentNotification()->getDeliveryStatus() == DeliveryStatus::SENDING ? "disabled" : ""); ?>>
                     Save
                 </button>
-                
+
                 <button 
                     type="submit" 
                     name="action" 

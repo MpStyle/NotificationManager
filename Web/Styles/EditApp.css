@@ -51,7 +51,8 @@ body {
 .FiltersForm {
   clear: both;
   display: none;
-  overflow: hidden; }
+  overflow: hidden;
+  margin-bottom: 20px; }
 
 .AddEntityForm {
   clear: both; }
@@ -172,3 +173,6 @@ body {
     margin-left: 0px; } }
 #content h2 {
   margin-top: 0px; }
+
+#RefreshIcon {
+  padding-right: 0px; }

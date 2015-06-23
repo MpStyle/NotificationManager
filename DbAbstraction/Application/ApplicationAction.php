@@ -15,16 +15,19 @@ class ApplicationAction
      * @param string $name
      * @param string $googleKey
      * @param string $windowsPhoneKey
+     * @param string $clientId
+     * @param string $secretId
      * @return MPDOResult
      */
-    public static function insert( $name, $googleKey, $windowsPhoneKey, $clientId )
+    public static function insert( $name, $googleKey, $windowsPhoneKey, $clientId, $secretId )
     {
         MDataType::mustBeString( $name );
         MDataType::mustBeNullableString( $googleKey );
         MDataType::mustBeNullableString( $windowsPhoneKey );
-        MDataType::mustBeNullableString( $clientId );
+        MDataType::mustBeString( $clientId );
+        MDataType::mustBeString( $secretId );
 
-        $query = "CALL applicationInsert(?, ?, ?, ?)";
+        $query = "CALL applicationInsert(?, ?, ?, ?, ?)";
         /* @var $connection \PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
@@ -33,6 +36,7 @@ class ApplicationAction
         $sql->bindValue( $googleKey );
         $sql->bindValue( $windowsPhoneKey );
         $sql->bindValue( $clientId );
+        $sql->bindValue( $secretId );
 
         $sql->exec();
 
@@ -45,16 +49,18 @@ class ApplicationAction
      * @param string $name
      * @param string $googleKey
      * @param string $windowsPhoneKey
+     * @param string $secretId
      * @return MPDOResult
      */
-    public static function update( $id, $name, $googleKey, $windowsPhoneKey )
+    public static function update( $id, $name, $googleKey, $windowsPhoneKey, $secretId )
     {
         MDataType::mustBeInt( $id );
         MDataType::mustBeString( $name );
         MDataType::mustBeNullableString( $googleKey );
         MDataType::mustBeNullableString( $windowsPhoneKey );
+        MDataType::mustBeString( $secretId );
 
-        $query = "CALL applicationUpdate(?, ?, ?, ?)";
+        $query = "CALL applicationUpdate(?, ?, ?, ?, ?)";
         /* @var $connection \PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
@@ -63,6 +69,7 @@ class ApplicationAction
         $sql->bindValue( $name );
         $sql->bindValue( $googleKey );
         $sql->bindValue( $windowsPhoneKey );
+        $sql->bindValue( $secretId );
 
         $sql->exec();
 

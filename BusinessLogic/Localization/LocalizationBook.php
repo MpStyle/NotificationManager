@@ -1,6 +1,6 @@
 <?php
 
-namespace BusinessLogic\Link;
+namespace BusinessLogic\Localization;
 
 use DbAbstraction\Link\LinkAction;
 use MToolkit\Core\MDataType;

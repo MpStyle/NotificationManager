@@ -32,7 +32,7 @@ use BusinessLogic\Application\ApplicationBook;
         <thead>
             <tr>
                 <td class="NoWrap">App name</td>
-                <td class="hidden-xs">Client ID <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="Use this code as perameter in the web services"></span></td>
+                <td class="hidden-xs">Client ID <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="Use these codes as perameters in the web services"></span></td>
                 <td class="hidden-xs hidden-sm">Show</td>
                 <td></td>
             </tr>
@@ -42,7 +42,8 @@ use BusinessLogic\Application\ApplicationBook;
                 <tr>
                     <td class="NoWrapEllipsis"><?php echo $application->getName() ?></td>
                     <td class="hidden-xs">
-                        <div class="ClientIdContainer"><?php echo $application->getClientId() ?></div>
+                        <div class="ClientIdContainer"><b>Client ID</b>: <?php echo $application->getClientId() ?></div>
+                        <div class="SecretIdContainer"><b>Secret ID</b>: <?php echo $application->getSecretId() ?></div>
                     </td>
                     <td class="NoWrap hidden-xs hidden-sm">
                         <a href="Devices.php?applicationId=<?php echo $application->getId() ?>" class="btn btn-default">Devices</a>

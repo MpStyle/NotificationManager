@@ -36,7 +36,8 @@ class NotificationAction
             , $linkType
             , $externalLink
             , $internalLinkId
-            , $iconId )
+            , $iconId
+            , $localizationId)
     {
         MDataType::mustBeNullableString( $title );
         MDataType::mustBeNullableString( $shortMessage );
@@ -49,8 +50,9 @@ class NotificationAction
         MDataType::mustBeNullableInt( $internalLinkId );
         MDataType::mustBeNullableString( $externalLink );
         MDataType::mustBeNullableInt( $iconId );
+        MDataType::mustBeNullableInt( $localizationId );
 
-        $query = "CALL notificationInsert(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $query = "CALL notificationInsert(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         /* @var $connection \PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
@@ -67,6 +69,7 @@ class NotificationAction
         $sql->bindValue( $externalLink );
         $sql->bindValue( $internalLinkId );
         $sql->bindValue( $iconId );
+        $sql->bindValue( $localizationId );
 
         $sql->exec();
 
@@ -151,21 +154,24 @@ class NotificationAction
      * @param int $id
      * @return MPDOResult
      */
-    public static function get( $id = null, $applicationId=null, $status=null, $perPage=10, $page=0 )
+    public static function get( $id = null, $applicationId=null, $statusId=null, $deviceType=null, $perPage=10, $page=0 )
     {
         MDataType::mustBeNullableInt( $id );
         MDataType::mustBeNullableInt( $applicationId );
+        MDataType::mustBeNullableInt( $statusId );
+        MDataType::mustBeNullableString( $deviceType );
         MDataType::mustBeInt( $perPage );
         MDataType::mustBeInt( $page );
 
-        $query = "CALL notificationGet(?, ?, ?, ?, ?)";
+        $query = "CALL notificationGet(?, ?, ?, ?, ?, ?)";
         /* @var $connection \PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
 
         $sql->bindValue( $id );
         $sql->bindValue( $applicationId );
-        $sql->bindValue( $status );
+        $sql->bindValue( $statusId );
+        $sql->bindValue( $deviceType );
         $sql->bindValue( $perPage );
         $sql->bindValue( $page );
 
@@ -180,20 +186,23 @@ class NotificationAction
      * @param int $applicationId
      * @return MPDOResult
      */
-    public static function getPageCount( $id = null, $applicationId=null, $status=null, $perPage=10 )
+    public static function getPageCount( $id = null, $applicationId=null, $statusId=null, $deviceType=null, $perPage=10 )
     {
         MDataType::mustBeNullableInt( $id );
         MDataType::mustBeNullableInt( $applicationId );
+        MDataType::mustBeNullableInt( $statusId );
+        MDataType::mustBeNullableString( $deviceType );
         MDataType::mustBeInt( $perPage );
 
-        $query = "CALL notificationGetPageCount(?, ?, ?, ?)";
+        $query = "CALL notificationGetPageCount(?, ?, ?, ?, ?)";
         /* @var $connection \PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
 
         $sql->bindValue( $id );
         $sql->bindValue( $applicationId );
-        $sql->bindValue( $status );
+        $sql->bindValue( $statusId );
+        $sql->bindValue( $deviceType );
         $sql->bindValue( $perPage );
 
         $sql->exec();
@@ -207,19 +216,22 @@ class NotificationAction
      * @param int $status
      * @return MPDOResult
      */
-    public static function getCount($id = null, $applicationId=null, $status=null)
+    public static function getCount($id = null, $applicationId=null, $statusId=null, $deviceType=null)
     {
         MDataType::mustBeNullableInt( $id );
         MDataType::mustBeNullableInt( $applicationId );
+        MDataType::mustBeNullableInt( $statusId );
+        MDataType::mustBeNullableString( $deviceType );
 
-        $query = "CALL notificationGetCount(?, ?, ?)";
+        $query = "CALL notificationGetCount(?, ?, ?, ?)";
         /* @var $connection \PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
 
         $sql->bindValue( $id );
         $sql->bindValue( $applicationId );
-        $sql->bindValue( $status );
+        $sql->bindValue( $statusId );
+        $sql->bindValue( $deviceType );
 
         $sql->exec();
 

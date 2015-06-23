@@ -18,14 +18,14 @@ class NotificationBook
      * @param int $page
      * @return MList
      */
-    public static function getNotifications( $id = null, $applicationId=null, $status=null, $perPage=10, $page=0 )
+    public static function getNotifications( $id = null, $applicationId=null, $status=null, $deviceType=null, $perPage=10, $page=0 )
     {
         MDataType::mustBeNullableInt( $id );
         MDataType::mustBeNullableInt( $applicationId );
         MDataType::mustBeInt( $perPage );
         MDataType::mustBeInt( $page );
 
-        /* @var $notificationList MPDOResult */ $notificationList = NotificationAction::get( $id, $applicationId, $status, $perPage, $page );
+        /* @var $notificationList MPDOResult */ $notificationList = NotificationAction::get( $id, $applicationId, $status, $deviceType, $perPage, $page );
         /* @var $notifications MList */ $notifications = new MList();
 
         if( $notificationList != null )

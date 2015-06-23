@@ -50,6 +50,8 @@ class MobileRegistration extends AbstractWebService
             DeviceAction::setApplication($device->getId(), $application->getId());
 
             MDbConnection::getDbConnection()->commit();
+            
+            parent::setResult(true);
         }
         catch (OutOfBoundException $ex)
         {

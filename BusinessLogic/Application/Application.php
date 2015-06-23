@@ -11,6 +11,7 @@ class Application extends MObject
     protected $googleKey;
     protected $windowsPhoneKey;
     protected $clientId;
+    protected $secretId;
 
     public function getId()
     {
@@ -66,5 +67,17 @@ class Application extends MObject
         $this->clientId = $clientId;
         return $this;
     }
+
+    public function getSecretId()
+    {
+        return $this->secretId;
+    }
+
+    public function setSecretId( $secretId )
+    {
+        $this->secretId = $secretId;
+        return $this;
+    }
+
 
 }

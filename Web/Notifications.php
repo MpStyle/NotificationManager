@@ -12,6 +12,7 @@ use Web\MasterPages\LoggedMasterPage;
 class Notifications extends BasePage
 {
     private $notifications = null;
+    private $notificationCount=0;
     private $pages = 1;
 
     public function __construct()
@@ -26,15 +27,18 @@ class Notifications extends BasePage
 
         $notificationId = null;
         $applicationId = $this->getApplicationId();
-        $status = null;
+        $status = $this->getPost()->getValue( "status" ) == "" ? null : $this->getPost()->getValue( "status" );
+        $deviceType = $this->getPost()->getValue( "type" ) == "" ? null : $this->getPost()->getValue( "type" );
         $perPage = 10;
         $currentPage = $this->getCurrentPage();
 
-        /* @var $result MPDOResult */ $result = NotificationAction::getPageCount( $notificationId, $applicationId, $status, $perPage );
-
+        /* @var $result MPDOResult */ $result = NotificationAction::getPageCount( $notificationId, $applicationId, $status, $deviceType, $perPage );
         $this->pages = $result->getData( 0, 'PageCount' );
+        
+        $result = NotificationAction::getCount($notificationId, $applicationId, $status, $deviceType);
+        $this->notificationCount = $result->getData( 0, 'NotificationCount' );
 
-        $this->notifications = NotificationBook::getNotifications( $notificationId, $applicationId, $status, $perPage, $currentPage );
+        $this->notifications = NotificationBook::getNotifications( $notificationId, $applicationId, $status, $deviceType, $perPage, $currentPage );
     }
 
     protected function deleteNotification()
@@ -61,7 +65,7 @@ class Notifications extends BasePage
 
     public function getApplicationId()
     {
-        return $this->getGet()->getValue( "applicationId" ) == null ? null : (int) $this->getGet()->getValue( "applicationId" );
+        return $this->getPost()->getValue( "applicationId" ) == null ? null : (int) $this->getPost()->getValue( "applicationId" );
     }
 
     public function getNotifications()
@@ -74,4 +78,8 @@ class Notifications extends BasePage
         return $this->pages;
     }
 
+    public function getNotificationCount()
+    {
+        return $this->notificationCount;
+    }
 }

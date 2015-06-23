@@ -51,7 +51,8 @@ body {
 .FiltersForm {
   clear: both;
   display: none;
-  overflow: hidden; }
+  overflow: hidden;
+  margin-bottom: 20px; }
 
 .AddEntityForm {
   clear: both; }

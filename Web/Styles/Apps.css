@@ -51,7 +51,8 @@ body {
 .FiltersForm {
   clear: both;
   display: none;
-  overflow: hidden; }
+  overflow: hidden;
+  margin-bottom: 20px; }
 
 .AddEntityForm {
   clear: both; }
@@ -173,7 +174,7 @@ body {
 #content h2 {
   margin-top: 0px; }
 
-.ClientIdContainer {
+.ClientIdContainer, .SecretIdContainer {
   max-width: 300px;
   text-overflow: ellipsis;
   white-space: nowrap;

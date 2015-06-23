@@ -42,7 +42,21 @@ use BusinessLogic\Enum\Post;
                 <label>Client ID <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="Use this code as perameter in the web services"></span></label>
                 <input type="text" name="client_id" value="<?php echo ($this->getGet()->getValue( "id" ) == null ? sha1( uniqid() ) : $this->getCurrentApp()->getClientId()) ?>" class="form-control" readonly="readonly" maxlength="1024" />
             </div>
-            
+
+            <div class="form-group">
+                <label>Secret ID <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="Use this code as perameter in the web services"></span></label>
+
+                <div class="row">
+                    <div class="col-sm-11">
+                        <input id="SecretIdText" type="text" name="secret_id" value="<?php echo ($this->getGet()->getValue( "id" ) == null ? sha1( uniqid() ) : $this->getCurrentApp()->getSecretId()) ?>" 
+                               class="form-control" readonly="readonly" maxlength="1024" />
+                    </div>
+                    <button type="button" id="RefreshSecretIdButton" class="btn btn-default col-sm-1" data-toggle="tooltip" data-placement="top" title="Refresh secret ID">
+                        <span id="RefreshIcon" class="glyphicon glyphicon-refresh"></span>
+                    </button>
+                </div>
+            </div>
+
             <div class="form-group">
                 <label>Links <small>(use coma as separator)</small> <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="Internal links used in the app"></span></label>
                 <input type="text" name="links" value="<?php echo $this->getInternalLinks() ?>" class="form-control" placeholder="Enter the internal link of the app" />

@@ -63,7 +63,7 @@ use BusinessLogic\Device\DeviceBook;
                 Search
             </button>
 
-            <span class="btn btn-default">Clear</span>
+            <a href="?page=<?php echo $this->getGet()->getKey( "page" ) ?>" class="btn btn-default">Clear</a>
 
         </div>
     </form>

@@ -28,13 +28,15 @@ class EditApp extends BasePage
         $internalLinks = ApplicationInternalLinkBook::get( null, null, (int) $this->getCurrentApp()->getId() )->__toArray();
         foreach( $internalLinks as /* @var $internalLink ApplicationLink */ $internalLink )
         {
-            $this->internalLinks[]=$internalLink->getName();
+            $this->internalLinks[] = $internalLink->getName();
         }
     }
 
     protected function confirmEdit()
     {
         /* @var \MToolkit\Model\Sql\MPDOResult $result */
+
+        $applicationId = (int) $this->getCurrentApp()->getId();
 
         if( $this->getCurrentApp()->getId() == null )
         {
@@ -44,7 +46,10 @@ class EditApp extends BasePage
                             , $this->getPost()->getValue( "app_google_client_key" )
                             , $this->getPost()->getValue( "app_microsoft_client_key" )
                             , $this->getPost()->getValue( "client_id" )
+                            , $this->getPost()->getValue( "secret_id" )
             );
+            
+            $applicationId=(int)$result->getData(0, "ApplicationId");
         }
         else
         {
@@ -54,16 +59,17 @@ class EditApp extends BasePage
                             , $this->getPost()->getValue( "app_name" )
                             , $this->getPost()->getValue( "app_google_client_key" )
                             , $this->getPost()->getValue( "app_microsoft_client_key" )
+                            , $this->getPost()->getValue( "secret_id" )
             );
         }
 
         if( $result != null )
         {
-            ApplicationInternalLinkAction::delete( (int) $this->getCurrentApp()->getId() );
+            ApplicationInternalLinkAction::delete( $applicationId );
 
             foreach( explode( ",", $this->getPost()->getValue( "links" ) ) as $link )
             {
-                ApplicationInternalLinkAction::insert( trim( $link ), (int) $this->getCurrentApp()->getId() );
+                ApplicationInternalLinkAction::insert( trim( $link ), $applicationId );
             }
 
             // ok
