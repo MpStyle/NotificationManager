@@ -72,7 +72,10 @@ use BusinessLogic\Device\DeviceBook;
     <table class="table table-striped table-bordered EntityList">
         <thead>
             <tr>
-                <td>Mobile ID</td>
+                <td>
+                    Mobile ID
+                    <small>(last login date)</small>
+                </td>
                 <td class="hidden-xs">OS</td>
                 <td class="hidden-xs hidden-sm">App info</td>
                 <td class="hidden-xs hidden-sm">Brand and model</td>
@@ -83,7 +86,8 @@ use BusinessLogic\Device\DeviceBook;
             <?php foreach( $this->getDevices() as /* @var $device Device */ $device ): ?>
                 <tr class="<?php echo ($device->getEnabled()? : 'warning'); ?>">
                     <td class="MobileIdCell">
-                        <span title="<?php echo $device->getMobileId() ?>"><?php echo $device->getMobileId() ?></span>
+                        <div title="<?php echo $device->getMobileId() ?>"><?php echo $device->getMobileId() ?></div>
+                        <small>(<?php echo $device->getUpdateDate() ?>)</small>
                     </td>
                     <td class="hidden-xs">
                         <?php echo $device->getType() ?> <br />

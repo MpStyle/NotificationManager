@@ -18,6 +18,8 @@ class Device extends MObject
     protected $model = null;
     protected $enabled = null;
     protected $localization = null;
+    protected $creationDate=null;
+    protected $updateDate=null;
 
     /**
      * @return int
@@ -170,5 +172,28 @@ class Device extends MObject
         $this->localization = $localization;
         return $this;
     }
+
+    public function getCreationDate()
+    {
+        return $this->creationDate;
+    }
+
+    public function getUpdateDate()
+    {
+        return $this->updateDate;
+    }
+
+    public function setCreationDate( $creationDate )
+    {
+        $this->creationDate = $creationDate;
+        return $this;
+    }
+
+    public function setUpdateDate( $updateDate )
+    {
+        $this->updateDate = $updateDate;
+        return $this;
+    }
+
 
 }

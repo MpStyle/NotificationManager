@@ -2,7 +2,14 @@
 
 namespace Web\WebServices\Version_1_0_0;
 
-use MToolkit\Controller\MAbstractHttpHandler;
+require_once __DIR__ . '/../../Settings.php';
+
+use BusinessLogic\Application\Application;
+use BusinessLogic\Application\ApplicationBook;
+use BusinessLogic\Device\Device;
+use BusinessLogic\Device\DeviceBook;
+use DbAbstraction\Device\DeviceAction;
+use MToolkit\Model\Sql\MDbConnection;
 
 /**
  * <b>URL</b>: Web/WebServices/Version_1_0_0/MobileUnregistration.php<br />
@@ -30,7 +37,6 @@ class MobileUnregistration extends AbstractWebService
         try
         {
             /* @var $device Device */ $device = DeviceBook::getDevices(null, null, null, null, null, $mobileId)->at(0);
-            /* @var $application Application */ $application = ApplicationBook::getApplications(null, null, $clientId)->at(0);
             DeviceAction::update($device->getId, false);
 
             MDbConnection::getDbConnection()->commit();
