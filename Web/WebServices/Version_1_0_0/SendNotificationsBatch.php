@@ -2,6 +2,8 @@
 
 namespace Web\WebServices\Version_1_0_0;
 
+require_once '../../../Settings.php';
+
 use BusinessLogic\Application\Application;
 use BusinessLogic\Application\ApplicationBook;
 use BusinessLogic\Device\Device;

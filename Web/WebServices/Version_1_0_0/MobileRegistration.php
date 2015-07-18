@@ -2,11 +2,14 @@
 
 namespace Web\WebServices\Version_1_0_0;
 
-use BusinessLogic\Application\Application;
+require_once '../../../Settings.php';
+
 use BusinessLogic\Application\ApplicationBook;
-use BusinessLogic\Device\Device;
 use BusinessLogic\Device\DeviceBook;
 use DbAbstraction\Device\DeviceAction;
+use MToolkit\Core\MList;
+use MToolkit\Model\Sql\MDbConnection;
+use MToolkit\Model\Sql\MPDOResult;
 
 /**
  * <b>URL</b>: Web/WebServices/Version_1_0_0/MobileRegistration.php<br />
@@ -14,51 +17,104 @@ use DbAbstraction\Device\DeviceAction;
  * Servizio per la registrazione del device nel sistema.<br />
  * Gli input da passare in POST sono:
  * <ul>
- *  <li>requestId: identificativo della richiesta</li>
+ *  <li>requestId: identificativo della richiesta (utile per chiamate concorrenti)</li>
  *  <li>mobileId: id del device</li>
  *  <li>type: valori possibili 'IOS', 'ANDROID', 'WINDOWS_PHONE'</li>
  *  <li>osVersion: versione del sistema operativo del device</li>
+ *  <li>applicationVersion: </li>
  *  <li>brand: marca del device</li>
  *  <li>model: modello del device</li>
- *  <li>localization: lingua attiva nel device</li>
+ *  <li>localizationId: lingua attiva nel device</li>
  *  <li>clientId: codice identificativo dell'app, generata nel back-office</li>
  * </ul>
  */
 class MobileRegistration extends AbstractWebService
 {
+    private $request=null;
+    private $mobileId=null;
+    private $type=null;
+    private $osVersion=null;
+    private $applicationVersion=null;
+    private $brand=null;
+    private $model=null;
+    private $localizationId=null;
+    private $clientId=null;
+    
+    public function init()
+    {
+        parent::setWebServiceName( __CLASS__ );
 
+        $this->request = $this->getPost()->getValue( "requestId" );
+        $this->mobileId = $this->getPost()->getValue( "mobileId" );
+        $this->type = $this->getPost()->getValue( "type" );
+        $this->osVersion = $this->getPost()->getValue( "osVersion" );
+        $this->applicationVersion = $this->getPost()->getValue( "applicationVersion" );
+        $this->brand = $this->getPost()->getValue( "brand" );
+        $this->model = $this->getPost()->getValue( "model" );
+        $this->localizationId = $this->getPost()->getValue( "localizationId" );
+        $this->clientId = $this->getPost()->getValue( "clientId" );
+    }
+    
     public function exec()
     {
-        parent::setWebService(__CLASS__);
-
-        $mobileId = $this->getPost()->getValue("mobileId");
-        $type = $this->getPost()->getValue("type");
-        $osVersion = $this->getPost()->getValue("osVersion");
-        $brand = $this->getPost()->getValue("brand");
-        $model = $this->getPost()->getValue("model");
-        $localization = $this->getPost()->getValue("localization");
-        $clientId = $this->getPost()->getValue("clientId");
+        if( $this->request == null 
+                || $this->mobileId == null 
+                || $this->type == null 
+                || $this->localizationId == null 
+                || $this->clientId == null )
+        {
+            parent::setResult( false );
+            parent::setResultDescription( "Invalid mandatory parameters (0)." );
+            return;
+        }
 
         MDbConnection::getDbConnection()->beginTransaction();
 
         try
         {
-            DeviceAction::insert($mobileId, $type, $osVersion, $brand, $model, $localization, true);
-            /* @var $device Device */ $device = DeviceBook::getDevices(null, null, null, null, null, $mobileId)->at(0);
-            /* @var $application Application */ $application = ApplicationBook::getApplications(null, null, $clientId)->at(0);
-            DeviceAction::update($device->getId, true);
-            DeviceAction::setApplication($device->getId(), $application->getId());
+            DeviceAction::insert( $this->mobileId, $this->type, $this->osVersion, $this->applicationVersion, $this->brand, $this->model, $this->localizationId );
+
+            /* @var $devices MList */ $devices = DeviceBook::getDevices( null, null, null, $this->type, null, $this->mobileId );
+            if( $devices->count() <= 0 )
+            {
+                parent::setResult( false );
+                parent::setResultDescription( "Invalid mandatory parameters (1)." );
+                return;
+            }
+
+            /* @var $applications MList */ $applications = ApplicationBook::getApplications( null, null, $this->clientId );
+            if( $applications->count() <= 0 )
+            {
+                parent::setResult( false );
+                parent::setResultDescription( "Invalid mandatory parameters (2)." );
+                return;
+            }
+
+            $applicationId = (int)$applications->at( 0 )->getId();
+            $deviceId = (int)$devices->at( 0 )->getId();
+
+            /* @var $devicesApplications MList */ $devicesApplications = DeviceBook::getDevices( $deviceId, null, $applicationId, $this->type, null, $this->mobileId );
+
+            // Associa il device all'applicazione solo se non esiste già.
+            if( $devicesApplications->count() <= 0 )
+            {
+                /* @var $deviceSetApplication MPDOResult */ $deviceSetApplication = DeviceAction::setApplication( $deviceId, $applicationId, true );
+                if( $deviceSetApplication->getNumRowsAffected() <= 0 )
+                {
+                    DeviceAction::update( $deviceId, $applicationId, true );
+                }
+            }
 
             MDbConnection::getDbConnection()->commit();
-            
-            parent::setResult(true);
+
+            parent::setResult( true );
         }
-        catch (OutOfBoundException $ex)
+        catch( OutOfBoundException $ex )
         {
             MDbConnection::getDbConnection()->rollBack();
 
-            parent::setResult(false);
-            parent::setResultDescription("Device or application not found.");
+            parent::setResult( false );
+            parent::setResultDescription( "Device or application not found." );
         }
     }
 

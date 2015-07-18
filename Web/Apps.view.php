@@ -33,7 +33,7 @@ use BusinessLogic\Application\ApplicationBook;
             <tr>
                 <td class="NoWrap">App name</td>
                 <td class="hidden-xs">Client ID <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="Use these codes as perameters in the web services"></span></td>
-                <td class="hidden-xs hidden-sm">Show</td>
+                <td class="hidden-xs hidden-sm">Related to this app</td>
                 <td></td>
             </tr>
         </thead>
@@ -56,7 +56,7 @@ use BusinessLogic\Application\ApplicationBook;
 
                             <input type="hidden" class="ApplicationName" value="<?php echo $application->getName() ?>" />
                             <input type="hidden" class="ApplicationId" value="<?php echo $application->getId() ?>" />
-                            </from>
+                        </form>
                     </td>
                 </tr>
             <?php endforeach; ?>

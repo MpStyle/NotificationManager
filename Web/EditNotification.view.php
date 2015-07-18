@@ -18,7 +18,7 @@ use DbAbstraction\Device\DeviceAction;
 <div id="content">
 
     <?php switch( $this->getGet()->getValue( "error" ) ): ?><?php case "01": ?>
-            <div class="alert alert-danger ErrorMessage-MarginBottom20" role="alert">Error: the app was not saved correctly.</div>
+            <div class="alert alert-danger ErrorMessage-MarginBottom20" role="alert">Error: the app was not correctly saved.</div>
     <?php endswitch; ?>
 
     <h2 class="Title">
@@ -47,7 +47,7 @@ use DbAbstraction\Device\DeviceAction;
                 <label class="control-label">Languages:</label>
 
                 <select name="localization_id" class="form-control">
-                    <option>All</option>
+                    <option value="">All</option>
                     <option value="<?php echo Localization::EN ?>">English</option>
                     <option value="<?php echo Localization::DE ?>">German</option>
                     <option value="<?php echo Localization::ES ?>">Spanish</option>
@@ -100,7 +100,7 @@ use DbAbstraction\Device\DeviceAction;
             <div class="form-group">
                 <label>Device type:</label>
                 <select name="device_type" class="form-control">
-                    <option>Everyone</option>
+                    <option value="">Everyone</option>
                     <?php foreach( DeviceAction::getDeviceType() as $deviceType ): ?>
                         <option value="<?php echo $deviceType["Name"] ?>" <?php echo ($deviceType["Name"] == $this->getCurrentNotification()->getDeviceType() ? "selected" : "") ?>><?php echo $deviceType["Name"] ?></option>
                     <?php endforeach; ?>

@@ -39,11 +39,9 @@ use BusinessLogic\Json\JsonBook;
     
     <h3>Raw Response:</h3>
     <div id="RawResponse">
-        <textarea cols="100" rows="5" class="form-control" readonly="readonly"><?php echo $this->getResponse(); ?></textarea>
+        <textarea cols="100" rows="15" class="form-control" readonly="readonly"><?php echo $this->getResponse(); ?></textarea>
     </div>
 
     <h3>Response:</h3>
-    <pre id="Response">
-        <?php echo JsonBook::indent( $this->getDecodedResponse() ); ?>
-    </pre>
+    <pre id="Response"><?php echo JsonBook::indent( $this->getDecodedResponse() ); ?></pre>
 </div>

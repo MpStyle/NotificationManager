@@ -17,7 +17,8 @@ class Device extends MObject
     protected $brand = null;
     protected $model = null;
     protected $enabled = null;
-    protected $localization = null;
+    protected $localizationId = null;
+    protected $localizationName = null;
     protected $creationDate=null;
     protected $updateDate=null;
 
@@ -161,15 +162,26 @@ class Device extends MObject
         $this->oSVersion = $oSVersion;
         return $this;
     }
-
-    public function getLocalization()
+    
+    public function getLocalizationId()
     {
-        return $this->localization;
+        return $this->localizationId;
     }
 
-    public function setLocalization( $localization )
+    public function getLocalizationName()
     {
-        $this->localization = $localization;
+        return $this->localizationName;
+    }
+
+    public function setLocalizationId( $localizationId )
+    {
+        $this->localizationId = $localizationId;
+        return $this;
+    }
+
+    public function setLocalizationName( $localizationName )
+    {
+        $this->localizationName = $localizationName;
         return $this;
     }
 

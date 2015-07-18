@@ -174,7 +174,12 @@ body {
 #content h2 {
   margin-top: 0px; }
 
-.MobileIdCell {
-  max-width: 100px;
+.DeviceFlag {
+  vertical-align: middle; }
+
+.MobileId {
+  max-width: 120px;
   overflow: hidden;
-  text-overflow: ellipsis; }
+  text-overflow: ellipsis;
+  display: inline-block;
+  margin-left: 10px; }

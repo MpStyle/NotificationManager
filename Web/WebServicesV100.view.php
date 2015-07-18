@@ -1,7 +1,8 @@
 <?php
 namespace Web;
 
-use BusinessLogic\Device\DeviceTypes;
+use BusinessLogic\Device\DeviceBook;
+use BusinessLogic\Localization\LocalizationBook;
 
 /* @var $this WebServicesV100 */
 ?>
@@ -16,21 +17,35 @@ use BusinessLogic\Device\DeviceTypes;
         <input type="hidden" name="methodName" value="Mobile registration" />
 
         <div class="form-group">
+            <label class="col-sm-2 control-label">requestId:</label>
+            <div class="col-sm-10">
+                <input type="number" name="requestId" class="form-control" value="" placeholder="A number to identify the request..." required />
+            </div>
+        </div>
+
+        <div class="form-group">
             <label class="col-sm-2 control-label">mobileId:</label>
             <div class="col-sm-10">
-                <input type="text" name="mobileId" class="form-control" value="" />
+                <input type="text" name="mobileId" class="form-control" value="" required />
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-sm-2 control-label">type:</label>
             <div class="col-sm-10">
-                <select name="type" class="form-control">
+                <select name="type" class="form-control" required>
                     <option></option>
-                    <option value="<?php echo DeviceTypes::ANDROID ?>">Android</option>
-                    <option value="<?php echo DeviceTypes::IOS ?>">iOS</option>
-                    <option value="<?php echo DeviceTypes::WINDOWS_PHONE ?>">Windows Phone</option>
+                    <?php foreach( DeviceBook::getDeviceType() as $value ): ?>
+                        <option value="<?php echo $value ?>"><?php echo $value ?></option>
+                    <?php endforeach; ?>
                 </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">applicationVersion:</label>
+            <div class="col-sm-10">
+                <input type="text" name="applicationVersion" class="form-control" />
             </div>
         </div>
 
@@ -56,16 +71,21 @@ use BusinessLogic\Device\DeviceTypes;
         </div>
 
         <div class="form-group">
-            <label class="col-sm-2 control-label">localization:</label>
+            <label class="col-sm-2 control-label">localizationId:</label>
             <div class="col-sm-10">
-                <input type="text" name="localization" class="form-control" />
+                <select name="localizationId" class="form-control" required>
+                    <option></option>
+                    <?php foreach( LocalizationBook::getLocalizations() as $key => $value ): ?>
+                        <option value="<?php echo $value ?>"><?php echo $key ?></option>
+                    <?php endforeach; ?>
+                </select>
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-sm-2 control-label">clientId:</label>
             <div class="col-sm-10">
-                <input type="text" name="clientId" class="form-control" />
+                <input type="text" name="clientId" class="form-control" required />
             </div>
         </div>
 
@@ -82,16 +102,35 @@ use BusinessLogic\Device\DeviceTypes;
         <input type="hidden" name="methodName" value="Mobile unregistration" />
 
         <div class="form-group">
-            <label class="col-sm-2 control-label">mobileId:</label>
+            <label class="col-sm-2 control-label" required>requestId:</label>
+            <div class="col-sm-10">
+                <input type="number" name="requestId" class="form-control" value="" placeholder="A number to identify the request..." />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label" required>mobileId:</label>
             <div class="col-sm-10">
                 <input type="text" name="mobileId" class="form-control" value="" />
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-sm-2 control-label">clientId:</label>
+            <label class="col-sm-2 control-label" required>clientId:</label>
             <div class="col-sm-10">
                 <input type="text" name="clientId" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">type:</label>
+            <div class="col-sm-10">
+                <select name="type" class="form-control" required>
+                    <option></option>
+                    <?php foreach( DeviceBook::getDeviceType() as $value ): ?>
+                        <option value="<?php echo $value ?>"><?php echo $value ?></option>
+                    <?php endforeach; ?>
+                </select>
             </div>
         </div>
 
@@ -108,6 +147,13 @@ use BusinessLogic\Device\DeviceTypes;
         <input type="hidden" name="methodName" value="Get notifications" />
 
         <div class="form-group">
+            <label class="col-sm-2 control-label">requestId:</label>
+            <div class="col-sm-10">
+                <input type="number" name="requestId" class="form-control" value="" placeholder="A number to identify the request..." />
+            </div>
+        </div>
+
+        <div class="form-group">
             <label class="col-sm-2 control-label">mobileId:</label>
             <div class="col-sm-10">
                 <input type="text" name="mobileId" class="form-control" value="" />
@@ -118,6 +164,18 @@ use BusinessLogic\Device\DeviceTypes;
             <label class="col-sm-2 control-label">clientId:</label>
             <div class="col-sm-10">
                 <input type="text" name="clientId" class="form-control" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-sm-2 control-label">type:</label>
+            <div class="col-sm-10">
+                <select name="type" class="form-control" required>
+                    <option></option>
+                    <?php foreach( DeviceBook::getDeviceType() as $value ): ?>
+                        <option value="<?php echo $value ?>"><?php echo $value ?></option>
+                    <?php endforeach; ?>
+                </select>
             </div>
         </div>
 

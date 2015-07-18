@@ -3,6 +3,7 @@
 namespace BusinessLogic\Device;
 
 use BusinessLogic\Device\Device;
+use BusinessLogic\Notification\Notification;
 use DbAbstraction\Device\DeviceAction;
 use MToolkit\Core\MDataType;
 use MToolkit\Core\MList;
@@ -45,35 +46,35 @@ final class DeviceBook
 
         return $devices;
     }
-
-    public static function getNotification( $deviceId, $applicationId )
-    {
-        MDataType::mustBeInt( $deviceId );
-        MDataType::mustBeInt( $applicationId );
-
-        /* @var $notificationList MPDOResult */ $notificationList = DeviceAction::getNotification( $deviceId, $applicationId );
-        /* @var $notifications MList */ $notifications = new MList();
-
-        if( $notificationList != null )
-        {
-            foreach( $notificationList as $currentNotification )
-            {
-
-                $notification = new Notification();
-
-                foreach( $currentNotification as $key => $value )
-                {
-                    $codeKey = lcfirst( $key );
-
-                    $notification->$codeKey = $value;
-                }
-
-                $notifications->append( $notification );
-            }
-        }
-
-        return $notifications;
-    }
+//
+//    public static function getNotification( $deviceId, $applicationId )
+//    {
+//        MDataType::mustBeInt( $deviceId );
+//        MDataType::mustBeInt( $applicationId );
+//
+//        /* @var $notificationList MPDOResult */ $notificationList = DeviceAction::getNotification( $deviceId, $applicationId );
+//        /* @var $notifications MList */ $notifications = new MList();
+//
+//        if( $notificationList != null )
+//        {
+//            foreach( $notificationList as $currentNotification )
+//            {
+//
+//                $notification = new Notification();
+//
+//                foreach( $currentNotification as $key => $value )
+//                {
+//                    $codeKey = lcfirst( $key );
+//
+//                    $notification->$codeKey = $value;
+//                }
+//
+//                $notifications->append( $notification );
+//            }
+//        }
+//
+//        return $notifications;
+//    }
 
     public static function getDeviceType()
     {

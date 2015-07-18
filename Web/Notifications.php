@@ -43,7 +43,7 @@ class Notifications extends BasePage
 
     protected function deleteNotification()
     {
-        if( NotificationAction::delete( (int) $this->getPost()->getValue( "DeleteNotificationId" ) ) == null )
+        if( NotificationAction::delete( (int) $this->getPost()->getValue( "NotificationId" ) ) == null )
         {
             $this->getHttpResponse()->redirect( "Notifications.php?error=01&applicationId=" . $this->getApplicationId() . "&page=" . $this->getPages() );
         }

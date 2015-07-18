@@ -45,8 +45,6 @@ class WebServicesV100Response extends BasePage
             ),
         );
         
-//        var_dump($url);
-//        var_dump($options);
         $context = stream_context_create( $options );
         $response = file_get_contents( $url, false, $context );
 

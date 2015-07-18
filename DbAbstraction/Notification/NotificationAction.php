@@ -89,7 +89,8 @@ class NotificationAction
 		, $linkType
 		, $externalLink
                 , $internalLinkId
-		, $iconId )
+		, $iconId
+                , $localizationId)
     {
         MDataType::mustBeInt( $id );
         MDataType::mustBeNullableString( $title );
@@ -104,7 +105,7 @@ class NotificationAction
         MDataType::mustBeNullableInt( $internalLinkId );
         MDataType::mustBeNullableInt( $iconId );
 
-        $query = "CALL notificationUpdate(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $query = "CALL notificationUpdate(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         /* @var $connection \PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
@@ -122,6 +123,7 @@ class NotificationAction
         $sql->bindValue( $externalLink );
         $sql->bindValue( $internalLinkId );
         $sql->bindValue( $iconId );
+        $sql->bindValue( $localizationId );
 
         $sql->exec();
 

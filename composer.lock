@@ -4,8 +4,76 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f91d69d95bd228a7015435fbcb05456b",
+    "hash": "2fc8715243cfb173a5739b71d1e0eddd",
     "packages": [
+        {
+            "name": "components/bootstrap",
+            "version": "3.3.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/components/bootstrap.git",
+                "reference": "d71c2a234c61f53f1109a26ba8155902a51f8ca5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/components/bootstrap/zipball/d71c2a234c61f53f1109a26ba8155902a51f8ca5",
+                "reference": "d71c2a234c61f53f1109a26ba8155902a51f8ca5",
+                "shasum": ""
+            },
+            "require": {
+                "components/jquery": ">=1.9.1 <3.0"
+            },
+            "suggest": {
+                "components/bootstrap-default": "Provide a theme for Bootstrap as components/bootstrap only provides the CSS as file assets"
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "scripts": [
+                        "js/bootstrap.js"
+                    ],
+                    "files": [
+                        "js/*.js",
+                        "css/*.css",
+                        "css/*.map",
+                        "fonts/*",
+                        "less/mixins/*.less",
+                        "less/*.less"
+                    ],
+                    "shim": {
+                        "deps": [
+                            "jquery"
+                        ]
+                    }
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jacob Thornton",
+                    "email": "jacobthornton@gmail.com"
+                },
+                {
+                    "name": "Mark Otto",
+                    "email": "markdotto@gmail.com"
+                }
+            ],
+            "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
+            "homepage": "http://getbootstrap.com",
+            "keywords": [
+                "css",
+                "framework",
+                "front-end",
+                "less",
+                "mobile-first",
+                "responsive",
+                "web"
+            ],
+            "time": "2015-06-17 06:08:09"
+        },
         {
             "name": "components/jquery",
             "version": "2.1.4",
@@ -93,6 +161,61 @@
                 "bootstrap"
             ],
             "time": "2015-03-07 16:32:25"
+        },
+        {
+            "name": "eternicode/bootstrap-datepicker",
+            "version": "1.4.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/eternicode/bootstrap-datepicker.git",
+                "reference": "46e4787a3c91e2967a8b77b7f905144f4900627f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/eternicode/bootstrap-datepicker/zipball/46e4787a3c91e2967a8b77b7f905144f4900627f",
+                "reference": "46e4787a3c91e2967a8b77b7f905144f4900627f",
+                "shasum": ""
+            },
+            "require": {
+                "components/bootstrap": ">=3.0, <4.0",
+                "components/jquery": ">=1.7.1",
+                "robloach/component-installer": "*"
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "scripts": [
+                        "js/bootstrap-datepicker.js"
+                    ],
+                    "styles": [
+                        "dist/css/bootstrap-datepicker.css",
+                        "dist/css/bootstrap-datepicker3.css"
+                    ],
+                    "files": [
+                        "js/locales/bootstrap-datepicker.*.js"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Andrew Rowls",
+                    "email": "eternicode@gmail.com"
+                },
+                {
+                    "name": "Community",
+                    "homepage": "https://github.com/eternicode/bootstrap-datepicker/contributors"
+                }
+            ],
+            "description": "A datepicker for twitter bootstrap forked from Stefan Petre's (of eyecon.ro)",
+            "keywords": [
+                "bootstrap",
+                "datepicker"
+            ],
+            "time": "2015-03-26 11:54:21"
         },
         {
             "name": "kriswallsmith/assetic",
@@ -227,14 +350,8 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/MpStyle/MToolkit.git",
-                "reference": "3a78245bf274af5cb19108012542411b4e2fa48e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/MpStyle/MToolkit/zipball/3a78245bf274af5cb19108012542411b4e2fa48e",
-                "reference": "3a78245bf274af5cb19108012542411b4e2fa48e",
-                "shasum": ""
+                "url": "/home/michelepagnin/Programmazione/PHP/MToolkit",
+                "reference": "d434bddab327d7d20c11d0e38106172188060e5c"
             },
             "require": {
                 "php": ">=5.3.0"
@@ -249,7 +366,6 @@
                     "Core/MGlobal.php"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "LGPL-3.0+"
             ],
@@ -264,30 +380,33 @@
             "description": "MToolkit is a simple PHP toolkit. Easy to understand. Fast to use.",
             "homepage": "https://github.com/MpStyle/MToolkit",
             "keywords": [
-                ".net",
+                ".NET",
+                "Qt",
                 "framework",
-                "qt",
                 "toolkit",
                 "web framework"
             ],
-            "time": "2015-06-02 13:51:29"
+            "support": {
+                "email": "pagnin.michele@gmail.com"
+            },
+            "time": "2015-07-18 12:55:41"
         },
         {
             "name": "robloach/component-installer",
-            "version": "0.1.1",
+            "version": "0.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/RobLoach/component-installer.git",
-                "reference": "f249264ea72390ea68f480984ab705cb68c92148"
+                "reference": "6f654095da6e364261093c2d9ca416e1027d0169"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RobLoach/component-installer/zipball/f249264ea72390ea68f480984ab705cb68c92148",
-                "reference": "f249264ea72390ea68f480984ab705cb68c92148",
+                "url": "https://api.github.com/repos/RobLoach/component-installer/zipball/6f654095da6e364261093c2d9ca416e1027d0169",
+                "reference": "6f654095da6e364261093c2d9ca416e1027d0169",
                 "shasum": ""
             },
             "require": {
-                "composer-plugin-api": "1.0.0",
+                "composer-plugin-api": "^1.0",
                 "kriswallsmith/assetic": "1.*",
                 "php": ">=5.3.2"
             },
@@ -318,20 +437,20 @@
                 }
             ],
             "description": "Allows installation of Components via Composer.",
-            "time": "2015-05-29 20:57:02"
+            "time": "2015-06-18 13:02:30"
         },
         {
             "name": "symfony/process",
-            "version": "v2.7.0",
+            "version": "v2.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Process.git",
-                "reference": "e0a82b58e36afc60f8e79b8bc85a22bb064077c1"
+                "reference": "48aeb0e48600321c272955132d7606ab0a49adb3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Process/zipball/e0a82b58e36afc60f8e79b8bc85a22bb064077c1",
-                "reference": "e0a82b58e36afc60f8e79b8bc85a22bb064077c1",
+                "url": "https://api.github.com/repos/symfony/Process/zipball/48aeb0e48600321c272955132d7606ab0a49adb3",
+                "reference": "48aeb0e48600321c272955132d7606ab0a49adb3",
                 "shasum": ""
             },
             "require": {
@@ -367,7 +486,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2015-05-15 13:33:16"
+            "time": "2015-07-01 11:25:50"
         },
         {
             "name": "twbs/bootstrap",
@@ -421,7 +540,7 @@
             "time": "2015-03-16 15:44:41"
         }
     ],
-    "packages-dev": null,
+    "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {

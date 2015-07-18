@@ -1,6 +1,6 @@
 <?php
 
-namespace Web;
+namespace Web; 
 
 require_once '../Settings.php';
 
@@ -21,7 +21,7 @@ class Apps extends BasePage
         $this->addJavascript( "Javascripts/Apps.js" );
         $this->addCss( "Styles/Apps.css" );
         
-        /* @var $result MPDOResult */ $result = ApplicationAction::getCount( $id, $name );
+        /* @var $result MPDOResult */ $result = ApplicationAction::getCount( null, null );
         $this->applicationCount = $result->getData( 0, 'AppCount' );
     }
 

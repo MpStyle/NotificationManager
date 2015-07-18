@@ -12,9 +12,10 @@ class Localization extends MObject
     const DE=4;
     const FR=5;
     const RU=6;
+    const DK=7;
     
     protected $id;
-    Protected $name;
+    protected $name;
     
     public function getId()
     {

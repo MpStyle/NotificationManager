@@ -6,6 +6,7 @@ require_once '../Settings.php';
 
 use BusinessLogic\Device\DeviceBook;
 use DbAbstraction\Device\DeviceAction;
+use MToolkit\Core\MDataType;
 use MToolkit\Model\Sql\MPDOResult;
 use Web\MasterPages\LoggedMasterPage;
 
@@ -27,11 +28,13 @@ class Devices extends BasePage
 
         $deviceId = null;
         $enabled = null;
-        $applicationId = $this->getApplicationId() == null ? $this->getApplicationId() : $this->getPost()->getValue( "application_id" );
+        $applicationId = $this->getApplicationId() == null ? $this->getApplicationId() : $this->getPost()->getValueByType( "application_id", MDataType::INT );
         $type = $this->getPost()->getValue( "type" ) == "" ? null : $this->getPost()->getValue( "type" );
         $text = $this->getPost()->getValue( "free_search" ) == "" ? null : $this->getPost()->getValue( "free_search" );
         $perPage = 10;
         $currentPage = $this->getCurrentPage();
+
+        $applicationId = $applicationId == null ? $applicationId : (int) $applicationId;
 
         /* @var $result MPDOResult */ $result = DeviceAction::getPageCount( $deviceId, $enabled, $applicationId, $type, $text, null, $perPage );
         $this->pages = $result->getData( 0, 'PageCount' );
@@ -44,13 +47,13 @@ class Devices extends BasePage
 
     protected function disableDevice()
     {
-        DeviceAction::update( (int) $this->getPost()->getValue( "DeviceId" ), 0 );
+        DeviceAction::update( (int) $this->getPost()->getValue( "DeviceId" ), (int) $this->getPost()->getValue( "ApplicationId" ), 0 );
         $this->getHttpResponse()->redirect( "Devices.php?error=03&applicationId=" . $this->getApplicationId() . "&page=" . $this->getCurrentPage() );
     }
 
     protected function enableDevice()
     {
-        DeviceAction::update( (int) $this->getPost()->getValue( "DeviceId" ), 1 );
+        DeviceAction::update( (int) $this->getPost()->getValue( "DeviceId" ), (int) $this->getPost()->getValue( "ApplicationId" ), 1 );
         $this->getHttpResponse()->redirect( "Devices.php?error=03&applicationId=" . $this->getApplicationId() . "&page=" . $this->getCurrentPage() );
     }
 

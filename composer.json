@@ -7,13 +7,20 @@
             "email": "pagnin.michele@gmail.com"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "/home/michelepagnin/Programmazione/PHP/MToolkit",
+            "package": {
+                "name": "mpstyle/mtoolkit"
+            }
+        }
+    ],
     "require": {
         "twbs/bootstrap": "v3.3.4",
         "mpstyle/mtoolkit": "dev-master",
         "moment/moment": "dev-master",
-        "eonasdan/bootstrap-datetimepicker": "4.7.14"
-    },
-    "require-dev": {
+        "eonasdan/bootstrap-datetimepicker": "4.7.14",
         "eternicode/bootstrap-datepicker": "1.4.x-dev"
     }
 }

@@ -52,6 +52,8 @@ class EditNotification extends BasePage
 
         MDbConnection::getDbConnection()->beginTransaction();
 
+        $localization = $this->getPost()->getValue( "localization_id" ) == "" ? null : (int) $this->getPost()->getValue( "localization_id" );
+
         // Sarà inserita una nuova notifica se non è stato passato un id o se la notifica è già stata inviata (per mantenere uno storico delle notifiche inviate).
         if( $this->getGet()->getValue( "id" ) == null || $this->getCurrentNotification()->getDeliveryStatusId() == DeliveryStatus::SENT )
         {
@@ -60,7 +62,7 @@ class EditNotification extends BasePage
                             $this->getPost()->getValue( "notification_title" )
                             , $this->getPost()->getValue( "notification_short_message" )
                             , $this->getPost()->getValue( "notification_message" )
-                            , (int)($isDraft ? NotificationStatus::DRAFT : NotificationStatus::APPROVED )
+                            , (int) ($isDraft ? NotificationStatus::DRAFT : NotificationStatus::APPROVED )
                             , $this->getPost()->getValue( "device_type" )
                             , $startDate
                             , $endDate
@@ -69,7 +71,7 @@ class EditNotification extends BasePage
                             , $this->getPost()->getValue( "link_type" ) == ApplicationLinkType::EXTERNAL ? $this->getPost()->getValue( "extenal_link" ) : null
                             , $this->getPost()->getValue( "link_type" ) == ApplicationLinkType::INTERNAL ? (int) $this->getPost()->getValue( "internal_link" ) : null
                             , null
-                            , $this->getPost()->getValue( "localization_id" ) == "" ? null : (int)$this->getPost()->getValue( "localization_id" )
+                            , $localization
             );
 
             $notificationId = $result->getData( 0, "NotificationId" );
@@ -82,7 +84,7 @@ class EditNotification extends BasePage
                             , $this->getPost()->getValue( "notification_title" )
                             , $this->getPost()->getValue( "notification_short_message" )
                             , $this->getPost()->getValue( "notification_message" )
-                            , (int)($isDraft ? NotificationStatus::DRAFT : NotificationStatus::APPROVED )
+                            , (int) ($isDraft ? NotificationStatus::DRAFT : NotificationStatus::APPROVED )
                             , $this->getPost()->getValue( "device_type" )
                             , $startDate
                             , $endDate
@@ -91,7 +93,7 @@ class EditNotification extends BasePage
                             , $this->getPost()->getValue( "link_type" ) == ApplicationLinkType::EXTERNAL ? $this->getPost()->getValue( "extenal_link" ) : null
                             , $this->getPost()->getValue( "link_type" ) == ApplicationLinkType::INTERNAL ? (int) $this->getPost()->getValue( "internal_link" ) : null
                             , null
-                            , $this->getPost()->getValue( "localization_id" ) == "" ? null : (int)$this->getPost()->getValue( "localization_id" )
+                            , $localization
             );
         }
 
@@ -99,21 +101,22 @@ class EditNotification extends BasePage
         {
             // Remove all recipients of the current notification     
             DeviceAction::deleteNotification( (int) $notificationId );
+            $deviceType = $this->getPost()->getValue( "device_type" ) == "" ? null : $this->getPost()->getValue( "device_type" );
 
             // Set the notification recipients
-            DeviceAction::setNotification( (int) $notificationId );
+            DeviceAction::setNotification( (int) $notificationId, $localization, $deviceType );
         }
-
-        MDbConnection::getDbConnection()->commit();
 
         if( $result != null )
         {
             // ok
+            MDbConnection::getDbConnection()->commit();
             $this->getHttpResponse()->redirect( "Notifications.php?error=0" );
         }
         else
         {
             // ko
+            MDbConnection::getDbConnection()->rollBack();
             $this->getHttpResponse()->redirect( "?error=1&id=" . $this->getGet()->getValue( "id" ) );
         }
     }

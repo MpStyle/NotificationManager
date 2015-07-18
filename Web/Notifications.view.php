@@ -84,7 +84,7 @@ use BusinessLogic\Notification\NotificationStatus;
             <tr>
                 <td>Application</td>
                 <td>Title</td>
-                <td class="hidden-xs hidden-sm">Short message/Message</td>
+                <td class="hidden-xs hidden-sm">Content</td>
                 <td class="hidden-xs">Device type</td>
                 <td class="hidden-xs hidden-sm">Status</td>
                 <td></td>
@@ -96,8 +96,8 @@ use BusinessLogic\Notification\NotificationStatus;
                     <td><?php echo $notification->getApplicationName() ?></td>
                     <td><?php echo $notification->getTitle() ?></td>
                     <td class="hidden-xs hidden-sm">
-                        <p><?php echo $notification->getShortMessage() ?></p>
-                        <p><?php echo $notification->getMessage() ?></p>
+                        <p><strong>Short message: </strong><?php echo $notification->getShortMessage() ?></p>
+                        <p><strong>Message: </strong><?php echo $notification->getMessage() ?></p>
                     </td>
                     <td class="hidden-xs"><?php echo $notification->getDeviceType() ?></td>
                     <td class="hidden-xs hidden-sm">
@@ -116,7 +116,7 @@ use BusinessLogic\Notification\NotificationStatus;
                                 Delete
                             </button>
 
-                            <input type="hidden" class="NotificationId" name="NotificationId" value="<?php echo $notification->getIconId() ?>" />
+                            <input type="hidden" class="NotificationId" name="NotificationId" value="<?php echo $notification->getId() ?>" />
                             <input type="hidden" class="NotificationTitle" name="NotificationTitle" value="<?php echo $notification->getTitle() ?>" />
                         </form>
                     </td>

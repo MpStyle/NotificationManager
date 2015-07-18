@@ -1,8 +1,15 @@
 @import "LoggedMasterPage";
 
-.MobileIdCell
+.DeviceFlag
 {
-    max-width: 100px;
+    vertical-align: middle;
+}
+
+.MobileId
+{
+    max-width: 120px;
     overflow: hidden;
     text-overflow: ellipsis;
+    display: inline-block;
+    margin-left: 10px;
 }

@@ -53,7 +53,7 @@ use BusinessLogic\Device\DeviceBook;
         <div class="form-group">
             <label class="col-sm-2 control-label">Free text:</label>
             <div class="col-sm-10">
-                <input type="text" name="free_search" class="form-control" value="<?php echo $this->getPost()->getValue( "free_search" ) ?>" placeholder="Mobile ID, brand, model, app name and version..." />
+                <input type="text" name="free_search" class="form-control" value="<?php echo $this->getPost()->getValue( "free_search" ) ?>" placeholder="Mobile ID, brand, model, OS name, OS version, or app name and version..." />
             </div>
         </div>
 
@@ -74,7 +74,9 @@ use BusinessLogic\Device\DeviceBook;
             <tr>
                 <td>
                     Mobile ID
-                    <small>(last login date)</small>
+                </td>
+                <td class="hidden-xs">
+                    Last login date
                 </td>
                 <td class="hidden-xs">OS</td>
                 <td class="hidden-xs hidden-sm">App info</td>
@@ -85,21 +87,21 @@ use BusinessLogic\Device\DeviceBook;
         <tbody>
             <?php foreach( $this->getDevices() as /* @var $device Device */ $device ): ?>
                 <tr class="<?php echo ($device->getEnabled()? : 'warning'); ?>">
-                    <td class="MobileIdCell">
-                        <div title="<?php echo $device->getMobileId() ?>"><?php echo $device->getMobileId() ?></div>
-                        <small>(<?php echo $device->getUpdateDate() ?>)</small>
+                    <td>
+                        <img class="DeviceFlag" src="Images/flags/<?php echo $device->getLocalizationName() ?>.png" />
+                        <div class="MobileId" title="<?php echo $device->getMobileId() ?>"><?php echo $device->getMobileId() ?></div>
                     </td>
                     <td class="hidden-xs">
-                        <?php echo $device->getType() ?> <br />
-                        <?php echo $device->getOsVersion() ?>
+                        <?php echo $device->getUpdateDate() ?>
+                    </td>
+                    <td class="hidden-xs">
+                        <?php echo $device->getType() ?> - <?php echo $device->getOsVersion() ?>
                     </td>
                     <td class="hidden-xs hidden-sm">
-                        <?php echo $device->getApplicationName() ?> <br />
-                        <?php echo $device->getApplicationVersion() ?>
+                        <?php echo $device->getApplicationName() ?> - <?php echo $device->getApplicationVersion() ?>
                     </td>
                     <td class="hidden-xs hidden-sm">
-                        <?php echo $device->getBrand() ?> <br />
-                        <?php echo $device->getModel() ?>
+                        <?php echo $device->getBrand() ?> - <?php echo $device->getModel() ?>
                     </td>
                     <td>
                         <form method="post">
@@ -112,6 +114,7 @@ use BusinessLogic\Device\DeviceBook;
 
                             <input type="hidden" class="MobileId" value="<?php echo $device->getMobileId() ?>" />
                             <input type="hidden" class="DeviceId" name="DeviceId" value="<?php echo $device->getId() ?>" />
+                            <input type="hidden" class="ApplicationId" name="ApplicationId" value="<?php echo $device->getApplicationId() ?>" />
                         </form>
                     </td>
                 </tr>
