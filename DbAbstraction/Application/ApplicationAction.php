@@ -2,10 +2,30 @@
 
 namespace DbAbstraction\Application;
 
+/*
+ * This file is part of MToolkit.
+ *
+ * MToolkit is free software: you can redistribute it and/or modify
+ * it under the terms of the LGNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * MToolkit is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * LGNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the LGNU Lesser General Public License
+ * along with MToolkit.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * @author  Michele Pagnin
+ */
+
 use MToolkit\Core\MDataType;
 use MToolkit\Model\Sql\MDbConnection;
-use MToolkit\Model\Sql\MPDOResult;
 use MToolkit\Model\Sql\MPDOQuery;
+use MToolkit\Model\Sql\MPDOResult;
+use PDO;
 
 class ApplicationAction
 {
@@ -28,7 +48,7 @@ class ApplicationAction
         MDataType::mustBeString( $secretId );
 
         $query = "CALL applicationInsert(?, ?, ?, ?, ?)";
-        /* @var $connection \PDO */
+        /* @var $connection PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
 
@@ -61,7 +81,7 @@ class ApplicationAction
         MDataType::mustBeString( $secretId );
 
         $query = "CALL applicationUpdate(?, ?, ?, ?, ?)";
-        /* @var $connection \PDO */
+        /* @var $connection PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
 
@@ -85,7 +105,7 @@ class ApplicationAction
         MDataType::mustBeInt( $id );
 
         $query = "CALL applicationDelete(?)";
-        /* @var $connection \PDO */
+        /* @var $connection PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
 
@@ -112,7 +132,7 @@ class ApplicationAction
         MDataType::mustBeInt( $page );
 
         $query = "CALL applicationGet(?, ?, ?, ?, ?)";
-        /* @var $connection \PDO */
+        /* @var $connection PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
 
@@ -133,7 +153,7 @@ class ApplicationAction
         MDataType::mustBeNullableString( $name );
 
         $query = "CALL applicationGetCount(?, ?)";
-        /* @var $connection \PDO */
+        /* @var $connection PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
 

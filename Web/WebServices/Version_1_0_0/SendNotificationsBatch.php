@@ -2,24 +2,48 @@
 
 namespace Web\WebServices\Version_1_0_0;
 
+/*
+ * This file is part of MToolkit.
+ *
+ * MToolkit is free software: you can redistribute it and/or modify
+ * it under the terms of the LGNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * MToolkit is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * LGNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the LGNU Lesser General Public License
+ * along with MToolkit.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * @author  Michele Pagnin
+ */
+
 require_once '../../../Settings.php';
 
-use BusinessLogic\Application\Application;
-use BusinessLogic\Application\ApplicationBook;
-use BusinessLogic\Device\Device;
-use BusinessLogic\Device\DeviceBook;
-use MToolkit\Model\Sql\MDbConnection;
+use BusinessLogic\Configuration\Configuration;
+use BusinessLogic\Configuration\ConfigurationBook;
 
 class SendNotificationsBatch extends AbstractWebService
 {
 
     public function exec()
     {
-        parent::setWebService( __CLASS__ );
+        parent::setWebServiceName( __CLASS__ );
 
         $username = $this->getPost()->getValue( "username" );
         $password = $this->getPost()->getValue( "password" );
-        $maxNotificationToSend = $this->getPost()->getValue( "maxNotificationToSend" );
+
+        if( $username != ConfigurationBook::getValue( Configuration::SCRIPT_USERNAME ) || $password != ConfigurationBook::getValue( Configuration::SCRIPT_PASSWORD ) )
+        {
+            parent::setResult( false );
+            parent::setResultDescription( "Invalid mandatory parameters (0)." );
+            return;
+        }
+        
+        set_time_limit( 0 );
 
         // Seleziona le notifiche: 
         // - Che sono state approvate

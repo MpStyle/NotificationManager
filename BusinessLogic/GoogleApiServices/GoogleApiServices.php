@@ -1,11 +1,34 @@
 <?php
 namespace BusinessLogic\GoogleApiServices;
 
+/*
+ * This file is part of MToolkit.
+ *
+ * MToolkit is free software: you can redistribute it and/or modify
+ * it under the terms of the LGNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * MToolkit is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * LGNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the LGNU Lesser General Public License
+ * along with MToolkit.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * @author  Michele Pagnin
+ */
+
+
 require_once __DIR__ . '/../../GoogleAPIClient/Google_Client.php';
 require_once __DIR__ . '/../../GoogleAPIClient/contrib/Google_PlusService.php';
 
 use BusinessLogic\Configuration\Configuration;
 use BusinessLogic\Configuration\ConfigurationBook;
+use Exception;
+use Google_Client;
+use Google_PlusService;
 
 class GoogleApiServices
 {
@@ -24,7 +47,7 @@ class GoogleApiServices
         $this->tokenType=$tokenType;
         $this->expiresIn=$expiresIn;
         
-        $this->googleClient = new \Google_Client();
+        $this->googleClient = new Google_Client();
         $this->googleClient->setClientId( ConfigurationBook::getValue( Configuration::GOOGLE_CLIENT_ID ) );
         $this->googleClient->setClientSecret( Configuration::GOOGLE_CLIENT_SECRET );
         $this->googleClient->setRedirectUri( Configuration::GOOGLE_REDIRECT_URL );
@@ -51,10 +74,10 @@ class GoogleApiServices
         {
             $this->googleClient->verifyIdToken( $this->tokenId );
             $this->googleClient->setAccessToken($as);
-            $plus = new \Google_PlusService( $this->googleClient );
+            $plus = new Google_PlusService( $this->googleClient );
             $me = $plus->people->get('me');
         }
-        catch( \Exception $ex )
+        catch( Exception $ex )
         {
 //            var_dump($ex);
             return null;
@@ -84,10 +107,10 @@ class GoogleApiServices
         {
             $this->googleClient->verifyIdToken( $this->tokenId );
             $this->googleClient->setAccessToken($as);
-            $plus = new \Google_PlusService( $this->googleClient );
+            $plus = new Google_PlusService( $this->googleClient );
             $me = $plus->people->get('me');
         }
-        catch( \Exception $ex )
+        catch( Exception $ex )
         {
 //            var_dump($ex);
             return false;

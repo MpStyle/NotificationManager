@@ -2,10 +2,30 @@
 
 namespace DbAbstraction\Device;
 
+/*
+ * This file is part of MToolkit.
+ *
+ * MToolkit is free software: you can redistribute it and/or modify
+ * it under the terms of the LGNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * MToolkit is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * LGNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the LGNU Lesser General Public License
+ * along with MToolkit.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * @author  Michele Pagnin
+ */
+
 use MToolkit\Core\MDataType;
 use MToolkit\Model\Sql\MDbConnection;
-use MToolkit\Model\Sql\MPDOResult;
 use MToolkit\Model\Sql\MPDOQuery;
+use MToolkit\Model\Sql\MPDOResult;
+use PDO;
 
 class DeviceAction
 {
@@ -15,7 +35,7 @@ class DeviceAction
         MDataType::mustBeInt( $notificationId );
 
         $query = "CALL deviceDeleteNotification(?)";
-        /* @var $connection \PDO */
+        /* @var $connection PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
 
@@ -31,7 +51,7 @@ class DeviceAction
         MDataType::mustBeInt( $notificationId );
 
         $query = "CALL deviceSetNotifications(?, ?, ?)";
-        /* @var $connection \PDO */
+        /* @var $connection PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
 
@@ -52,7 +72,7 @@ class DeviceAction
         MDataType::mustBeNullableInt( $deliveryStatusId );
 
         $query = "CALL deviceGetNotifications(?, ?, ?, ?)";
-        /* @var $connection \PDO */
+        /* @var $connection PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
 
@@ -73,7 +93,7 @@ class DeviceAction
         MDataType::mustBeBoolean( $enabled );
 
         $query = "CALL deviceSetApplication(?, ?, ?)";
-        /* @var $connection \PDO */
+        /* @var $connection PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
 
@@ -96,7 +116,7 @@ class DeviceAction
     , $localizationId )
     {
         $query = "CALL deviceInsert(?, ?, ?, ?, ?, ?, ?)";
-        /* @var $connection \PDO */
+        /* @var $connection PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
 
@@ -125,7 +145,7 @@ class DeviceAction
         MDataType::mustBeInt( $enabled );
 
         $query = "CALL deviceUpdate(?, ?, ?)";
-        /* @var $connection \PDO */
+        /* @var $connection PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
 
@@ -147,7 +167,7 @@ class DeviceAction
         MDataType::mustBeInt( $id );
 
         $query = "CALL deviceDelete(?)";
-        /* @var $connection \PDO */
+        /* @var $connection PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
 
@@ -161,7 +181,7 @@ class DeviceAction
     public static function getDeviceType()
     {
         $query = "CALL deviceTypeGet()";
-        /* @var $connection \PDO */
+        /* @var $connection PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
 
@@ -190,7 +210,7 @@ class DeviceAction
         MDataType::mustBeInt( $page );
 
         $query = "CALL deviceGet(?, ?, ?, ?, ?, ?, ?, ?)";
-        /* @var $connection \PDO */
+        /* @var $connection PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
 
@@ -221,7 +241,7 @@ class DeviceAction
         MDataType::mustBeNullableInt( $applicationId );
 
         $query = "CALL deviceGetPageCount(?, ?, ?, ?, ?, ?, ?)";
-        /* @var $connection \PDO */
+        /* @var $connection PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
 
@@ -251,7 +271,7 @@ class DeviceAction
         MDataType::mustBeNullableInt( $applicationId );
 
         $query = "CALL deviceGetCount(?, ?, ?, ?, ?, ?)";
-        /* @var $connection \PDO */
+        /* @var $connection PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
 
@@ -270,7 +290,7 @@ class DeviceAction
     public static function getType()
     {
         $query = "CALL deviceTypeGet()";
-        /* @var $connection \PDO */
+        /* @var $connection PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
 
