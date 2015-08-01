@@ -66,11 +66,11 @@ class Notifications extends BasePage
     {
         if( NotificationAction::delete( (int) $this->getPost()->getValue( "NotificationId" ) ) == null )
         {
-            $this->getHttpResponse()->redirect( "Notifications.php?error=01&applicationId=" . $this->getApplicationId() . "&page=" . $this->getPages() );
+            $this->getHttpResponse()->redirect( "Notifications.php?error=01&applicationId=" . $this->getApplicationId() . "&page=" . $this->getCurrentPage() );
         }
         else
         {
-            $this->getHttpResponse()->redirect( "Notifications.php?error=02&applicationId=" . $this->getApplicationId() . "&page=" . $this->getPages() );
+            $this->getHttpResponse()->redirect( "Notifications.php?error=02&applicationId=" . $this->getApplicationId() . "&page=" . $this->getCurrentPage() );
         }
     }
 
