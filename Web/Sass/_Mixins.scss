@@ -17,7 +17,7 @@
  * @author  Michele Pagnin
  */
 
-@mixin user-select($value)
+@mixin user-select($value) 
 {
     -webkit-touch-callout: $value;
     -webkit-user-select: $value;

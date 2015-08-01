@@ -7,15 +7,6 @@
             "email": "pagnin.michele@gmail.com"
         }
     ],
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "/home/michelepagnin/Programmazione/PHP/MToolkit",
-            "package": {
-                "name": "mpstyle/mtoolkit"
-            }
-        }
-    ],
     "require": {
         "twbs/bootstrap": "v3.3.4",
         "mpstyle/mtoolkit": "dev-master",
