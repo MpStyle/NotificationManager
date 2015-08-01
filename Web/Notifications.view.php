@@ -57,6 +57,7 @@ use BusinessLogic\Notification\NotificationStatus;
                     <option></option>
                     <option value="<?php echo NotificationStatus::DRAFT ?>" <?php echo ($this->getPost()->getValue( "status" ) == NotificationStatus::DRAFT ? "selected" : "") ?>>Draft</option>
                     <option value="<?php echo NotificationStatus::APPROVED ?>" <?php echo ($this->getPost()->getValue( "status" ) == NotificationStatus::APPROVED ? "selected" : "") ?>>Approved</option>
+                    <option value="<?php echo NotificationStatus::CLOSED ?>" <?php echo ($this->getPost()->getValue( "status" ) == NotificationStatus::CLOSED ? "selected" : "") ?>>Closed</option>
                 </select>
             </div>
         </div>
@@ -87,26 +88,36 @@ use BusinessLogic\Notification\NotificationStatus;
                 <td class="hidden-xs hidden-sm">Content</td>
                 <td class="hidden-xs">Device type</td>
                 <td class="hidden-xs hidden-sm">Status</td>
+                <td class="hidden-xs hidden-sm">Reached devices</td>
+                <td class="hidden-xs hidden-sm">Last update</td>
                 <td></td>
             </tr>
         </thead>
         <tbody>
             <?php foreach( $this->getNotifications() as /* @var $notification Notification */ $notification ): ?>
-                <tr class="<?php echo ($notification->getStatusId() == NotificationStatus::DRAFT ? 'warning' : ''); ?>">
+                <tr class="<?php echo $this->getRowClass( (int)$notification->getId() ) ?>">
                     <td><?php echo $notification->getApplicationName() ?></td>
                     <td><?php echo $notification->getTitle() ?></td>
                     <td class="hidden-xs hidden-sm">
                         <p><strong>Short message: </strong><?php echo $notification->getShortMessage() ?></p>
                         <p><strong>Message: </strong><?php echo $notification->getMessage() ?></p>
                     </td>
-                    <td class="hidden-xs"><?php echo $notification->getDeviceType() ?></td>
+                    <td class="hidden-xs"><?php echo $notification->getDeviceType() == '' ? 'All' : $notification->getDeviceType() ?></td>
                     <td class="hidden-xs hidden-sm">
-                        <?php echo ($notification->getStatusId() == NotificationStatus::APPROVED ? "Approved" : "Draft") ?>
+                        <?php if( $notification->getStatusId() == NotificationStatus::APPROVED ): ?>
+                            Approved
+                        <?php elseif( $notification->getStatusId() == NotificationStatus::CLOSED ): ?>
+                            Closed
+                        <?php else: ?>
+                            Draft
+                        <?php endif; ?>
                     </td>
+                    <td><?php echo $notification->getReachedDevices() ?></td>
+                    <td><?php echo $notification->getUpdateDate() ?></td>
                     <td>
                         <form method="post">
                             <a href="EditNotification.php?id=<?php echo $notification->getId() ?>" class="btn btn-default">
-                                Edit
+                                <?php echo ($notification->getStatusId() == NotificationStatus::CLOSED ? "Show" : "Edit"); ?>
                             </a>
                             <button id="DeleteNotificationButton" 
                                     type="button" 

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2fc8715243cfb173a5739b71d1e0eddd",
+    "hash": "cce368b48fda2c18272ef5460eb3b278",
     "packages": [
         {
             "name": "components/bootstrap",
@@ -351,7 +351,7 @@
             "source": {
                 "type": "git",
                 "url": "/home/michelepagnin/Programmazione/PHP/MToolkit",
-                "reference": "d434bddab327d7d20c11d0e38106172188060e5c"
+                "reference": "76f93abdc0269aeeb1fb4e46bbca7f0b3a7ac8cc"
             },
             "require": {
                 "php": ">=5.3.0"
@@ -389,7 +389,7 @@
             "support": {
                 "email": "pagnin.michele@gmail.com"
             },
-            "time": "2015-07-18 12:55:41"
+            "time": "2015-07-25 08:25:54"
         },
         {
             "name": "robloach/component-installer",
@@ -538,6 +538,59 @@
                 "web"
             ],
             "time": "2015-03-16 15:44:41"
+        },
+        {
+            "name": "twbs/bootstrap-sass",
+            "version": "v3.3.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twbs/bootstrap-sass.git",
+                "reference": "d64d48fd23c9624cc5c996e6516b7dc33fde5919"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twbs/bootstrap-sass/zipball/d64d48fd23c9624cc5c996e6516b7dc33fde5919",
+                "reference": "d64d48fd23c9624cc5c996e6516b7dc33fde5919",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.3.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mark Otto"
+                },
+                {
+                    "name": "Thomas McDonald"
+                },
+                {
+                    "name": "Tristan Harward"
+                },
+                {
+                    "name": "Peter Gumeson"
+                },
+                {
+                    "name": "Gleb Mazovetskiy"
+                },
+                {
+                    "name": "Jacob Thornton"
+                }
+            ],
+            "description": "bootstrap-sass is a Sass-powered version of Bootstrap, ready to drop right into your Sass powered applications.",
+            "homepage": "http://github.com/twbs/bootstrap-sass",
+            "keywords": [
+                "bootstrap",
+                "css",
+                "sass"
+            ],
+            "time": "2015-06-16 16:29:50"
         }
     ],
     "packages-dev": [],

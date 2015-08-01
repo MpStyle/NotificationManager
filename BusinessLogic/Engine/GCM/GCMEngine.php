@@ -1,6 +1,6 @@
 <?php
 
-namespace BusinessLogic\Module\Android;
+namespace BusinessLogic\Engine\GCM;
 
 /*
  * This file is part of MToolkit.
@@ -21,10 +21,11 @@ namespace BusinessLogic\Module\Android;
  * @author  Michele Pagnin
  */
 
-
 use BusinessLogic\Engine\AbstractEngine;
-use BusinessLogic\Module\Android\Notification;
+use BusinessLogic\Engine\ResponseEngine;
+use BusinessLogic\Notification\Notification;
 use MToolkit\Core\MDataType;
+use MToolkit\Core\MObject;
 
 /**
  * Può mandare notifiche fino a 1000 destinatari al colpo.
@@ -41,9 +42,9 @@ class GCMEngine extends AbstractEngine
 
     /**
      * @param string $accessKey
-     * @param \MToolkit\Core\MObject $parent
+     * @param MObject $parent
      */
-    public function __construct( $accessKey, \MToolkit\Core\MObject $parent = null )
+    public function __construct( $accessKey, MObject $parent = null )
     {
         MDataType::mustBeString( $accessKey );
 
@@ -56,10 +57,16 @@ class GCMEngine extends AbstractEngine
     {
         $countReceivers = $this->getReceivers()->count();
 
+        if( $countReceivers <= 0 )
+        {
+            parent::setResponse( new ResponseEngine() );
+            return;
+        }
+
         $msg = array(
             'message' => $this->getNotification()->getMessage(),
             'title' => $this->getNotification()->getTitle(),
-            'subtitle' => $this->getNotification()->getSubTitle()
+            'subtitle' => $this->getNotification()->getShortMessage()
         );
 
         $headers = array(
@@ -94,7 +101,15 @@ class GCMEngine extends AbstractEngine
             $result = curl_exec( $ch );
             curl_close( $ch );
 
-            $this->setResponse( $result );
+            $json = json_decode( $result, true );
+            
+            $response=new ResponseEngine();
+            $response->setNotificationCount(parent::getReceivers())
+                    ->setNotificationNotSentCount($json['failure'])
+                    ->setNotificationSentCount($json['success'])
+                    ->setRemoteId($json['multicast_id']);
+
+            $this->setResponse( $response );
         }
     }
 

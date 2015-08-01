@@ -25,72 +25,117 @@ require_once '../../../Settings.php';
 
 use BusinessLogic\Configuration\Configuration;
 use BusinessLogic\Configuration\ConfigurationBook;
+use BusinessLogic\Engine\GCM\GCMEngine;
+use BusinessLogic\Notification\Notification;
+use BusinessLogic\Process\ProcessBook;
+use MToolkit\Model\Sql\MDbConnection;
+use MToolkit\Model\Sql\MPDOQuery;
+use MToolkit\Model\Sql\MPDOResult;
+use PDO;
 
 class SendNotificationsBatch extends AbstractWebService
 {
+    private $applicationClientId = null;
+    private $username = null;
+    private $password = null;
+    private $processId = null;
+
+    public function init()
+    {
+        parent::init();
+
+        $this->username = $this->getGet()->getValue( "username" );
+        $this->password = $this->getGet()->getValue( "password" );
+        $this->applicationClientId = $this->getPost()->getValue( "applicationClientId" );
+        $this->processId = ProcessBook::getNewProcessId();
+    }
 
     public function exec()
     {
         parent::setWebServiceName( __CLASS__ );
 
-        $username = $this->getPost()->getValue( "username" );
-        $password = $this->getPost()->getValue( "password" );
-
-        if( $username != ConfigurationBook::getValue( Configuration::SCRIPT_USERNAME ) || $password != ConfigurationBook::getValue( Configuration::SCRIPT_PASSWORD ) )
+        if( $this->username != ConfigurationBook::getValue( Configuration::SCRIPT_USERNAME ) || $this->password != ConfigurationBook::getValue( Configuration::SCRIPT_PASSWORD ) )
         {
             parent::setResult( false );
             parent::setResultDescription( "Invalid mandatory parameters (0)." );
             return;
         }
-        
+
         set_time_limit( 0 );
 
-        // Seleziona le notifiche: 
-        // - Che sono state approvate
-        // - Che non sono state inviate
-        // - Che hanno una data valida
-        // SET @position := 0;
-        //
-        // CREATE TEMPORARY TABLE IF NOT EXISTS NotificationsToSend AS (
-        // 		SELECT NotificationId, DeviceId
-        // 		FROM (
-        // 			SELECT (@position := @position + 1) AS Position
-        //				, Notifications.Id AS NotificationId
-        // 				, Devices.Id AS DeviceId
-        // 			FROM Notifications
-        // 				INNER JOIN Devices_Notifications ON Notifications.Id = Devices_Notifications.NotificationId
-        // 				INNER JOIN Devices ON Devices.Id = Devices_Notifications.DeviceId
-        // 			WHERE Notifications.StatusId = 1 -- PUBLISHED
-        // 				AND Notifications.StartDateValidation >= ? -- NOW()
-        // 				AND Notifications.EndDateValidation <= ? -- NOW()
-        // 				AND Devices_Notifications.DeliveryStatusId = 1 -- NOT_SEND
-        // 				AND Devices_Notifications.AttemptsToSend < ? -- Nella configuration ATTEMPTS_TO_SEND = 3
-        // 				AND Devices.Enabled = 1
-        // 		) AS PositionResult
-        // 		WHERE PositionResult.Position >= 0 AND PositionResult.Position <= ? -- $maxNotificationToSend
-        // );
-        //
-        // UPDATE FROM NotificationsToSend
-        // 		INNER JOIN Devices_Notifications ON NotificationsToSend.NotificationId = Devices_Notifications.NotificationId 
-        // 			AND NotificationsToSend.DeviceId = Devices_Notifications.DeviceId
-        // SET Devices_Notifications.DeliveryStatusId = 2; -- SENDING
-        // 
-        // SELECT NotificationId, AS DeviceId FROM NotificationsToSend;
-        // foreach( $notifications as /* @var $notification Notification */ $notification )
-        // {
-        // 		switch( DeviceType )
-        // 		{
-        // 			case DeviceType:ANDROID:
-        //			case DeviceType:IOS:
-        //				NotificationBook::sendNotificationUsingGCM($notificationId, $deviceId);
-        //			break;
-        //			case DeviceType:WINDOWS_PHONE:
-        //				NotificationBook::sendNotificationUsingMPNS($notificationId, $deviceId);
-        //			break;
-        // 		}
-        // }
-        // Dovrà essere aggiornato lo stato di delivery a SENT nel caso in cui la notifica sia stata inviata
-        // Altrimenti aumentare di uno il tentativo di invio (introdurre la gestione in Devices_Notifications).
+        // Mark the notifications to send
+        $this->markNotificationToSend();
+
+        // Send the notification of this process
+        $this->sendNotification();
+    }
+
+    private function markNotificationToSend()
+    {
+        $query = "CALL processMarkNotificationsToSend(?, ?)";
+        /* @var $connection PDO */
+        $connection = MDbConnection::getDbConnection();
+        $sql = new MPDOQuery( $query, $connection );
+        $sql->bindValue( $this->processId );
+        $sql->bindValue( $this->applicationClientId );
+        $sql->exec();
+    }
+
+    private function sendNotification()
+    {
+        $query = "CALL processGetNotifications(?)";
+        /* @var $connection PDO */
+        $connection = MDbConnection::getDbConnection();
+        $sql = new MPDOQuery( $query, $connection );
+        $sql->bindValue( $this->processId );
+        $sql->exec();
+        /* @var $result MPDOResult */ $result = $sql->getResult();
+
+        foreach( $result as $row )
+        {
+            $startRequest = new \DateTime();
+
+            $notification = new Notification();
+            $notification->setTitle( $row['Title'] );
+            $notification->setShortMessage( $row['ShortMessage'] );
+            $notification->setMessage( $row['Message'] );
+
+            $engine = new GCMEngine( ConfigurationBook::getValue( Configuration::GOOGLE_NOTIFICATION_ACCESS_KEY ), $this );
+            $engine->setNotification( $notification );
+            $engine->getReceivers()->appendArray( explode( ',', $row['Receivers'] ) );
+            $engine->send();
+
+            $this->markAsSent( $row['Id'] );
+
+            $response = $engine->getResponse();
+            $endRequest = new \DateTime();
+
+            $query = "CALL processInsertLog(?, ?, ?, ?, ?)";
+            /* @var $connection PDO */
+            $connection = MDbConnection::getDbConnection();
+            $sql = new MPDOQuery( $query, $connection );
+            $sql->bindValue( json_encode( $response ) );
+            $sql->bindValue( $startRequest->format( "Y-m-d H:i:s" ) );
+            $sql->bindValue( $endRequest->format( "Y-m-d H:i:s" ) );
+            $sql->bindValue( $this->processId );
+            $sql->bindValue( $row['Id'] );
+            $sql->exec();
+
+            parent::setResponse( "ResultDescription", (array) $engine->getResponse() );
+        }
+    }
+
+    private function markAsSent( $notifciationId )
+    {
+        $query = "CALL processMarkAsSent(?,?)";
+        /* @var $connection PDO */
+        $connection = MDbConnection::getDbConnection();
+        $sql = new MPDOQuery( $query, $connection );
+        $sql->bindValue( $this->processId );
+        $sql->bindValue( $notifciationId );
+        $sql->exec();
+        
+        
     }
 
 }

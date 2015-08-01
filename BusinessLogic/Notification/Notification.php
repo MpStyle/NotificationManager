@@ -74,6 +74,7 @@ class Notification extends MObject
     
     protected $deliveryStatus=null;
     protected $deliveryStatusId=null;
+    protected $reachedDevices=null;
 
     public function getId()
     {
@@ -308,6 +309,17 @@ class Notification extends MObject
     public function setInternalLinkId( $internalLinkId )
     {
         $this->internalLinkId = $internalLinkId;
+        return $this;
+    }
+    
+    public function getReachedDevices()
+    {
+        return $this->reachedDevices;
+    }
+
+    public function setReachedDevices( $reachedDevices )
+    {
+        $this->reachedDevices = $reachedDevices;
         return $this;
     }
 }

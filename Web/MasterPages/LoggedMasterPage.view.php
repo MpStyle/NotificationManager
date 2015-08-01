@@ -46,7 +46,7 @@ use BusinessLogic\Enum\Post;
                 <div id="UserInfo">                    
                     <div id="user_name"><?php echo $this->getUserName() ?></div>
                     <form action="" method="post" style="display: inline-block">
-                        <button type="submit" value="logout" name="logout_button" id="logout_button" class="btn btn-info">Logout</button>
+                        <button type="submit" value="logout" name="logout_button" id="logout_button" class="btn btn-default">Logout</button>
                     </form>
                 </div>
 

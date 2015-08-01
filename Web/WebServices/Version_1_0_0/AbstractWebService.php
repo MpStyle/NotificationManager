@@ -52,8 +52,8 @@ abstract class AbstractWebService extends MAbstractHttpHandler
             $responseArray[$this->responseKey] = $this->responseValue;
         }
 
-        $this->setOutput( base64_encode( json_encode( $responseArray ) ) );
-//        $this->setOutput( json_encode( $responseArray ) );
+//        $this->setOutput( base64_encode( json_encode( $responseArray ) ) );
+        $this->setOutput( json_encode( $responseArray ) );
     }
 
     public function setResponse( $key, array $value )

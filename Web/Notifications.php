@@ -23,7 +23,9 @@ namespace Web;
 
 require_once '../Settings.php';
 
+use BusinessLogic\Notification\DeliveryStatus;
 use BusinessLogic\Notification\NotificationBook;
+use BusinessLogic\Notification\NotificationStatus;
 use DbAbstraction\Notification\NotificationAction;
 use MToolkit\Model\Sql\MPDOResult;
 use Web\MasterPages\LoggedMasterPage;
@@ -31,7 +33,7 @@ use Web\MasterPages\LoggedMasterPage;
 class Notifications extends BasePage
 {
     private $notifications = null;
-    private $notificationCount=0;
+    private $notificationCount = 0;
     private $pages = 1;
 
     public function __construct()
@@ -46,15 +48,15 @@ class Notifications extends BasePage
 
         $notificationId = null;
         $applicationId = $this->getApplicationId();
-        $status = $this->getPost()->getValue( "status" ) == "" ? null : $this->getPost()->getValue( "status" );
+        $status = $this->getPost()->getValue( "status" ) == "" ? null : (int) $this->getPost()->getValue( "status" );
         $deviceType = $this->getPost()->getValue( "type" ) == "" ? null : $this->getPost()->getValue( "type" );
         $perPage = 10;
         $currentPage = $this->getCurrentPage();
 
         /* @var $result MPDOResult */ $result = NotificationAction::getPageCount( $notificationId, $applicationId, $status, $deviceType, $perPage );
         $this->pages = $result->getData( 0, 'PageCount' );
-        
-        $result = NotificationAction::getCount($notificationId, $applicationId, $status, $deviceType);
+
+        $result = NotificationAction::getCount( $notificationId, $applicationId, $status, $deviceType );
         $this->notificationCount = $result->getData( 0, 'NotificationCount' );
 
         $this->notifications = NotificationBook::getNotifications( $notificationId, $applicationId, $status, $deviceType, $perPage, $currentPage );
@@ -101,4 +103,20 @@ class Notifications extends BasePage
     {
         return $this->notificationCount;
     }
+
+    public function getRowClass( $notificationId )
+    {
+        if( $this->getCurrentNotification( $notificationId )->getStatusId() == NotificationStatus::DRAFT )
+        {
+            return 'warning';
+        }
+
+        if( $this->getCurrentNotification( $notificationId )->getStatusId() == NotificationStatus::CLOSED )
+        {
+            return 'success';
+        }
+
+        return '';
+    }
+
 }

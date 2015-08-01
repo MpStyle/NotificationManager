@@ -8,7 +8,7 @@ use BusinessLogic\Application\ApplicationLinkType;
 use BusinessLogic\ApplicationInternalLink\ApplicationInternalLinkBook;
 use BusinessLogic\Date\DateBook;
 use BusinessLogic\Localization\Localization;
-use BusinessLogic\Notification\DeliveryStatus;
+use BusinessLogic\Notification\NotificationStatus;
 use DbAbstraction\Device\DeviceAction;
 
 /* @var $this EditNotification */
@@ -25,7 +25,11 @@ use DbAbstraction\Device\DeviceAction;
         <?php if( $this->getGet()->getValue( "id" ) == null ): ?>
             Create notification
         <?php else: ?>
-            Edit notification
+            <?php if( $this->getCurrentNotification()->getStatusId() == NotificationStatus::CLOSED ): ?>
+                Show notification
+            <?php else: ?>
+                Edit notification
+            <?php endif; ?>
         <?php endif; ?>
     </h2>
 
@@ -139,18 +143,16 @@ use DbAbstraction\Device\DeviceAction;
                     type="submit" 
                     name="action" 
                     value="confirmEdit" 
-                    class="btn btn-primary"
-                    <?php echo ($this->getCurrentNotification()->getDeliveryStatus() == DeliveryStatus::SENDING ? "disabled" : ""); ?>>
-                    Save
+                    class="btn btn-primary">
+                    <?php echo ($this->getCurrentNotification()->getStatusId() == NotificationStatus::CLOSED ? "Save a copy" : "Save"); ?>
                 </button>
 
                 <button 
                     type="submit" 
                     name="action" 
                     value="saveDraft" 
-                    class="btn btn-default"
-                    <?php echo ($this->getCurrentNotification()->getDeliveryStatus() == DeliveryStatus::SENDING ? "disabled" : ""); ?>>
-                    Save draft
+                    class="btn btn-default">
+                    <?php echo ($this->getCurrentNotification()->getStatusId() == NotificationStatus::CLOSED ? "Save a copy draft" : "Save a draft"); ?>
                 </button>
 
                 <a href="Notifications.php" class="btn btn-default">Cancel</a>

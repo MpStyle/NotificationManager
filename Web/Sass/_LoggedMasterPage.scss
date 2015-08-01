@@ -18,6 +18,7 @@
  */
 
 @import "Common";
+@import "../../vendor/twbs/bootstrap-sass/assets/stylesheets/bootstrap/variables";
 
 /* TAGS */
 
@@ -75,13 +76,11 @@ body
     clear: both;
 }
 
-.EntityListContainer
+.EntityList
 {
-    clear: both;
-    
-    .EntityList
+    .btn
     {
-        margin-top: 20px;
+        min-width: 65px;
     }
 }
 
@@ -103,7 +102,7 @@ body
     height: 50px;
     margin: 0px;
     padding: 0px;
-    
+
     a
     {
         text-decoration: none;

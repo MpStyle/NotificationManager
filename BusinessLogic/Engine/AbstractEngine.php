@@ -21,10 +21,9 @@ namespace BusinessLogic\Engine;
  * @author  Michele Pagnin
  */
 
-
+use BusinessLogic\Notification\Notification;
 use MToolkit\Core\MList;
 use MToolkit\Core\MObject;
-use MToolkit\Core\MDataType;
 
 abstract class AbstractEngine extends MObject
 {
@@ -39,7 +38,7 @@ abstract class AbstractEngine extends MObject
     private $notification = null;
 
     /**
-     * @var string
+     * @var AbstractResponseEngine
      */
     private $response = null;
 
@@ -65,9 +64,7 @@ abstract class AbstractEngine extends MObject
     }
 
     /**
-     * Returns the notification to send.
-     * 
-     * @return AbstractNotification
+     * @return Notification
      */
     public function getNotification()
     {
@@ -75,12 +72,10 @@ abstract class AbstractEngine extends MObject
     }
 
     /**
-     * Sets the notification to send.
-     * 
-     * @param \BusinessLogic\Sender\AbstractNotification $notification
-     * @return \BusinessLogic\Sender\AbstractSender
+     * @param Notification $notification
+     * @return \BusinessLogic\Engine\AbstractEngine
      */
-    public function setNotification( AbstractNotification $notification )
+    public function setNotification( Notification $notification )
     {
         $this->notification = $notification;
 
@@ -95,7 +90,7 @@ abstract class AbstractEngine extends MObject
     public abstract static function getEngineName();
 
     /**
-     * @return string
+     * @return ResponseEngine
      */
     public function getResponse()
     {
@@ -103,13 +98,11 @@ abstract class AbstractEngine extends MObject
     }
 
     /**
-     * @param string $response
-     * @return \BusinessLogic\Engine\AbstractEngine
+     * @param ResponseEngine $response
+     * @return AbstractEngine
      */
-    protected function setResponse( $response )
+    protected function setResponse( ResponseEngine $response )
     {
-        MDataType::mustBeString( $response );
-
         $this->response = $response;
         return $this;
     }

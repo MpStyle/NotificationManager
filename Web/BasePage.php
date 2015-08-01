@@ -58,7 +58,7 @@ class BasePage extends MAbstractPageController
      * @param int $id
      * @return Application
      */
-    public function getCurrentApp($id)
+    public function getCurrentApp( $id )
     {
         if( $this->currentApp == null )
         {
@@ -82,22 +82,18 @@ class BasePage extends MAbstractPageController
      * @param int $id
      * @return Notification
      */
-    public function getCurrentNotification($id)
+    public function getCurrentNotification( $id )
     {
-        if( $this->currentNotification == null )
+        $notifications = NotificationBook::getNotifications( $id );
+
+        if( $notifications->count() <= 0 )
         {
-            $notifications = NotificationBook::getNotifications($id);
-
-            if( $notifications->count() <= 0 )
-            {
-                $this->currentNotification = new Notification( $this );
-            }
-            else
-            {
-                $this->currentNotification = $notifications->at( 0 );
-            }
+            $this->currentNotification = new Notification( $this );
         }
-
+        else
+        {
+            $this->currentNotification = $notifications->at( 0 );
+        }
         return $this->currentNotification;
     }
 

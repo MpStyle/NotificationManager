@@ -31,6 +31,7 @@ class Application extends MObject
     protected $windowsPhoneKey;
     protected $clientId;
     protected $secretId;
+    protected $updateDate;
 
     public function getId()
     {
@@ -95,6 +96,17 @@ class Application extends MObject
     public function setSecretId( $secretId )
     {
         $this->secretId = $secretId;
+        return $this;
+    }
+
+    public function getUpdateDate()
+    {
+        return $this->updateDate;
+    }
+
+    public function setUpdateDate( $updateDate )
+    {
+        $this->updateDate = $updateDate;
         return $this;
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace BusinessLogic\Module\WindowsMobile;
+namespace BusinessLogic\Engine\WindowsMobile;
 
 /*
  * This file is part of MToolkit.

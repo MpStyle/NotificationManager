@@ -73,8 +73,10 @@ class EditNotification extends BasePage
 
         $localization = $this->getPost()->getValue( "localization_id" ) == "" ? null : (int) $this->getPost()->getValue( "localization_id" );
 
-        // Sarà inserita una nuova notifica se non è stato passato un id o se la notifica è già stata inviata (per mantenere uno storico delle notifiche inviate).
-        if( $this->getGet()->getValue( "id" ) == null || $this->getCurrentNotification()->getDeliveryStatusId() == DeliveryStatus::SENT )
+        $notificationStatusId=$this->getCurrentNotification()->getStatusId();
+        
+        // Sarà inserita una nuova notifica se non è stato passato un id o se la notifica è stata chiusa
+        if( $this->getGet()->getValue( "id" ) == null || $notificationStatusId == NotificationStatus::CLOSED )
         {
             // Create Notification
             $result = NotificationAction::insert(
@@ -82,7 +84,7 @@ class EditNotification extends BasePage
                             , $this->getPost()->getValue( "notification_short_message" )
                             , $this->getPost()->getValue( "notification_message" )
                             , (int) ($isDraft ? NotificationStatus::DRAFT : NotificationStatus::APPROVED )
-                            , $this->getPost()->getValue( "device_type" )
+                            , $this->getPost()->getValue( "device_type" ) == "" ? null : $this->getPost()->getValue( "device_type" )
                             , $startDate
                             , $endDate
                             , (int) $this->getPost()->getValue( "application_id" )
@@ -96,7 +98,7 @@ class EditNotification extends BasePage
             $notificationId = $result->getData( 0, "NotificationId" );
         }
         else
-        {
+        {            
             // Edit Notification
             $result = NotificationAction::update(
                             (int) $this->getCurrentNotification()->getId()
@@ -104,7 +106,7 @@ class EditNotification extends BasePage
                             , $this->getPost()->getValue( "notification_short_message" )
                             , $this->getPost()->getValue( "notification_message" )
                             , (int) ($isDraft ? NotificationStatus::DRAFT : NotificationStatus::APPROVED )
-                            , $this->getPost()->getValue( "device_type" )
+                            , $this->getPost()->getValue( "device_type" ) == "" ? null : $this->getPost()->getValue( "device_type" )
                             , $startDate
                             , $endDate
                             , (int) $this->getPost()->getValue( "application_id" )

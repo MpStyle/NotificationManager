@@ -26,6 +26,7 @@ final class NotificationStatus
 {
     const DRAFT = 1;
     const APPROVED = 2;
+    const CLOSED = 3;
     
     protected $id;
     Protected $name;
