@@ -19,6 +19,8 @@ namespace Web\MasterPages;
         <script src="../../vendor/mpstyle/mtoolkit/View/Javascripts/MQueryString.min.js"></script>
         
         <title><?php echo \Settings::APP_NAME ?> - <?php echo \Settings::APP_VERSION ?></title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     </head>
     <body>
         <div id="content">

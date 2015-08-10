@@ -12,10 +12,18 @@ use BusinessLogic\Localization\LocalizationBook;
     <h2>Web services <small>version: 1.0.0</small></h2>
 
     <h3>Mobile registration</h3>
+    
     <form method="post" action="WebServicesV100Response.php" class="form-horizontal">
         <input type="hidden" name="methodUrl" value="Version_1_0_0/MobileRegistration.php" />
         <input type="hidden" name="methodName" value="Mobile registration" />
 
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Url:</label>
+            <div class="col-sm-10">
+                <input type="text" value="http://148.251.189.84:8087/Web/WebServices/Version_1_0_0/MobileRegistration.php" class="form-control" value="" readonly />
+            </div>
+        </div>
+        
         <div class="form-group">
             <label class="col-sm-2 control-label">requestId:</label>
             <div class="col-sm-10">
@@ -97,9 +105,17 @@ use BusinessLogic\Localization\LocalizationBook;
     </form>
 
     <h3>Mobile unregistration</h3>
+    
     <form method="post" action="WebServicesV100Response.php" class="form-horizontal">
         <input type="hidden" name="methodUrl" value="Version_1_0_0/MobileUnregistration.php" />
         <input type="hidden" name="methodName" value="Mobile unregistration" />
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Url:</label>
+            <div class="col-sm-10">
+                <input type="text" value="http://148.251.189.84:8087/Web/WebServices/Version_1_0_0/MobileUnregistration.php" class="form-control" value="" readonly />
+            </div>
+        </div>
 
         <div class="form-group">
             <label class="col-sm-2 control-label" required>requestId:</label>
@@ -142,9 +158,17 @@ use BusinessLogic\Localization\LocalizationBook;
     </form>
 
     <h3>Get notifications</h3>
+    
     <form method="post" action="WebServicesV100Response.php" class="form-horizontal">
         <input type="hidden" name="methodUrl" value="Version_1_0_0/GetNotifications.php" />
         <input type="hidden" name="methodName" value="Get notifications" />
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Url:</label>
+            <div class="col-sm-10">
+                <input type="text" value="http://148.251.189.84:8087/Web/WebServices/Version_1_0_0/GetNotifications.php" class="form-control" value="" readonly />
+            </div>
+        </div>
 
         <div class="form-group">
             <label class="col-sm-2 control-label">requestId:</label>

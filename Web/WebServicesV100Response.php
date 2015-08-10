@@ -34,7 +34,7 @@ class WebServicesV100Response extends BasePage
      * @var MMap
      */
     private $parameters;
-    
+    private $url;
     private $response;
 
     public function __construct()
@@ -53,7 +53,7 @@ class WebServicesV100Response extends BasePage
         $this->parameters->remove("methodName");
         
         // do the call
-        $url = ConfigurationBook::getValue( Configuration::BACKEND_BASE_URL ) . "/Web/WebServices/" . $this->getPost()->getValue( "methodUrl" );
+        $this->url = ConfigurationBook::getValue( Configuration::BACKEND_BASE_URL ) . "/Web/WebServices/" . $this->getPost()->getValue( "methodUrl" );
         $data = $this->parameters->__toArray();
 
         $options = array(
@@ -65,7 +65,7 @@ class WebServicesV100Response extends BasePage
         );
         
         $context = stream_context_create( $options );
-        $response = file_get_contents( $url, false, $context );
+        $response = file_get_contents( $this->url, false, $context );
 
         $this->response = $response;
     }
@@ -93,4 +93,11 @@ class WebServicesV100Response extends BasePage
     {
         return base64_decode($this->getResponse());
     }
+    
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+
 }

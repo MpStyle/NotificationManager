@@ -12,6 +12,9 @@ use BusinessLogic\Json\JsonBook;
 
     <h3><?php echo $this->getPost()->getValue( "methodName" ) ?></h3>
     
+    <h3>URL</h3>
+    <div><?php echo $this->getUrl() ?></div>
+    
     <h3>Raw Request</h3>
     <div id="Request">
         <textarea cols="100" rows="3" class="form-control" readonly="readonly"><?php echo str_replace( "&", "&amp;", http_build_query( $this->getParameters()->__toArray() ) ); ?></textarea>

@@ -2,8 +2,6 @@
 namespace Web\MasterPages;
 
 /* @var $this LoggedMasterPage */
-
-use BusinessLogic\Enum\Post;
 ?>
 <!DOCTYPE html>
 <html itemscope itemtype="http://schema.org/Article" lang="en">
@@ -36,9 +34,7 @@ use BusinessLogic\Enum\Post;
                         <?php echo \Settings::APP_NAME ?>
                     </a>
                 </h1>
-
-
-
+                
                 <div id="AvatarContainer" class="hidden-xs">
                     <img id="UserAvatar" src="<?php echo $this->getUserAvatar() ?>" />
                 </div>

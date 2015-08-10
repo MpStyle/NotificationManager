@@ -46,7 +46,7 @@ use BusinessLogic\Application\ApplicationBook;
                         <div class="ClientIdContainer"><b>Client ID</b>: <?php echo $application->getClientId() ?></div>
                         <div class="SecretIdContainer"><b>Secret ID</b>: <?php echo $application->getSecretId() ?></div>
                     </td>
-                    <td>
+                    <td class="hidden-xs hidden-sm">
                         <?php echo $application->getUpdateDate() ?>
                     </td>
                     <td class="NoWrap hidden-xs hidden-sm">
