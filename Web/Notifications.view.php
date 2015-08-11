@@ -22,8 +22,24 @@ use BusinessLogic\Notification\NotificationStatus;
             <?php break; ?>
     <?php endswitch; ?>
 
-    <h2 class="col-xs-8 col-sm-8 col-md-8 col-lg-8 Title">Notification list<small> (<?php echo $this->getNotificationCount() ?>)</small></h2>
-    <span class="pull-right ShowFilter"><span class="glyphicon glyphicon-search"></span>Show filter</span>
+    <h2 class="Title">Notification list<small> (<?php echo $this->getNotificationCount() ?>)</small></h2>
+
+    <form method="post" class="pull-right AddEntityForm">
+        <div class="btn-group" role="group" id="TopToolbar" data-toggle="tooltip" data-placement="top" title="Refresh the page">
+            <a href="" class="btn btn-default">
+                <span class="glyphicon glyphicon-refresh"></span> 
+                <span class="hidden-xs hidden-sm">Refresh page</span>
+            </a>
+            <span class="btn btn-default ShowFilter" data-toggle="tooltip" data-placement="top" title="Show/hide the filters">
+                <span class="glyphicon glyphicon-search"></span> 
+                <span class="hidden-xs hidden-sm">Show/hide filter</span>
+            </span>
+            <button name="action" value="createNewNotification" class="btn btn-default AddButton" data-toggle="tooltip" data-placement="top" title="Create new notification">
+                <span class="glyphicon glyphicon-plus"></span> 
+                <span class="hidden-xs hidden-sm">Create new notification</span>
+            </button>
+        </div>
+    </form>
 
     <form method="post" class="form-horizontal FiltersForm">
         <div class="form-group">
@@ -73,12 +89,7 @@ use BusinessLogic\Notification\NotificationStatus;
         </div>
     </form>
 
-    <form method="post" class="AddEntityForm">
-        <button name="action" value="createNewNotification" class="btn btn-default AddButton">
-            <span class="glyphicon glyphicon-plus"></span>
-            Create new notification
-        </button>
-    </form>
+
 
     <table class="table table-striped table-bordered EntityList">
         <thead>
@@ -95,7 +106,7 @@ use BusinessLogic\Notification\NotificationStatus;
         </thead>
         <tbody>
             <?php foreach( $this->getNotifications() as /* @var $notification Notification */ $notification ): ?>
-                <tr class="<?php echo $this->getRowClass( (int)$notification->getId() ) ?>">
+                <tr class="<?php echo $this->getRowClass( (int) $notification->getId() ) ?>">
                     <td><?php echo $notification->getApplicationName() ?></td>
                     <td><?php echo $notification->getTitle() ?></td>
                     <td class="hidden-xs hidden-sm">

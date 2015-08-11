@@ -22,8 +22,18 @@ use BusinessLogic\Device\DeviceBook;
             <?php break; ?>
     <?php endswitch; ?>
 
-    <h2 class="col-xs-6 col-sm-6 col-md-6 col-lg-6 Title">Device list <small>(<?php echo $this->getDeviceCount() ?>)</small></h2>
-    <span class="pull-right ShowFilter"><span class="glyphicon glyphicon-search"></span>Show filter</span>
+    <h2 class="Title">Device list <small>(<?php echo $this->getDeviceCount() ?>)</small></h2>
+
+    <div class="pull-right btn-group" role="group" id="TopToolbar">
+        <a href="" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Refresh the page">
+            <span class="glyphicon glyphicon-refresh"></span> 
+            <span class="hidden-xs hidden-sm">Refresh page</span>
+        </a>
+        <span class="btn btn-default ShowFilter" data-toggle="tooltip" data-placement="top" title="Show/hide the filters">
+            <span class="glyphicon glyphicon-search"></span> 
+            <span class="hidden-xs hidden-sm">Show/hide filter</span>
+        </span>
+    </div>
 
     <form method="post" class="form-horizontal FiltersForm">
         <div class="form-group">

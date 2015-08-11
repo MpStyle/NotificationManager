@@ -18,15 +18,20 @@ use BusinessLogic\Application\ApplicationBook;
             <?php break; ?>
     <?php endswitch; ?>
 
-    <h2>App list <small>(<?php echo $this->getApplicationCount() ?>)</small></h2>
+    <h2 class="Title">App list <small>(<?php echo $this->getApplicationCount() ?>)</small></h2>
 
-    <form method="post">
-        <button name="action" value="createNewApp" class="btn btn-default AddButton">
-            <span class="glyphicon glyphicon-plus"></span>
-            Create new app
-        </button>
+    <form method="post" class="pull-right">
+        <div class="btn-group" role="group" id="TopToolbar" data-toggle="tooltip" data-placement="top" title="Refresh the page">
+            <a href="" class="btn btn-default">
+                <span class="glyphicon glyphicon-refresh"></span> 
+                <span class="hidden-xs hidden-sm">Refresh page</span>
+            </a>
+            <button name="action" value="createNewApp" class="btn btn-default AddButton" data-toggle="tooltip" data-placement="top" title="Create new application">
+                <span class="glyphicon glyphicon-plus"></span> 
+                <span class="hidden-xs hidden-sm">Create new app</span>
+            </button>
+        </div>
     </form>
-
 
     <table class="table table-striped table-bordered EntityList">
         <thead>

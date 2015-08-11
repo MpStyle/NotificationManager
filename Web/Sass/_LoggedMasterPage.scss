@@ -36,6 +36,7 @@ body
 {
     margin: 0px 0px 20px 0px;
     padding: 0px;
+    display: inline-block;
 }
 
 @media all and (max-width: 400px) {
@@ -45,9 +46,21 @@ body
     }
 }
 
-.AddButton
+#TopToolbar
 {
-    margin: 10px 0px 20px 0px;
+    a, a:hover {
+        text-decoration: none;
+    }
+}
+
+@media (max-width: 992px) {
+    #TopToolbar
+    {
+        .glyphicon
+        {
+            padding-right: 0px;
+        }
+    }
 }
 
 .ShowFilter
@@ -59,7 +72,6 @@ body
 
 .ShowFilter:hover
 {
-    text-decoration: underline;
     cursor: pointer;
 }
 
