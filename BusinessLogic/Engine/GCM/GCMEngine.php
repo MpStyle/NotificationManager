@@ -75,7 +75,7 @@ class GCMEngine extends AbstractEngine
         );
 
         // Send the notification to the device in self::MAX_RECEIVERS at a time
-        for( $index = 0; $index < floor( $countReceivers / self::MAX_RECEIVERS ); $index++ )
+        for( $index = 0; $index <= floor( $countReceivers / self::MAX_RECEIVERS ); $index++ )
         {
             $endPosition = (($index + 1) * self::MAX_RECEIVERS) - 1;
             if( $endPosition >= $countReceivers )
@@ -83,7 +83,8 @@ class GCMEngine extends AbstractEngine
                 $endPosition = $countReceivers - 1;
             }
 
-            $receivers = $this->getReceivers()->slice( $index * self::MAX_RECEIVERS, $endPosition );
+            //$receivers = $this->getReceivers()->slice( $index * self::MAX_RECEIVERS, $endPosition );
+            $receivers = $this->getReceivers();
 
             $fields = array
                 (
@@ -102,12 +103,18 @@ class GCMEngine extends AbstractEngine
             curl_close( $ch );
 
             $json = json_decode( $result, true );
-            
-            $response=new ResponseEngine();
-            $response->setNotificationCount(parent::getReceivers())
-                    ->setNotificationNotSentCount($json['failure'])
-                    ->setNotificationSentCount($json['success'])
-                    ->setRemoteId($json['multicast_id']);
+
+
+            error_log( print_r( $this->getReceivers(), true ) );
+            error_log( print_r( $this->getReceivers(), true ) );
+            error_log( print_r( $fields, true ) );
+            error_log( print_r( $result, true ) );
+
+            $response = new ResponseEngine();
+            $response->setNotificationCount( parent::getReceivers() )
+                    ->setNotificationNotSentCount( $json['failure'] )
+                    ->setNotificationSentCount( $json['success'] )
+                    ->setRemoteId( $json['multicast_id'] );
 
             $this->setResponse( $response );
         }

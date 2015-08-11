@@ -100,7 +100,7 @@ class SendNotificationsBatch extends AbstractWebService
             $notification->setShortMessage( $row['ShortMessage'] );
             $notification->setMessage( $row['Message'] );
 
-            $engine = new GCMEngine( ConfigurationBook::getValue( Configuration::GOOGLE_NOTIFICATION_ACCESS_KEY ), $this );
+            $engine = new GCMEngine( $row['GoogleKey'], $this );
             $engine->setNotification( $notification );
             $engine->getReceivers()->appendArray( explode( ',', $row['Receivers'] ) );
             $engine->send();

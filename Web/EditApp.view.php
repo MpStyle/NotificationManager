@@ -33,10 +33,10 @@ use BusinessLogic\Enum\Post;
                 <input type="text" name="app_google_client_key" value="<?php echo $this->getCurrentApp()->getGoogleKey() ?>" class="form-control" placeholder="Enter the Google client key" maxlength="1024" />
             </div>
 
-            <div class="form-group">
+<!--            <div class="form-group">
                 <label>Microsoft client key</label>
                 <input type="text" name="app_microsoft_client_key" value="<?php echo $this->getCurrentApp()->getWindowsPhoneKey() ?>" class="form-control" placeholder="Enter the Microsoft client key" maxlength="1024" />
-            </div>
+            </div>-->
 
             <div class="form-group">
                 <label>Client ID <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="Use this code as perameter in the web services"></span></label>
