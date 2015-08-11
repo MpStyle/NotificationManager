@@ -1,12 +1,16 @@
 function LoggedMasterPage()
 {
-    $(".ShowFilter").click(function(){
+    $(".ShowFilter").click(function () {
         $(".FiltersForm").slideToggle();
     });
-    
+
     $('[data-toggle="tooltip"]').tooltip();
+
+    $(".EntityList").resizableColumns({
+        store: window.store
+    });
 }
 
-$(function(){
-    var loggedMasterPage=new LoggedMasterPage();
+$(function () {
+    var loggedMasterPage = new LoggedMasterPage();
 });

@@ -21,6 +21,11 @@ namespace Web\MasterPages;
         <!-- JSON RPC Client -->
         <script src="Javascripts/JsonRpcClient/jquery.jsonrpcclient.min.js"></script>
 
+        <!-- jquery-resizable-columns -->
+        <script src="Javascripts/jquery-resizable-columns/store.min.js" type="text/javascript"></script>
+        <link href="Javascripts/jquery-resizable-columns/jquery.resizableColumns.css" rel="stylesheet" type="text/css"/>
+        <script src="Javascripts/jquery-resizable-columns/jquery.resizableColumns.min.js" type="text/javascript"></script>
+        
         <script src="Javascripts/LoggedMasterPage.js"></script>
     </head>
     <body>

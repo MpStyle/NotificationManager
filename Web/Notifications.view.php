@@ -91,17 +91,17 @@ use BusinessLogic\Notification\NotificationStatus;
 
 
 
-    <table class="table table-striped table-bordered EntityList">
+    <table class="table table-striped table-bordered EntityList" data-resizable-columns-id="notifications-table">
         <thead>
             <tr>
-                <td>Application</td>
-                <td>Title</td>
-                <td class="hidden-xs hidden-sm">Content</td>
-                <td class="hidden-xs">Device type</td>
-                <td class="hidden-xs hidden-sm">Status</td>
-                <td class="hidden-xs hidden-sm">Reached devices</td>
-                <td class="hidden-xs hidden-sm">Last update</td>
-                <td></td>
+                <th data-resizable-column-id="Application">Application</th>
+                <th data-resizable-column-id="Title">Title</th>
+                <th class="hidden-xs hidden-sm" data-resizable-column-id="Content">Content</th>
+                <th class="hidden-xs" data-resizable-column-id="DeviceType">Device type</th>
+                <th class="hidden-xs hidden-sm" data-resizable-column-id="Status">Status</th>
+                <th class="hidden-xs hidden-sm" data-resizable-column-id="ReachedDevices">Reached devices</th>
+                <th class="hidden-xs hidden-sm" data-resizable-column-id="LastUpdate">Last update</th>
+                <th data-resizable-column-id="NotificationOther"></th>
             </tr>
         </thead>
         <tbody>

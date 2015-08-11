@@ -33,14 +33,14 @@ use BusinessLogic\Application\ApplicationBook;
         </div>
     </form>
 
-    <table class="table table-striped table-bordered EntityList">
+    <table class="table table-striped table-bordered EntityList" data-resizable-columns-id="apps-table">
         <thead>
             <tr>
-                <td class="NoWrap">App name</td>
-                <td class="hidden-xs">Client ID <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="Use these codes as perameters in the web services"></span></td>
-                <td class="hidden-xs hidden-sm">Last update</td>
-                <td class="hidden-xs hidden-sm">Related to this app</td>
-                <td></td>
+                <th class="NoWrap" data-resizable-column-id="AppName">App name</th>
+                <th class="hidden-xs" data-resizable-column-id="ClientId">Client ID <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="Use these codes as perameters in the web services"></span></th>
+                <th class="hidden-xs hidden-sm" data-resizable-column-id="LastUpdate">Last update</th>
+                <th class="hidden-xs hidden-sm" data-resizable-column-id="RelatedToTheApp">Related to this app</th>
+                <th data-resizable-column-id="Other"></th>
             </tr>
         </thead>
         <tbody>

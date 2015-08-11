@@ -79,19 +79,19 @@ use BusinessLogic\Device\DeviceBook;
     </form>
 
 
-    <table class="table table-striped table-bordered EntityList">
+    <table class="table table-striped table-bordered EntityList" data-resizable-columns-id="devices-table">
         <thead>
             <tr>
-                <td>
+                <th data-resizable-column-id="MobileId">
                     Mobile ID
-                </td>
-                <td class="hidden-xs">
+                </th>
+                <th class="hidden-xs" data-resizable-column-id="LastLoginDate">
                     Last login date
-                </td>
-                <td class="hidden-xs">OS</td>
-                <td class="hidden-xs hidden-sm">App info</td>
-                <td class="hidden-xs hidden-sm">Brand and model</td>
-                <td></td>
+                </th>
+                <th class="hidden-xs" data-resizable-column-id="OS">OS</th>
+                <th class="hidden-xs hidden-sm" data-resizable-column-id="AppInfo">App info</th>
+                <th class="hidden-xs hidden-sm" data-resizable-column-id="BrandAndModel">Brand and model</th>
+                <th data-resizable-column-id="DevicesOther"></th>
             </tr>
         </thead>
         <tbody>
