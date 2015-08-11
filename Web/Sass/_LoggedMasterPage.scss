@@ -39,13 +39,6 @@ body
     display: inline-block;
 }
 
-@media all and (max-width: 400px) {
-    .Title
-    {
-        font-size: 1.5em;
-    }
-}
-
 #TopToolbar
 {
     a, a:hover {
@@ -106,57 +99,47 @@ body
 #Header
 {
     padding: 7px 5px;
-}
+    z-index: 700;
 
-#AppNameContainer
-{
-    float: left;
-    height: 50px;
-    margin: 0px;
-    padding: 0px;
-
-    a
-    {
-        text-decoration: none;
-    }
-}
-
-@media all and (max-width: 550px) {
     #AppNameContainer
     {
-        font-size: 1.5em;
-        padding-top: 14px;
+        float: left;
+        height: 50px;
+        margin: 0px;
+        padding: 0px;
+
+        a
+        {
+            text-decoration: none;
+        }
     }
-}
 
-@media all and (max-width: 400px) {
-    #AppNameContainer
+    .UserInfo, .AvatarContainer
     {
-        font-size: 1em;
-        padding-top: 17px;
+        float: right;
+        height: 50px;
     }
-}
 
-#UserInfo, #AvatarContainer
-{
-    float: right;
-    height: 50px;
-}
-
-#UserInfo
-{
-    margin-right: 30px;
-    text-align: right;
-}
-
-@media all and (max-width: 768px) {
-    #menu li ul
+    .UserInfo
     {
-        display: block;
+        margin-right: 30px;
+        text-align: right;
     }
 }
 
 /* CONTENT */
+
+#MenuDarkSide
+{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color: rgba(0,0,0,0.4);
+    z-index: 999;
+    display: none;
+}
 
 #LeftColumn
 {
@@ -171,62 +154,129 @@ body
     -ms-overflow-x: hidden;
     top: 65px;
     bottom: 0px;
-}
+    z-index: 600;
 
-#LeftColumn ul li
-{
-    text-decoration: none;
-}
+    .UserBar
+    {
+        background-color: #000;
+        position: relative;
+        z-index: 1;
 
-#LeftColumn ul a:hover
-{
-    background-color: #f1f1f1 !important;
-    text-decoration: none !important;
-}
+        .CoverContainer
+        {
+            /*position: absolute;*/
+            opacity: 0.6;
+            position: absolute;
+            z-index: -1;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;width: 100%;
+            height: 100%;
+        }
 
-#LeftColumn #menu
-{
-    padding-left: 0;
-    list-style-type: none;
-}
+        .UserDetais
+        {
+            padding: 20px;
+        }
 
-#LeftColumn #menu li a
-{
-    display: block !important;
-    position: relative;
-    padding: 10px 0 10px 15px !important;
-    background-color: #dfdfdf;
-    color: #555;
-}
+        .AvatarContainer
+        {
+            margin-bottom: 30px;
+        }
 
-#LeftColumn #menu li a img
-{
-    padding-right: 10px;
-}
+        .UserName
+        {
+            clear: both;
+            color: white;
+            font-weight: bold;
+            margin-top: 30px;
+        }
+    }
 
-#LeftColumn #menu ul
-{
-    /*display: block;*/
-    list-style-type: none;
-    position: relative;
-    padding-left: 0;
-}
+    ul 
+    {
+        li
+        {
+            text-decoration: none;
+        }
 
-#LeftColumn #menu ul li
-{
-    padding: 0px !important;
-}
+        a:hover
+            {
+            background-color: #f1f1f1 !important;
+            text-decoration: none !important;
+        }
+    }
 
-#LeftColumn #menu ul li a
-{
-    display: block !important;
-    position: relative;
-    padding: 10px 0 10px 30px !important;
-    background-color: #ececec;
-    padding: 5px 0px 0px 0px;
-    display: inline-block;
-    border-top: 1px solid #dfdfdf;
-    color: #555;
+    #menu, #BottomMenu
+    {
+        padding-left: 0;
+        list-style-type: none;
+
+        li a
+        {
+            display: block !important;
+            position: relative;
+            padding: 10px 0 10px 15px !important;
+            background-color: #dfdfdf;
+            color: #555;
+
+            img
+            {
+                padding-right: 10px;
+            }
+        }
+
+        ul
+        {
+            /*display: block;*/
+            list-style-type: none;
+            position: relative;
+            padding-left: 0;
+
+            li
+            {
+                padding: 0px !important;
+
+                a
+                {
+                    display: block !important;
+                    position: relative;
+                    padding: 10px 0 10px 30px !important;
+                    background-color: #ececec;
+                    padding: 5px 0px 0px 0px;
+                    display: inline-block;
+                    border-top: 1px solid #dfdfdf;
+                    color: #555;
+                }
+            }
+        }
+    }
+
+    #BottomMenu
+    {
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+    }
+
+    @media all and (max-width: 767px) {
+        #menu li ul
+        {
+            display: block;
+        }
+    }
+} 
+
+@media (max-width: 767px) {
+    #LeftColumn
+    {
+        width: 85%;
+        max-width: 400px;
+        top: 0px;
+        z-index: 1000;
+    }
 }
 
 .MenuArrow
@@ -245,6 +295,13 @@ body
     padding-left: 0px;
     padding-right: 0px;
     overflow: hidden;
+}
+
+@media (max-width: 767px) {
+    #Container
+    {
+        margin-top: 10px;
+    }
 }
 
 @media (min-width: 992px) {
@@ -272,4 +329,35 @@ body
 #content h2
 {
     margin-top: 0px;
+}
+
+@media (max-width: 767px) {
+    #SubHeader
+    {
+        .Title
+        {
+            margin-bottom: 11px;
+        }
+        
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        background-image: -webkit-linear-gradient(top,#fff 0,#f8f8f8 100%);
+        background-image: -o-linear-gradient(top,#fff 0,#f8f8f8 100%);
+        background-image: -webkit-gradient(linear,left top,left bottom,from(#fff),to(#f8f8f8));
+        background-image: linear-gradient(to bottom,#fff 0,#f8f8f8 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#fff8f8f8', GradientType=0);
+        filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+        background-repeat: repeat-x;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.15),0 1px 5px rgba(0,0,0,.075);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.15),0 1px 5px rgba(0,0,0,.075);
+        padding: 10px 10px 0px 10px;
+    }
+    
+    #SubContainer
+    {
+        margin-top: 65px;
+    }
 }

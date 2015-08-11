@@ -46,6 +46,8 @@ class LoggedMasterPage extends MAbstractMasterPageController
         
         $this->userInfo=$this->googleService->userInfo();
         
+//        var_dump($this->userInfo);
+        
         // Fa il logout solo se è in postback
         if( parent::isPostBack() )
         {
@@ -81,6 +83,11 @@ class LoggedMasterPage extends MAbstractMasterPageController
     public function getUserAvatar()
     {
         return $this->userInfo['image']['url'];
+    }
+    
+    public function getUserCoverPhoto()
+    {
+        return $this->userInfo['cover']['coverPhoto']['url'];
     }
     
     /**

@@ -22,121 +22,131 @@ use BusinessLogic\Device\DeviceBook;
             <?php break; ?>
     <?php endswitch; ?>
 
-    <h2 class="Title">Device list <small>(<?php echo $this->getDeviceCount() ?>)</small></h2>
+    <div id="SubHeader">
+        <h2 class="Title">
+            <span id="toggle_menu" class="glyphicon glyphicon-menu-hamburger hidden-sm hidden-md hidden-lg"></span> 
+            Device list 
+            <small>(<?php echo $this->getDeviceCount() ?>)</small>
+        </h2>
 
-    <div class="pull-right btn-group" role="group" id="TopToolbar">
-        <a href="" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Refresh the page">
-            <span class="glyphicon glyphicon-refresh"></span> 
-            <span class="hidden-xs hidden-sm">Refresh page</span>
-        </a>
-        <span class="btn btn-default ShowFilter" data-toggle="tooltip" data-placement="top" title="Show/hide the filters">
-            <span class="glyphicon glyphicon-search"></span> 
-            <span class="hidden-xs hidden-sm">Show/hide filter</span>
-        </span>
+        <div class="pull-right btn-group" role="group" id="TopToolbar">
+            <a href="" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Refresh the page">
+                <span class="glyphicon glyphicon-refresh"></span> 
+                <span class="hidden-xs hidden-sm">Refresh page</span>
+            </a>
+            <span class="btn btn-default ShowFilter" data-toggle="tooltip" data-placement="top" title="Show/hide the filters">
+                <span class="glyphicon glyphicon-search"></span> 
+                <span class="hidden-xs hidden-sm">Show/hide filter</span>
+            </span>
+        </div>
     </div>
 
-    <form method="post" class="form-horizontal FiltersForm">
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Application:</label>
-            <div class="col-sm-10">
-                <select name="application_id" class="form-control">
-                    <option>All</option>
-                    <?php foreach( ApplicationBook::getApplications() as /* @var $application Application */ $application ): ?>
-                        <option value="<?php echo $application->getId() ?>" <?php echo ($this->getPost()->getValue( "application_id" ) == $application->getId() ? "selected" : ""); ?>><?php echo $application->getName() ?></option>
-                    <?php endforeach; ?>
-                </select>
+    <div id="SubContainer">
+        <form method="post" class="form-horizontal FiltersForm">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Application:</label>
+                <div class="col-sm-10">
+                    <select name="application_id" class="form-control">
+                        <option>All</option>
+                        <?php foreach( ApplicationBook::getApplications() as /* @var $application Application */ $application ): ?>
+                            <option value="<?php echo $application->getId() ?>" <?php echo ($this->getPost()->getValue( "application_id" ) == $application->getId() ? "selected" : ""); ?>><?php echo $application->getName() ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label class="col-sm-2 control-label">OS:</label>
-            <div class="col-sm-10">
-                <select name="type" class="form-control">
-                    <option>All</option>
-                    <?php foreach( DeviceBook::getDeviceType() as $deviceType ): ?>
-                        <option value="<?php echo $deviceType ?>" <?php echo ($this->getPost()->getValue( "type" ) == $deviceType ? "selected" : ""); ?>><?php echo $deviceType ?></option>
-                    <?php endforeach; ?>
-                </select>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">OS:</label>
+                <div class="col-sm-10">
+                    <select name="type" class="form-control">
+                        <option>All</option>
+                        <?php foreach( DeviceBook::getDeviceType() as $deviceType ): ?>
+                            <option value="<?php echo $deviceType ?>" <?php echo ($this->getPost()->getValue( "type" ) == $deviceType ? "selected" : ""); ?>><?php echo $deviceType ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Free text:</label>
-            <div class="col-sm-10">
-                <input type="text" name="free_search" class="form-control" value="<?php echo $this->getPost()->getValue( "free_search" ) ?>" placeholder="Mobile ID, brand, model, OS name, OS version, or app name and version..." />
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Free text:</label>
+                <div class="col-sm-10">
+                    <input type="text" name="free_search" class="form-control" value="<?php echo $this->getPost()->getValue( "free_search" ) ?>" placeholder="Mobile ID, brand, model, OS name, OS version, or app name and version..." />
+                </div>
             </div>
-        </div>
 
-        <div class="pull-right">
+            <div class="pull-right">
 
-            <button type="submit" class="btn btn-primary">
-                Search
-            </button>
+                <button type="submit" class="btn btn-primary">
+                    Search
+                </button>
 
-            <a href="?page=<?php echo $this->getGet()->getKey( "page" ) ?>" class="btn btn-default">Clear</a>
+                <a href="?page=<?php echo $this->getGet()->getKey( "page" ) ?>" class="btn btn-default">Clear</a>
 
-        </div>
-    </form>
+            </div>
+        </form>
 
 
-    <table class="table table-striped table-bordered EntityList" data-resizable-columns-id="devices-table">
-        <thead>
-            <tr>
-                <th data-resizable-column-id="MobileId">
-                    Mobile ID
-                </th>
-                <th class="hidden-xs" data-resizable-column-id="LastLoginDate">
-                    Last login date
-                </th>
-                <th class="hidden-xs" data-resizable-column-id="OS">OS</th>
-                <th class="hidden-xs hidden-sm" data-resizable-column-id="AppInfo">App info</th>
-                <th class="hidden-xs hidden-sm" data-resizable-column-id="BrandAndModel">Brand and model</th>
-                <th data-resizable-column-id="DevicesOther"></th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach( $this->getDevices() as /* @var $device Device */ $device ): ?>
-                <tr class="<?php echo ($device->getEnabled()? : 'warning'); ?>">
-                    <td>
-                        <img class="DeviceFlag" src="Images/flags/<?php echo $device->getLocalizationName() ?>.png" />
-                        <div class="MobileId" title="<?php echo $device->getMobileId() ?>"><?php echo $device->getMobileId() ?></div>
-                    </td>
-                    <td class="hidden-xs">
-                        <?php echo $device->getUpdateDate() ?>
-                    </td>
-                    <td class="hidden-xs">
-                        <?php echo $device->getType() ?> - <?php echo $device->getOsVersion() ?>
-                    </td>
-                    <td class="hidden-xs hidden-sm">
-                        <?php echo $device->getApplicationName() ?> - <?php echo $device->getApplicationVersion() ?>
-                    </td>
-                    <td class="hidden-xs hidden-sm">
-                        <?php echo $device->getBrand() ?> - <?php echo $device->getModel() ?>
-                    </td>
-                    <td>
-                        <form method="post">
-                            <?php if( $device->getEnabled() ): ?>
-                                <button id="DisableDeviceButton" type="submit" name="action" value="disableDevice" class="btn btn-warning">Disable</button>
-                            <?php else: ?>
-                                <button id="EnableDeviceButton" type="submit" name="action" value="enableDevice" class="btn btn-success">Enable</button>
-                            <?php endif; ?>
-                            <button id="DeleteDeviceButton" type="button" class="btn btn-danger" data-toggle="modal" data-target=".DeleteDeviceModal">Delete</button>
-
-                            <input type="hidden" class="MobileId" value="<?php echo $device->getMobileId() ?>" />
-                            <input type="hidden" class="DeviceId" name="DeviceId" value="<?php echo $device->getId() ?>" />
-                            <input type="hidden" class="ApplicationId" name="ApplicationId" value="<?php echo $device->getApplicationId() ?>" />
-                        </form>
-                    </td>
+        <table class="table table-striped table-bordered EntityList" data-resizable-columns-id="devices-table">
+            <thead>
+                <tr>
+                    <th data-resizable-column-id="MobileId">
+                        Mobile ID
+                    </th>
+                    <th class="hidden-xs" data-resizable-column-id="LastLoginDate">
+                        Last login date
+                    </th>
+                    <th class="hidden-xs" data-resizable-column-id="OS">OS</th>
+                    <th class="hidden-xs hidden-sm" data-resizable-column-id="AppInfo">App info</th>
+                    <th class="hidden-xs hidden-sm" data-resizable-column-id="BrandAndModel">Brand and model</th>
+                    <th data-resizable-column-id="DevicesOther"></th>
                 </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <?php foreach( $this->getDevices() as /* @var $device Device */ $device ): ?>
+                    <tr class="<?php echo ($device->getEnabled()? : 'warning'); ?>">
+                        <td>
+                            <img class="DeviceFlag" src="Images/flags/<?php echo $device->getLocalizationName() ?>.png" />
+                            <div class="MobileId" title="<?php echo $device->getMobileId() ?>"><?php echo $device->getMobileId() ?></div>
+                        </td>
+                        <td class="hidden-xs">
+                            <?php echo $device->getUpdateDate() ?>
+                        </td>
+                        <td class="hidden-xs">
+                            <?php echo $device->getType() ?> - <?php echo $device->getOsVersion() ?>
+                        </td>
+                        <td class="hidden-xs hidden-sm">
+                            <?php echo $device->getApplicationName() ?> - <?php echo $device->getApplicationVersion() ?>
+                        </td>
+                        <td class="hidden-xs hidden-sm">
+                            <?php echo $device->getBrand() ?> - <?php echo $device->getModel() ?>
+                        </td>
+                        <td>
+                            <form method="post">
+                                <div class="btn-group" role="group">
+                                    <?php if( $device->getEnabled() ): ?>
+                                        <button id="DisableDeviceButton" type="submit" name="action" value="disableDevice" class="btn btn-warning">Disable</button>
+                                    <?php else: ?>
+                                        <button id="EnableDeviceButton" type="submit" name="action" value="enableDevice" class="btn btn-success">Enable</button>
+                                    <?php endif; ?>
+                                    <button id="DeleteDeviceButton" type="button" class="btn btn-danger" data-toggle="modal" data-target=".DeleteDeviceModal">Delete</button>
+                                </div>
 
-    <ul class="pagination">
-        <?php for( $i = 0; $i < $this->getPages(); $i++ ): ?>
-            <li class="<?php echo ($this->getCurrentPage() == $i ? "active" : "") ?>"><a href="?applicationId=<?php $this->getApplicationId() ?>&page=<?php echo $i ?>"><?php echo $i + 1 ?></a></li>
-        <?php endfor; ?>
-    </ul>
+                                <input type="hidden" class="MobileId" value="<?php echo $device->getMobileId() ?>" />
+                                <input type="hidden" class="DeviceId" name="DeviceId" value="<?php echo $device->getId() ?>" />
+                                <input type="hidden" class="ApplicationId" name="ApplicationId" value="<?php echo $device->getApplicationId() ?>" />
+                            </form>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+
+        <ul class="pagination">
+            <?php for( $i = 0; $i < $this->getPages(); $i++ ): ?>
+                <li class="<?php echo ($this->getCurrentPage() == $i ? "active" : "") ?>"><a href="?applicationId=<?php $this->getApplicationId() ?>&page=<?php echo $i ?>"><?php echo $i + 1 ?></a></li>
+            <?php endfor; ?>
+        </ul>
+    </div>
 
     <div class="modal fade DeleteDeviceModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">

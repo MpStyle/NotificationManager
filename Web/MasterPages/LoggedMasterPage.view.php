@@ -6,7 +6,7 @@ namespace Web\MasterPages;
 <!DOCTYPE html>
 <html itemscope itemtype="http://schema.org/Article" lang="en">
     <head>
-        <title><?php echo \Settings::APP_NAME ?> - <?php echo \Settings::APP_VERSION ?></title>
+        <title><?php echo \Settings::APP_NAME ?></title>
 
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -25,36 +25,52 @@ namespace Web\MasterPages;
         <script src="Javascripts/jquery-resizable-columns/store.min.js" type="text/javascript"></script>
         <link href="Javascripts/jquery-resizable-columns/jquery.resizableColumns.css" rel="stylesheet" type="text/css"/>
         <script src="Javascripts/jquery-resizable-columns/jquery.resizableColumns.min.js" type="text/javascript"></script>
-        
+
         <script src="Javascripts/LoggedMasterPage.js"></script>
     </head>
     <body>
+        <div id="MenuDarkSide" class="hidden-sm hidden-md hidden-lg"></div>
 
         <div id="Wrapper" class="container-fluid">
 
-            <div id="Header" class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div id="Header" class="navbar navbar-default navbar-fixed-top hidden-xs" role="navigation">
 
                 <h1 id="AppNameContainer">
                     <a href="Home.php">
                         <?php echo \Settings::APP_NAME ?>
                     </a>
                 </h1>
-                
-                <div id="AvatarContainer" class="hidden-xs">
-                    <img id="UserAvatar" src="<?php echo $this->getUserAvatar() ?>" />
+
+                <div class="AvatarContainer">
+                    <img class="UserAvatar" src="<?php echo $this->getUserAvatar() ?>" />
                 </div>
 
-                <div id="UserInfo">                    
-                    <div id="user_name"><?php echo $this->getUserName() ?></div>
+                <div class="UserInfo">                    
+                    <div class="user_name"><?php echo $this->getUserName() ?></div>
                     <form action="" method="post" style="display: inline-block">
                         <button type="submit" value="logout" name="logout_button" id="logout_button" class="btn btn-default">Logout</button>
                     </form>
                 </div>
-
             </div>
 
             <div id="Container" class="row">
                 <div id="LeftColumn" class="hidden-xs col-sm-3 col-md-2 col-lg-2">
+                    <div class="UserBar hidden-sm hidden-md hidden-lg">
+                        <div class="CoverContainer" style="background-image: url(<?php echo $this->getUserCoverPhoto() ?>)"></div>
+
+                        <div class="UserDetais">
+                            <div class="AvatarContainer pull-left">
+                                <img class="UserAvatar" src="<?php echo $this->getUserAvatar() ?>" />
+                            </div>
+
+                            <form action="" method="post" class="LogoutForm pull-right">
+                                <button type="submit" value="logout" name="logout_button" id="logout_button" class="btn btn-default">Logout</button>
+                            </form>
+
+                            <div class="UserName"><?php echo $this->getUserName() ?></div>
+                        </div>
+                    </div>
+
                     <ul id="menu" role="navigation">
                         <li>
                             <a href="Apps.php" data-toggle="tooltip" data-placement="right" title="List of the apps">
@@ -90,6 +106,15 @@ namespace Web\MasterPages;
                         </li>   
 
                     </ul>
+
+                    <!--                    <ul id="BottomMenu" role="navigation">
+                                            <li>
+                                                <a href="Settings.php">
+                                                    <span class="glyphicon glyphicon-cog"></span>
+                                                    Settings
+                                                </a>
+                                            </li>
+                                        </ul>-->
                 </div>
 
                 <div id="ContentWrapper" class="col-xs-12 col-sm-9 col-md-10 col-lg-10">
