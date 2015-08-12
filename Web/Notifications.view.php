@@ -30,16 +30,16 @@ use BusinessLogic\Notification\NotificationStatus;
         </h2>
 
         <form method="post" class="pull-right AddEntityForm">
-            <div class="btn-group" role="group" id="TopToolbar" data-toggle="tooltip" data-placement="top" title="Refresh the page">
-                <a href="" class="btn btn-default">
+            <div class="btn-group" role="group" id="TopToolbar">
+                <a href="" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Refresh the page">
                     <span class="glyphicon glyphicon-refresh"></span> 
                     <span class="hidden-xs hidden-sm">Refresh page</span>
                 </a>
-                <span class="btn btn-default ShowFilter" data-toggle="tooltip" data-placement="top" title="Show/hide the filters">
+                <span class="btn btn-default ShowFilter" data-toggle="tooltip" data-placement="bottom" title="Show/hide the filters">
                     <span class="glyphicon glyphicon-search"></span> 
                     <span class="hidden-xs hidden-sm">Show/hide filter</span>
                 </span>
-                <button name="action" value="createNewNotification" class="btn btn-default AddButton" data-toggle="tooltip" data-placement="top" title="Create new notification">
+                <button name="action" value="createNewNotification" class="btn btn-default AddButton" data-toggle="tooltip" data-placement="bottom" title="Create new notification">
                     <span class="glyphicon glyphicon-plus"></span> 
                     <span class="hidden-xs hidden-sm">Create new notification</span>
                 </button>
@@ -49,50 +49,58 @@ use BusinessLogic\Notification\NotificationStatus;
 
     <div id="SubContainer">
         <form method="post" class="form-horizontal FiltersForm">
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Application:</label>
-                <div class="col-sm-10">
-                    <select name="application_id" class="form-control">
-                        <option></option>
-                        <?php foreach( ApplicationBook::getApplications() as /* @var $application Application */ $application ): ?>
-                            <option value="<?php echo $application->getId() ?>" <?php echo ($this->getPost()->getValue( "application_id" ) == $application->getId() ? "selected" : ""); ?>><?php echo $application->getName() ?></option>
-                        <?php endforeach; ?>
-                    </select>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Application:</label>
+                        <div class="col-sm-10">
+                            <select name="application_id" class="form-control">
+                                <option></option>
+                                <?php foreach( ApplicationBook::getApplications() as /* @var $application Application */ $application ): ?>
+                                    <option value="<?php echo $application->getId() ?>" <?php echo ($this->getPost()->getValue( "application_id" ) == $application->getId() ? "selected" : ""); ?>><?php echo $application->getName() ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Device type:</label>
+                        <div class="col-sm-10">
+                            <select name="type" class="form-control">
+                                <option></option>
+                                <?php foreach( DeviceBook::getDeviceType() as $deviceType ): ?>
+                                    <option value="<?php echo $deviceType ?>" <?php echo ($this->getPost()->getValue( "type" ) == $deviceType ? "selected" : ""); ?>><?php echo $deviceType ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Notification status:</label>
+                        <div class="col-sm-10">
+                            <select name="status" class="form-control">
+                                <option></option>
+                                <option value="<?php echo NotificationStatus::DRAFT ?>" <?php echo ($this->getPost()->getValue( "status" ) == NotificationStatus::DRAFT ? "selected" : "") ?>>Draft</option>
+                                <option value="<?php echo NotificationStatus::APPROVED ?>" <?php echo ($this->getPost()->getValue( "status" ) == NotificationStatus::APPROVED ? "selected" : "") ?>>Approved</option>
+                                <option value="<?php echo NotificationStatus::CLOSED ?>" <?php echo ($this->getPost()->getValue( "status" ) == NotificationStatus::CLOSED ? "selected" : "") ?>>Closed</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="pull-right">
+
+                        <button type="submit" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-search"></span> 
+                            Search
+                        </button>
+
+                        <a href="?page=<?php echo $this->getGet()->getKey( "page" ) ?>" class="btn btn-default">
+                            <span class="glyphicon glyphicon-remove"></span>
+                            Clear
+                        </a>
+
+                    </div>
                 </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Device type:</label>
-                <div class="col-sm-10">
-                    <select name="type" class="form-control">
-                        <option></option>
-                        <?php foreach( DeviceBook::getDeviceType() as $deviceType ): ?>
-                            <option value="<?php echo $deviceType ?>" <?php echo ($this->getPost()->getValue( "type" ) == $deviceType ? "selected" : ""); ?>><?php echo $deviceType ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Notification status:</label>
-                <div class="col-sm-10">
-                    <select name="status" class="form-control">
-                        <option></option>
-                        <option value="<?php echo NotificationStatus::DRAFT ?>" <?php echo ($this->getPost()->getValue( "status" ) == NotificationStatus::DRAFT ? "selected" : "") ?>>Draft</option>
-                        <option value="<?php echo NotificationStatus::APPROVED ?>" <?php echo ($this->getPost()->getValue( "status" ) == NotificationStatus::APPROVED ? "selected" : "") ?>>Approved</option>
-                        <option value="<?php echo NotificationStatus::CLOSED ?>" <?php echo ($this->getPost()->getValue( "status" ) == NotificationStatus::CLOSED ? "selected" : "") ?>>Closed</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="pull-right">
-
-                <button type="submit" class="btn btn-primary">
-                    Search
-                </button>
-
-                <a href="?page=<?php echo $this->getGet()->getKey( "page" ) ?>" class="btn btn-default">Clear</a>
-
             </div>
         </form>
 
@@ -130,20 +138,27 @@ use BusinessLogic\Notification\NotificationStatus;
                                 Draft
                             <?php endif; ?>
                         </td>
-                        <td><?php echo $notification->getReachedDevices() ?></td>
-                        <td><?php echo $notification->getUpdateDate() ?></td>
+                        <td class="hidden-xs hidden-sm"><?php echo $notification->getReachedDevices() ?></td>
+                        <td class="hidden-xs hidden-sm"><?php echo $notification->getUpdateDate() ?></td>
                         <td>
                             <form method="post">
                                 <div class="btn-group" role="group">
                                     <a href="EditNotification.php?id=<?php echo $notification->getId() ?>" class="btn btn-default">
-                                        <?php echo ($notification->getStatusId() == NotificationStatus::CLOSED ? "Show" : "Edit"); ?>
+                                        <?php if( $notification->getStatusId() == NotificationStatus::CLOSED ): ?>
+                                            <span class="glyphicon glyphicon-eye-open"></span> 
+                                            <span class="hidden-xs hidden-sm hidden-md">Show</span>
+                                        <?php else: ?>
+                                            <span class="glyphicon glyphicon-edit"></span> 
+                                            <span class="hidden-xs hidden-sm hidden-md">Edit</span>
+                                        <?php endif; ?>
                                     </a>
                                     <button id="DeleteNotificationButton" 
                                             type="button" 
                                             class="btn btn-danger" 
                                             <?php echo ($notification->getDeliveryStatus() == DeliveryStatus::SENDING ? "disabled" : ""); ?>
                                             data-toggle="modal" data-target=".DeleteNotificationModal">
-                                        Delete
+                                        <span class="glyphicon glyphicon-remove"></span> 
+                                        <span class="hidden-xs hidden-sm hidden-md">Delete</span>
                                     </button>
                                 </div>
 

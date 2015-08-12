@@ -26,12 +26,12 @@ use BusinessLogic\Application\ApplicationBook;
         </h2>
 
         <form method="post" class="pull-right">
-            <div class="btn-group" role="group" id="TopToolbar" data-toggle="tooltip" data-placement="top" title="Refresh the page">
-                <a href="" class="btn btn-default">
+            <div class="btn-group" role="group" id="TopToolbar">
+                <a href="" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Refresh the page">
                     <span class="glyphicon glyphicon-refresh"></span> 
                     <span class="hidden-xs hidden-sm">Refresh page</span>
                 </a>
-                <button name="action" value="createNewApp" class="btn btn-default AddButton" data-toggle="tooltip" data-placement="top" title="Create new application">
+                <button name="action" value="createNewApp" class="btn btn-default AddButton" data-toggle="tooltip" data-placement="bottom" title="Create new application">
                     <span class="glyphicon glyphicon-plus"></span> 
                     <span class="hidden-xs hidden-sm">Create new app</span>
                 </button>
@@ -61,17 +61,29 @@ use BusinessLogic\Application\ApplicationBook;
                         <td class="hidden-xs hidden-sm">
                             <?php echo $application->getUpdateDate() ?>
                         </td>
-                        <td class="NoWrap hidden-xs hidden-sm">
-                            <div class="btn-group" role="group">
-                                <a href="Devices.php?applicationId=<?php echo $application->getId() ?>" class="btn btn-default">Devices</a>
-                                <a href="Notifications.php?applicationId=<?php echo $application->getId() ?>" class="btn btn-default">Notifications</a>
+                        <td class="hidden-xs hidden-sm">
+                            <div class="btn-group NoWrap" role="group">
+                                <a href="Devices.php?applicationId=<?php echo $application->getId() ?>" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-phone"></span> 
+                                    <span class="hidden-md">Devices</span>
+                                </a>
+                                <a href="Notifications.php?applicationId=<?php echo $application->getId() ?>" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-envelope"></span> 
+                                    <span class="hidden-md">Notifications</span>
+                                </a>
                             </div>
                         </td>
-                        <td class="NoWrap">
+                        <td>
                             <form method="post">
-                                <div class="btn-group" role="group">
-                                    <a href="EditApp.php?id=<?php echo $application->getId() ?>" class="btn btn-default">Edit</a>
-                                    <button id="DeleteApplicationButton" type="button" class="btn btn-danger" data-toggle="modal" data-target=".DeleteApplicationModal">Delete</button>
+                                <div class="btn-group NoWrap" role="group">
+                                    <a href="EditApp.php?id=<?php echo $application->getId() ?>" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-edit"></span> 
+                                        <span class="hidden-sm hidden-md">Edit</span>
+                                    </a>
+                                    <button id="DeleteApplicationButton" type="button" class="btn btn-danger" data-toggle="modal" data-target=".DeleteApplicationModal">
+                                        <span class="glyphicon glyphicon-remove"></span> 
+                                        <span class="hidden-sm hidden-md">Delete</span>
+                                    </button>
                                 </div>
 
                                 <input type="hidden" class="ApplicationName" value="<?php echo $application->getName() ?>" />

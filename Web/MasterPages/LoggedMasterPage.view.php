@@ -15,16 +15,12 @@ namespace Web\MasterPages;
 
         <!-- Bootstrap -->
         <link type="text/css" rel="stylesheet" href="../../vendor/twbs/bootstrap/dist/css/bootstrap.min.css" />
-        <link type="text/css" rel="stylesheet" href="../../vendor/twbs/bootstrap/dist/css/bootstrap-theme.min.css" />
+        <!--<link type="text/css" rel="stylesheet" href="../../vendor/twbs/bootstrap/dist/css/bootstrap-theme.min.css" />-->
+        <link href="Styles/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <script src="../../vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
 
         <!-- JSON RPC Client -->
         <script src="Javascripts/JsonRpcClient/jquery.jsonrpcclient.min.js"></script>
-
-        <!-- jquery-resizable-columns -->
-        <script src="Javascripts/jquery-resizable-columns/store.min.js" type="text/javascript"></script>
-        <link href="Javascripts/jquery-resizable-columns/jquery.resizableColumns.css" rel="stylesheet" type="text/css"/>
-        <script src="Javascripts/jquery-resizable-columns/jquery.resizableColumns.min.js" type="text/javascript"></script>
 
         <script src="Javascripts/LoggedMasterPage.js"></script>
     </head>
@@ -40,38 +36,31 @@ namespace Web\MasterPages;
                         <?php echo \Settings::APP_NAME ?>
                     </a>
                 </h1>
-
-                <div class="AvatarContainer">
-                    <img class="UserAvatar" src="<?php echo $this->getUserAvatar() ?>" />
-                </div>
-
-                <div class="UserInfo">                    
-                    <div class="user_name"><?php echo $this->getUserName() ?></div>
-                    <form action="" method="post" style="display: inline-block">
-                        <button type="submit" value="logout" name="logout_button" id="logout_button" class="btn btn-default">Logout</button>
-                    </form>
-                </div>
             </div>
 
             <div id="Container" class="row">
                 <div id="LeftColumn" class="hidden-xs col-sm-3 col-md-2 col-lg-2">
-                    <div class="UserBar hidden-sm hidden-md hidden-lg">
+                    <div class="UserBar">
                         <div class="CoverContainer" style="background-image: url(<?php echo $this->getUserCoverPhoto() ?>)"></div>
 
                         <div class="UserDetais">
-                            <div class="AvatarContainer pull-left">
+                            <div class="AvatarContainer">
                                 <img class="UserAvatar" src="<?php echo $this->getUserAvatar() ?>" />
                             </div>
 
-                            <form action="" method="post" class="LogoutForm pull-right">
-                                <button type="submit" value="logout" name="logout_button" id="logout_button" class="btn btn-default">Logout</button>
+                            <form action="" method="post" class="LogoutForm">
+                                <span class="UserName"><?php echo $this->getUserName() ?></span>
+                                <button type="submit" value="logout" name="logout_button" id="logout_button" class="btn btn-default btn-sm">
+                                    <span class="glyphicon glyphicon-off"></span>
+                                    Logout
+                                </button>
                             </form>
 
-                            <div class="UserName"><?php echo $this->getUserName() ?></div>
+                            
                         </div>
                     </div>
 
-                    <ul id="menu" role="navigation">
+                    <ul id="menu" role="navigation" class="nav nav-pills nav-stacked">
                         <li>
                             <a href="Apps.php" data-toggle="tooltip" data-placement="right" title="List of the apps">
                                 <span class="glyphicon glyphicon-th"></span>

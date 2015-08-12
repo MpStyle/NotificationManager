@@ -19,40 +19,54 @@ use BusinessLogic\Json\JsonBook;
     <div id="SubContainer">
         <h3><?php echo $this->getPost()->getValue( "methodName" ) ?></h3>
 
-        <h3>URL</h3>
-        <div><?php echo $this->getUrl() ?></div>
-
-        <h3>Raw Request</h3>
-        <div id="Request">
-            <textarea cols="100" rows="3" class="form-control" readonly="readonly"><?php echo str_replace( "&", "&amp;", http_build_query( $this->getParameters()->__toArray() ) ); ?></textarea>
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3 class="panel-title">URL</h3></div>
+            <div class="panel-body"><input type="text" name="methodUrl" value="<?php echo $this->getPost()->getValue( "methodUrl" ) ?>" class="form-control" value="" readonly /></div>
         </div>
 
-        <h3>Request</h3>
-        <form method="post" action="WebServicesV100Response.php" class="form-horizontal">
-            <input type="hidden" name="methodUrl" value="<?php echo $this->getPost()->getValue( "methodUrl" ) ?>" />
-            <input type="hidden" name="methodName" value="<?php echo $this->getPost()->getValue( "methodName" ) ?>" />
-
-            <?php foreach( $this->getParameters() as $key => $value ): ?>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label"><?php echo $key ?>:</label>
-                    <div class="col-sm-10">
-                        <input type="text" name="<?php echo $key ?>" class="form-control" value="<?php echo $value ?>" />
-                    </div>
-                </div>
-            <?php endforeach; ?>
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-default">Send</button>
-                </div>
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3 class="panel-title">Raw Request</div>
+            <div id="Request" class="panel-body">
+                <textarea cols="100" rows="3" class="form-control" readonly="readonly"><?php echo str_replace( "&", "&amp;", http_build_query( $this->getParameters()->__toArray() ) ); ?></textarea>
             </div>
-        </form>
-
-        <h3>Raw Response:</h3>
-        <div id="RawResponse">
-            <textarea cols="100" rows="15" class="form-control" readonly="readonly"><?php echo $this->getResponse(); ?></textarea>
         </div>
 
-        <h3>Response:</h3>
-        <pre id="Response"><?php echo JsonBook::indent( $this->getDecodedResponse() ); ?></pre>
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3 class="panel-title">Request</h3></div>
+            <div class="panel-body">
+                <form method="post" action="WebServicesV100Response.php" class="form-horizontal">
+                    <input type="hidden" name="methodName" value="<?php echo $this->getPost()->getValue( "methodName" ) ?>" />
+                    <input type="hidden" name="methodUrl" value="<?php echo $this->getPost()->getValue( "methodUrl" ) ?>" />
+                    
+                    <?php foreach( $this->getParameters() as $key => $value ): ?>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><?php echo $key ?>:</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="<?php echo $key ?>" class="form-control" value="<?php echo $value ?>" />
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-primary">Send</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3 class="panel-title">Raw Response:</h3></div>
+            <div id="RawResponse" class="panel-body">
+                <textarea cols="100" rows="8" class="form-control" readonly="readonly"><?php echo $this->getResponse(); ?></textarea>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3 class="panel-title">Response:</h3></div>
+            <div class="panel-body">
+                <pre id="Response"><?php echo JsonBook::indent( $this->getDecodedResponse() ); ?></pre>
+            </div>
+        </div>
     </div>
 </div>

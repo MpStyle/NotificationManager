@@ -53,7 +53,7 @@ class WebServicesV100Response extends BasePage
         $this->parameters->remove("methodName");
         
         // do the call
-        $this->url = ConfigurationBook::getValue( Configuration::BACKEND_BASE_URL ) . "/Web/WebServices/" . $this->getPost()->getValue( "methodUrl" );
+        $this->url = $this->getPost()->getValue( "methodUrl" );
         $data = $this->parameters->__toArray();
 
         $options = array(
@@ -98,6 +98,4 @@ class WebServicesV100Response extends BasePage
     {
         return $this->url;
     }
-
-
 }

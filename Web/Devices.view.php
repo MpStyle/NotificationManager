@@ -30,11 +30,11 @@ use BusinessLogic\Device\DeviceBook;
         </h2>
 
         <div class="pull-right btn-group" role="group" id="TopToolbar">
-            <a href="" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Refresh the page">
+            <a href="" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Refresh the page">
                 <span class="glyphicon glyphicon-refresh"></span> 
                 <span class="hidden-xs hidden-sm">Refresh page</span>
             </a>
-            <span class="btn btn-default ShowFilter" data-toggle="tooltip" data-placement="top" title="Show/hide the filters">
+            <span class="btn btn-default ShowFilter" data-toggle="tooltip" data-placement="bottom" title="Show/hide the filters">
                 <span class="glyphicon glyphicon-search"></span> 
                 <span class="hidden-xs hidden-sm">Show/hide filter</span>
             </span>
@@ -43,45 +43,53 @@ use BusinessLogic\Device\DeviceBook;
 
     <div id="SubContainer">
         <form method="post" class="form-horizontal FiltersForm">
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Application:</label>
-                <div class="col-sm-10">
-                    <select name="application_id" class="form-control">
-                        <option>All</option>
-                        <?php foreach( ApplicationBook::getApplications() as /* @var $application Application */ $application ): ?>
-                            <option value="<?php echo $application->getId() ?>" <?php echo ($this->getPost()->getValue( "application_id" ) == $application->getId() ? "selected" : ""); ?>><?php echo $application->getName() ?></option>
-                        <?php endforeach; ?>
-                    </select>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Application:</label>
+                        <div class="col-sm-10">
+                            <select name="application_id" class="form-control">
+                                <option>All</option>
+                                <?php foreach( ApplicationBook::getApplications() as /* @var $application Application */ $application ): ?>
+                                    <option value="<?php echo $application->getId() ?>" <?php echo ($this->getPost()->getValue( "application_id" ) == $application->getId() ? "selected" : ""); ?>><?php echo $application->getName() ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">OS:</label>
+                        <div class="col-sm-10">
+                            <select name="type" class="form-control">
+                                <option>All</option>
+                                <?php foreach( DeviceBook::getDeviceType() as $deviceType ): ?>
+                                    <option value="<?php echo $deviceType ?>" <?php echo ($this->getPost()->getValue( "type" ) == $deviceType ? "selected" : ""); ?>><?php echo $deviceType ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Free text:</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="free_search" class="form-control" value="<?php echo $this->getPost()->getValue( "free_search" ) ?>" placeholder="Mobile ID, brand, model, OS name, OS version, or app name and version..." />
+                        </div>
+                    </div>
+
+                    <div class="pull-right">
+
+                        <button type="submit" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-search"></span> 
+                            Search
+                        </button>
+
+                        <a href="?page=<?php echo $this->getGet()->getKey( "page" ) ?>" class="btn btn-default">
+                            <span class="glyphicon glyphicon-remove"></span>
+                            Clear
+                        </a>
+
+                    </div>
                 </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-sm-2 control-label">OS:</label>
-                <div class="col-sm-10">
-                    <select name="type" class="form-control">
-                        <option>All</option>
-                        <?php foreach( DeviceBook::getDeviceType() as $deviceType ): ?>
-                            <option value="<?php echo $deviceType ?>" <?php echo ($this->getPost()->getValue( "type" ) == $deviceType ? "selected" : ""); ?>><?php echo $deviceType ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Free text:</label>
-                <div class="col-sm-10">
-                    <input type="text" name="free_search" class="form-control" value="<?php echo $this->getPost()->getValue( "free_search" ) ?>" placeholder="Mobile ID, brand, model, OS name, OS version, or app name and version..." />
-                </div>
-            </div>
-
-            <div class="pull-right">
-
-                <button type="submit" class="btn btn-primary">
-                    Search
-                </button>
-
-                <a href="?page=<?php echo $this->getGet()->getKey( "page" ) ?>" class="btn btn-default">Clear</a>
-
             </div>
         </form>
 
@@ -124,11 +132,20 @@ use BusinessLogic\Device\DeviceBook;
                             <form method="post">
                                 <div class="btn-group" role="group">
                                     <?php if( $device->getEnabled() ): ?>
-                                        <button id="DisableDeviceButton" type="submit" name="action" value="disableDevice" class="btn btn-warning">Disable</button>
+                                        <button id="DisableDeviceButton" type="submit" name="action" value="disableDevice" class="btn btn-warning">
+                                            <span class="glyphicon glyphicon-thumbs-down"></span> 
+                                            <span class="hidden-xs hidden-sm hidden-md">Disable</span>
+                                        </button>
                                     <?php else: ?>
-                                        <button id="EnableDeviceButton" type="submit" name="action" value="enableDevice" class="btn btn-success">Enable</button>
+                                        <button id="EnableDeviceButton" type="submit" name="action" value="enableDevice" class="btn btn-success">
+                                            <span class="glyphicon glyphicon-thumbs-up"></span> 
+                                            <span class="hidden-xs hidden-sm hidden-md">Enable</span>
+                                        </button>
                                     <?php endif; ?>
-                                    <button id="DeleteDeviceButton" type="button" class="btn btn-danger" data-toggle="modal" data-target=".DeleteDeviceModal">Delete</button>
+                                    <button id="DeleteDeviceButton" type="button" class="btn btn-danger" data-toggle="modal" data-target=".DeleteDeviceModal">
+                                        <span class="glyphicon glyphicon-remove"></span> 
+                                        <span class="hidden-xs hidden-sm hidden-md">Delete</span>
+                                    </button>
                                 </div>
 
                                 <input type="hidden" class="MobileId" value="<?php echo $device->getMobileId() ?>" />

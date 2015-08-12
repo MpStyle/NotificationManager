@@ -13,7 +13,8 @@ namespace Web\MasterPages;
         
         <!-- Bootstrap -->
         <link type="text/css" rel="stylesheet" href="../../vendor/twbs/bootstrap/dist/css/bootstrap.min.css" />
-        <link type="text/css" rel="stylesheet" href="../../vendor/twbs/bootstrap/dist/css/bootstrap-theme.min.css" />
+        <!--<link type="text/css" rel="stylesheet" href="../../vendor/twbs/bootstrap/dist/css/bootstrap-theme.min.css" />-->
+        <link href="Styles/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <script src="../../vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
         
         <script src="../../vendor/mpstyle/mtoolkit/View/Javascripts/MQueryString.min.js"></script>
