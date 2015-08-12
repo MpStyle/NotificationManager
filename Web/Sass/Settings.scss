@@ -18,23 +18,3 @@
  */
 
 @import "LoggedMasterPage";
-
-.glyphicon
-{
-    padding-right: 0px;
-}
-
-.ClientIdContainer, .SecretIdContainer
-{
-    max-width: 300px;
-    text-overflow: ellipsis;
-    white-space: nowrap; 
-    overflow: hidden;
-}
-
-#SubHeader, #SubContainer
-{
-    max-width: 1000px;
-    margin-left: auto;
-    margin-right: auto;
-}

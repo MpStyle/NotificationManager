@@ -56,7 +56,7 @@ namespace Web\MasterPages;
                                 </button>
                             </form>
 
-                            
+
                         </div>
                     </div>
 
@@ -96,14 +96,14 @@ namespace Web\MasterPages;
 
                     </ul>
 
-                    <!--                    <ul id="BottomMenu" role="navigation">
-                                            <li>
-                                                <a href="Settings.php">
-                                                    <span class="glyphicon glyphicon-cog"></span>
-                                                    Settings
-                                                </a>
-                                            </li>
-                                        </ul>-->
+                    <ul id="BottomMenu" role="navigation" class="nav nav-pills nav-stacked ">
+                        <li>
+                            <a href="Settings.php">
+                                <span class="glyphicon glyphicon-cog"></span>
+                                Settings
+                            </a>
+                        </li>
+                    </ul>
                 </div>
 
                 <div id="ContentWrapper" class="col-xs-12 col-sm-9 col-md-10 col-lg-10">

@@ -49,5 +49,22 @@ class ConfigurationAction
 
         return $sql->getResult();
     }
+    
+    public static function update( $key, $value )
+    {
+        MDataType::mustBeString( $key );
+
+        $query = "CALL configurationUpdate(?, ?)";
+        /* @var $connection PDO */
+        $connection = MDbConnection::getDbConnection();
+        $sql = new MPDOQuery( $query, $connection );
+
+        $sql->bindValue( $key );
+        $sql->bindValue( $value );
+
+        $sql->exec();
+
+        return $sql->getResult();
+    }
 
 }

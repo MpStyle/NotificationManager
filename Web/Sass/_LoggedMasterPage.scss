@@ -324,6 +324,13 @@ body
     margin-top: 0px;
 }
 
+#SubHeader, #SubContainer
+{
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 @media (max-width: 767px) {
     #SubHeader
     {

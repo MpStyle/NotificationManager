@@ -22,26 +22,28 @@ namespace Web;
 
 require_once '../Settings.php';
 
+use DbAbstraction\Configuration\ConfigurationAction;
 use Web\MasterPages\LoggedMasterPage;
 
-class Home extends BasePage
+class Settings extends BasePage
 {
     public function __construct()
     {
-        parent::__construct(__DIR__.'/Home.view.php');
+        parent::__construct(__DIR__.'/Settings.view.php');
         
         parent::setMasterPage(new LoggedMasterPage($this));
         $this->addMasterPagePart('content', 'content');
         
-        $this->addJavascript("Javascripts/Home.js");
-        $this->addCss("Styles/Home.css");
+        $this->addJavascript("Javascripts/Settings.js");
+        $this->addCss("Styles/Settings.css");
         
-        $page=$this->getGet()->getValue("currentPage");
-        if( $page==null )
+        if( $this->isPostBack() )
         {
-            $page="Apps.php";
+            foreach( $this->getPost() as $key => $value )
+            {
+                ConfigurationAction::update($key, $value);
+            }            
         }
         
-        $this->getHttpResponse()->redirect($page);
     }
 }

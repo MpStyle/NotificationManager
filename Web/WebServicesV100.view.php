@@ -20,7 +20,7 @@ use BusinessLogic\Localization\LocalizationBook;
     <div id="SubContainer">
 
         <div class="panel-group" id="web_services_accordion" role="tablist" aria-multiselectable="true">
-            <div class="panel panel-default">
+            <div class="panel panel-primary">
                 <div class="panel-heading" role="tab" id="mobile_registration_title">
                     <h3 class="panel-title">
                         <a role="button" data-toggle="collapse" data-parent="#web_services_accordion" href="#mobile_registration" aria-expanded="true" aria-controls="mobile_registration">
@@ -124,7 +124,7 @@ use BusinessLogic\Localization\LocalizationBook;
                 </div>
             </div>
 
-            <div class="panel panel-default">
+            <div class="panel panel-primary">
                 <div class="panel-heading" role="tab" id="mobile_unregistration_title">
                     <h3 class="panel-title">
                         <a role="button" data-toggle="collapse" data-parent="#web_services_accordion" href="#mobile_unregistration" aria-expanded="true" aria-controls="mobile_unregistration">
@@ -186,7 +186,7 @@ use BusinessLogic\Localization\LocalizationBook;
                     </div>
                 </div>
             </div>
-            <div class="panel panel-default">
+            <div class="panel panel-primary">
                 <div class="panel-heading" role="tab" id="get_notification_title">
                     <h3 class="panel-title">
                         <a role="button" data-toggle="collapse" data-parent="#web_services_accordion" href="#get_notification" aria-expanded="true" aria-controls="get_notification">
