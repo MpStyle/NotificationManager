@@ -52,11 +52,11 @@ use BusinessLogic\Enum\Post;
                         <label>Secret ID <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="Use this code as perameter in the web services"></span></label>
 
                         <div class="row">
-                            <div class="col-sm-11">
+                            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
                                 <input id="SecretIdText" type="text" name="secret_id" value="<?php echo ($this->getGet()->getValue( "id" ) == null ? sha1( uniqid() ) : $this->getCurrentApp()->getSecretId()) ?>" 
                                        class="form-control" readonly="readonly" maxlength="1024" />
                             </div>
-                            <button type="button" id="RefreshSecretIdButton" class="btn btn-default col-sm-1" data-toggle="tooltip" data-placement="top" title="Refresh secret ID">
+                            <button type="button" id="RefreshSecretIdButton" class="btn btn-default col-xs-1 col-sm-1 col-md-1 col-lg-1" data-toggle="tooltip" data-placement="top" title="Refresh secret ID">
                                 <span id="RefreshIcon" class="glyphicon glyphicon-refresh"></span>
                             </button>
                         </div>
