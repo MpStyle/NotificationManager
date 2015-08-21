@@ -3,7 +3,7 @@
 namespace Web\WebServices\Version_1_0_0;
 
 /*
- * This file is part of MToolkit.
+ * This file is part of Notification Manager.
  *
  * MToolkit is free software: you can redistribute it and/or modify
  * it under the terms of the LGNU Lesser General Public License as published by
@@ -49,16 +49,16 @@ use MToolkit\Model\Sql\MPDOResult;
  */
 class MobileRegistration extends AbstractWebService
 {
-    private $request=null;
-    private $mobileId=null;
-    private $type=null;
-    private $osVersion=null;
-    private $applicationVersion=null;
-    private $brand=null;
-    private $model=null;
-    private $localizationId=null;
-    private $clientId=null;
-    
+    private $request = null;
+    private $mobileId = null;
+    private $type = null;
+    private $osVersion = null;
+    private $applicationVersion = null;
+    private $brand = null;
+    private $model = null;
+    private $localizationId = null;
+    private $clientId = null;
+
     public function init()
     {
         parent::setWebServiceName( __CLASS__ );
@@ -73,14 +73,10 @@ class MobileRegistration extends AbstractWebService
         $this->localizationId = $this->getPost()->getValue( "localizationId" );
         $this->clientId = $this->getPost()->getValue( "clientId" );
     }
-    
+
     public function exec()
     {
-        if( $this->request == null 
-                || $this->mobileId == null 
-                || $this->type == null 
-                || $this->localizationId == null 
-                || $this->clientId == null )
+        if( $this->request == null || $this->mobileId == null || $this->type == null || $this->localizationId == null || $this->clientId == null )
         {
             parent::setResult( false );
             parent::setResultDescription( "Invalid mandatory parameters (0)." );
@@ -109,8 +105,8 @@ class MobileRegistration extends AbstractWebService
                 return;
             }
 
-            $applicationId = (int)$applications->at( 0 )->getId();
-            $deviceId = (int)$devices->at( 0 )->getId();
+            $applicationId = (int) $applications->at( 0 )->getId();
+            $deviceId = (int) $devices->at( 0 )->getId();
 
             /* @var $devicesApplications MList */ $devicesApplications = DeviceBook::getDevices( $deviceId, null, $applicationId, $this->type, null, $this->mobileId );
 
@@ -118,11 +114,9 @@ class MobileRegistration extends AbstractWebService
             if( $devicesApplications->count() <= 0 )
             {
                 /* @var $deviceSetApplication MPDOResult */ $deviceSetApplication = DeviceAction::setApplication( $deviceId, $applicationId, true );
-                if( $deviceSetApplication->getNumRowsAffected() <= 0 )
-                {
-                    DeviceAction::update( $deviceId, $applicationId, true );
-                }
             }
+            
+            DeviceAction::update( $deviceId, $applicationId, 1 );
 
             MDbConnection::getDbConnection()->commit();
 
