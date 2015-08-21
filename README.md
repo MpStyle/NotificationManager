@@ -1,7 +1,7 @@
 # NotificationManager
 
 Notification Manager is a web app to manage the push notification for all your apps.
-Right now the support is limited to the service Google Cloud Messaging, so you are be able to send notifications to Android and iOS device and to Chrome web app.
+Right now the support is limited to the service Google Cloud Messaging, so you are be able to send notifications to Android and iOS devices and to Chrome web apps.
 
 ## Install
 
