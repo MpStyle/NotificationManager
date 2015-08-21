@@ -96,6 +96,7 @@ class SendNotificationsBatch extends AbstractWebService
             $startRequest = new \DateTime();
 
             $notification = new Notification();
+            $notification->setId($row['Id']);
             $notification->setTitle( $row['Title'] );
             $notification->setShortMessage( $row['ShortMessage'] );
             $notification->setMessage( $row['Message'] );

@@ -64,6 +64,7 @@ class GCMEngine extends AbstractEngine
         }
 
         $msg = array(
+            'id' => $this->getNotification()->getId(),
             'message' => $this->getNotification()->getMessage(),
             'title' => $this->getNotification()->getTitle(),
             'subtitle' => $this->getNotification()->getShortMessage()
