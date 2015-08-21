@@ -63,11 +63,21 @@ class MobileUnregistration extends AbstractWebService
 
         try
         {
-            /* @var $devices MList */ $devices = DeviceBook::getDevices(null, 1, null, $type, null, $mobileId);
+            /* @var $devices MList */ $devices = DeviceBook::getDevices(null, null, null, $type, null, $mobileId);
             if( $devices->count() <= 0 )
             {
                 parent::setResult( false );
                 parent::setResultDescription( "Invalid mandatory parameters (1)." );
+                return;
+            }
+            
+            /* @var $device \BusinessLogic\Device\Device */ $device=$devices->getValue( 0 );
+            
+            // Se il device è già disabilitato allora non devo fare nient'altro.
+            if( $device->getEnabled()==0 || $device->getEnabled()==false )
+            {
+                parent::setResult( false );
+                parent::setResultDescription( "Device already disabled." );
                 return;
             }
             
