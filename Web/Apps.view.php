@@ -21,7 +21,7 @@ use BusinessLogic\Application\ApplicationBook;
     <div id="SubHeader">
         <h2 class="Title">
             <span id="toggle_menu" class="glyphicon glyphicon-menu-hamburger hidden-sm hidden-md hidden-lg"></span> 
-            App list 
+            <span class="glyphicon glyphicon-th hidden-xs"></span> App list 
             <small>(<?php echo $this->getApplicationCount() ?>)</small>
         </h2>
 

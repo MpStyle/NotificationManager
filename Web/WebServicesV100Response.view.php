@@ -11,7 +11,7 @@ use BusinessLogic\Json\JsonBook;
     <div id="SubHeader">
         <h2>
             <span id="toggle_menu" class="glyphicon glyphicon-menu-hamburger hidden-sm hidden-md hidden-lg"></span> 
-            Web service response 
+            <span class="glyphicon glyphicon-upload hidden-xs"></span> Web service response 
             <small>version: 1.0.0</small>
         </h2>
     </div>

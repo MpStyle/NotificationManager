@@ -25,7 +25,7 @@ use BusinessLogic\Device\DeviceBook;
     <div id="SubHeader">
         <h2 class="Title">
             <span id="toggle_menu" class="glyphicon glyphicon-menu-hamburger hidden-sm hidden-md hidden-lg"></span> 
-            Device list 
+            <span class="glyphicon glyphicon-phone hidden-xs"></span>Device list 
             <small>(<?php echo $this->getDeviceCount() ?>)</small>
         </h2>
 

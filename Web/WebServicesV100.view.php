@@ -12,7 +12,7 @@ use BusinessLogic\Localization\LocalizationBook;
     <div id="SubHeader">
         <h2>
             <span id="toggle_menu" class="glyphicon glyphicon-menu-hamburger hidden-sm hidden-md hidden-lg"></span> 
-            Web services 
+            <span class="glyphicon glyphicon-upload hidden-xs"></span> Web services 
             <small>version: 1.0.0</small>
         </h2>
     </div>

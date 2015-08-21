@@ -24,6 +24,7 @@ use DbAbstraction\Device\DeviceAction;
     <div id="SubHeader">
         <h2 class="Title">
             <span id="toggle_menu" class="glyphicon glyphicon-menu-hamburger hidden-sm hidden-md hidden-lg"></span> 
+            <span class="glyphicon glyphicon-envelope hidden-xs"></span>
             <?php if( $this->getGet()->getValue( "id" ) == null ): ?>
                 Create notification
             <?php else: ?>

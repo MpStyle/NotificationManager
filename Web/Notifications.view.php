@@ -25,7 +25,7 @@ use BusinessLogic\Notification\NotificationStatus;
     <div id="SubHeader">
         <h2 class="Title">
             <span id="toggle_menu" class="glyphicon glyphicon-menu-hamburger hidden-sm hidden-md hidden-lg"></span> 
-            Notification list
+            <span class="glyphicon glyphicon-envelope hidden-xs"></span> Notification list
             <small> (<?php echo $this->getNotificationCount() ?>)</small>
         </h2>
 

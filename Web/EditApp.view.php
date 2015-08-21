@@ -16,6 +16,7 @@ use BusinessLogic\Enum\Post;
     <div id="SubHeader">
         <h2>
             <span id="toggle_menu" class="glyphicon glyphicon-menu-hamburger hidden-sm hidden-md hidden-lg"></span> 
+            <span class="glyphicon glyphicon-th hidden-xs"></span> 
             <?php if( $this->getGet()->getValue( "id" ) == null ): ?>
                 Create app
             <?php else: ?>
