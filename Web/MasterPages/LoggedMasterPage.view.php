@@ -38,12 +38,12 @@ namespace Web\MasterPages;
                 </h1>
             </div>
 
-            <div id="Container" class="row">
+            <div id="Container" class="row <?php echo ($this->getPinLeftBar()? "" : "Unpin") ?>">
                 <div id="LeftColumn" class="hidden-xs col-sm-3 col-md-2 col-lg-2">
                     <div class="UserBar">
                         <div class="CoverContainer" style="background-image: url(<?php echo $this->getUserCoverPhoto() ?>)"></div>
 
-                        <div class="UserDetais">
+                        <div class="UserDetails">
                             <div class="AvatarContainer">
                                 <img class="UserAvatar" src="<?php echo $this->getUserAvatar() ?>" />
                             </div>
@@ -64,31 +64,31 @@ namespace Web\MasterPages;
                         <li>
                             <a href="Apps.php" data-toggle="tooltip" data-placement="right" title="List of the apps">
                                 <span class="glyphicon glyphicon-th"></span>
-                                Apps
+                                <span class="MenuItemLabel">Apps</span>
                             </a>
                         </li>
                         <li>
                             <a href="Devices.php" data-toggle="tooltip" data-placement="right" title="List of the devices">
                                 <span class="glyphicon glyphicon-phone"></span>
-                                Devices
+                                <span class="MenuItemLabel">Devices</span>
                             </a>
                         </li>
                         <li>
                             <a href="Notifications.php" data-toggle="tooltip" data-placement="right" title="List of the notifications">
                                 <span class="glyphicon glyphicon-envelope"></span>
-                                Notifications
+                                <span class="MenuItemLabel">Notifications</span>
                             </a>
                         </li>
                         <li>
                             <a href="#">
                                 <span class="glyphicon glyphicon-upload"></span>
-                                Web services
+                                <span class="MenuItemLabel">Web services</span>
                             </a>
-                            <ul>
+                            <ul role="navigation" class="nav nav-pills nav-stacked">
                                 <li>
                                     <a href="WebServicesV100.php" data-toggle="tooltip" data-placement="right" title="Version 1.0">
                                         <span class="glyphicon glyphicon-stop"></span>
-                                        Version 1.0
+                                        <span class="MenuItemLabel">Version 1.0</span>
                                     </a>
                                 </li>
                             </ul>
@@ -98,9 +98,15 @@ namespace Web\MasterPages;
 
                     <ul id="BottomMenu" role="navigation" class="nav nav-pills nav-stacked ">
                         <li>
+                            <a href="#" id="PinToggle">
+                                <span class="glyphicon glyphicon-pushpin"></span>
+                                <span class="MenuItemLabel">Unpin left bar</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="Settings.php">
                                 <span class="glyphicon glyphicon-cog"></span>
-                                Settings
+                                <span class="MenuItemLabel">Settings</span>
                             </a>
                         </li>
                     </ul>

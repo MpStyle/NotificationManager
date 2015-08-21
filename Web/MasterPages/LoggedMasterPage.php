@@ -2,11 +2,12 @@
 
 namespace Web\MasterPages;
 
-use MToolkit\Controller\MAbstractMasterPageController;
-use BusinessLogic\GoogleApiServices\GoogleApiServices;
-use MToolkit\Network\MNetworkSession;
 use BusinessLogic\Enum\Session;
+use BusinessLogic\GoogleApiServices\GoogleApiServices;
+use MToolkit\Controller\MAbstractMasterPageController;
 use MToolkit\Core\MDataType;
+use MToolkit\Network\MNetworkCookie;
+use MToolkit\Network\MNetworkSession;
 
 class LoggedMasterPage extends MAbstractMasterPageController
 {
@@ -15,10 +16,13 @@ class LoggedMasterPage extends MAbstractMasterPageController
      */
     private $googleService;
     private $userInfo;
+    private $uiSettings;
 
     public function __construct( $parent )
     {
         parent::__construct( __DIR__ . '/LoggedMasterPage.view.php', $parent );
+        
+        $this->uiSettings=$uiSettings=  MNetworkCookie::get( "UISettings" );
     }
 
     public function init()
@@ -99,4 +103,13 @@ class LoggedMasterPage extends MAbstractMasterPageController
         $this->getHttpResponse()->redirect( 'Login.php?' . $queryString );
     }
 
+    public function getPinLeftBar()
+    {
+        if($this->uiSettings==null)
+        {
+            return true;
+        }
+        
+        return $this->uiSettings["PinLeftBar"]===null ? true : $this->uiSettings["PinLeftBar"];
+    }
 }

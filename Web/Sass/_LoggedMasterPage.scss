@@ -129,11 +129,11 @@ body
 
 #LeftColumn
 {
+    background-color: #333;
     position: fixed;
     padding-right: 0px;
     margin-left: 0px;
     padding-left: 0px;
-    background-color: #ececec;
     color: #555;
     overflow: auto;
     overflow-x: hidden;
@@ -162,7 +162,7 @@ body
             background-size: cover; // auto|length|cover|contain|initial|inherit;
         }
 
-        .UserDetais
+        .UserDetails
         {
             padding: 20px;
         }
@@ -187,62 +187,54 @@ body
         }
     }
 
-    ul 
-    {
-        li
-        {
-            text-decoration: none;
-        }
-
-        a:hover
-            {
-            background-color: #f1f1f1 !important;
-            text-decoration: none !important;
-        }
-    }
-
-    #menu, #BottomMenu
+    ul
     {
         padding-left: 0;
         list-style-type: none;
+        list-style-type: none;
+        position: relative;
+        padding-left: 0;
 
-        li a
+        li 
         {
-            display: block !important;
-            position: relative;
-            padding: 10px 0 10px 15px !important;
-            background-color: #dfdfdf;
-            color: #555;
+            padding: 0px;
 
-            img
+            a
             {
-                padding-right: 10px;
-            }
-        }
+                display: block !important;
+                padding: 10px 0 10px 15px;
+                position: relative;
+                color: #fff;
 
-        ul
-        {
-            /*display: block;*/
-            list-style-type: none;
-            position: relative;
-            padding-left: 0;
-
-            li
-            {
-                padding: 0px !important;
-
-                a
+                img
                 {
-                    display: block !important;
-                    position: relative;
-                    padding: 10px 0 10px 30px !important;
-                    background-color: #ececec;
-                    padding: 5px 0px 0px 0px;
-                    display: inline-block;
-                    border-top: 1px solid #dfdfdf;
-                    color: #555;
+                    padding-right: 10px;
+                }
+                
+                .MenuItemLabel
+                {
+                    padding-left: 10px;
                 }
             }
+
+            a:hover
+                {
+                background-color: #f1f1f1;
+                color: #333;
+            }
+        }
+    }
+
+    #menu ul 
+    {
+        li a
+        {
+            padding-left: 30px;
+        }
+
+        li:nth-child(1)
+            {
+            margin-top: 2px;
         }
     }
 
@@ -359,7 +351,7 @@ body
             margin-top: 5px;
             margin-bottom: 0px;
             font-size: 1.4em;
-            
+
             small
             {
                 color: #fff;
@@ -370,5 +362,84 @@ body
     #SubContainer
     {
         margin-top: 65px;
+    }
+}
+
+.Unpin
+{
+    #LeftColumn 
+    {
+        width: 51px;
+
+        .UserBar 
+        {
+            background-color: transparent;
+
+            .UserDetails
+            {
+                margin-top: 10px;
+                padding: 0px;
+            }
+
+            .CoverContainer
+            {
+                display: none;
+            }
+
+            .AvatarContainer
+            {
+                margin: 0px;
+            }
+
+            .LogoutForm
+            {
+                display: none;
+            }
+
+            .UserName
+            {
+                display: none;
+            }
+        }
+
+        #menu, #BottomMenu
+        {
+            li
+            {    
+                .glyphicon
+                {
+                    padding-right: 0px;
+                }
+
+                a
+                {
+                    background-color: transparent;
+                    color: #fff;
+                    text-align: center;
+                    padding-left: 0px !important;
+                    padding-right: 0px !important;
+
+                    .MenuItemLabel
+                    {
+                        display: none;
+                    }
+                }
+
+                a:hover
+                    {
+                    color: #333;
+                    background-color: #f1f1f1;
+                }
+            }
+        }
+    }
+
+    @media (min-width: 767px) {
+        #ContentWrapper
+        {
+            margin-left: 0px;
+            padding-left: 60px;
+            width: 100%;
+        }
     }
 }
