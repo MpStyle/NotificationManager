@@ -63,7 +63,7 @@ class GetNotifications extends AbstractWebService
             /* @var $device Device */ $device = DeviceBook::getDevices( null, null, null, $this->type, null, $this->mobileId )->at( 0 );
             /* @var $application Application */ $application = ApplicationBook::getApplications( null, null, $this->clientId )->at( 0 );
             /* @var notifications MPDOResult */ $notifications = DeviceAction::getNotification( (int) $device->getId(), (int) $application->getId(), $this->notificationId, DeliveryStatus::SENT);
-
+            
             parent::setResponse( "Notifications", $notifications->toArray() );
         }
         catch( Exception $ex )
