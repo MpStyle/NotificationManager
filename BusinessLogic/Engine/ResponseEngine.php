@@ -142,7 +142,7 @@ class ResponseEngine
      */
     public function setRemoteId( $remoteId )
     {
-        MDataType::mustBeNullableString($remoteId);
+        // MDataType::mustBeNullableString($remoteId);
         
         $this->remoteId = $remoteId;
         return $this;
