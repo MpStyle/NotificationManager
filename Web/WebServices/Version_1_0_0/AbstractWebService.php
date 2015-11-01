@@ -55,7 +55,7 @@ abstract class AbstractWebService extends MAbstractHttpHandler
         $this->setOutput( base64_encode( json_encode( $responseArray ) ) );
     }
 
-    public function setResponse( $key, array $value )
+    public function setResponse( $key, $value )
     {
         MDataType::mustBeString( $key );
 
