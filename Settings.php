@@ -21,12 +21,7 @@ class Settings
     public static function run()
     {
         MApplication::setApplicationDirPath( __DIR__ );
-        // Dev
         MDbConnection::addDbConnection( new \PDO( 'mysql:host=' . Settings::DATABASE_HOST . ';dbname=' . Settings::DATABASE_NAME . '', Settings::DATABASE_USERNAME, Settings::DATABASE_PASSWORD ) );
-        // Debug
-//        MDbConnection::addDbConnection( new \PDO( 'mysql:host=' . Settings::DATABASE_HOST . ';dbname=' . Settings::DATABASE_NAME . ';port=4040', Settings::DATABASE_USERNAME, Settings::DATABASE_PASSWORD ) );
-        // PROD
-//        MDbConnection::addDbConnection( new PDO('mysql:dbname=palimpseststv_utf8;host=localhost', 'root', 'QazPoi.10', array( PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8" )) );
 
         if( ConfigurationBook::getValue( Configuration::SHOW_PHP_ERRORS ) == "true" )
         {
