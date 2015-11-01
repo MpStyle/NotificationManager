@@ -33,6 +33,10 @@
 
 .EntityList
 {
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+
     .NoWrap
     {
         white-space: nowrap;
@@ -43,6 +47,22 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+    }
+
+    th
+    {
+        color: rgba(51,51,51,0.6);
+    }
+
+    tr
+    {
+        border-bottom: 1px solid #d1d1d1;
+    }
+
+    td, th
+    {
+        border: 0px;
+        padding: 10px 15px;
     }
 }
 
@@ -56,3 +76,39 @@
 {
     margin-bottom: 20px;
 }
+
+.btn
+{
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
+
+.btn-group 
+{
+    white-space: nowrap;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    
+    .btn 
+    {
+        box-shadow: none;
+    }
+}
+
+.panel
+{
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
+/*
+input[type="text"], input[type="number"], select, textarea
+{
+    border: 0px;
+    border-bottom:1px solid #cccccc;
+    @include border-radius(0);
+    box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+input[type="text"]:active, input[type="number"]:active, select:active, textarea:active
+{
+    box-shadow: none;
+    -webkit-box-shadow: none;
+}*/
