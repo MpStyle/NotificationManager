@@ -94,7 +94,7 @@ use BusinessLogic\Device\DeviceBook;
         </form>
 
 
-        <table class="table table-striped table-bordered EntityList" data-resizable-columns-id="devices-table">
+        <table class="EntityList" data-resizable-columns-id="devices-table">
             <thead>
                 <tr>
                     <th data-resizable-column-id="MobileId">
