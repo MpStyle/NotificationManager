@@ -106,9 +106,10 @@ use BusinessLogic\Notification\NotificationStatus;
 
 
 
-        <table class="table table-striped table-bordered EntityList" data-resizable-columns-id="notifications-table">
+        <table class="EntityList" data-resizable-columns-id="notifications-table">
             <thead>
                 <tr>
+                    <th>ID</th>
                     <th data-resizable-column-id="Application">Application</th>
                     <th data-resizable-column-id="Title">Title</th>
                     <th class="hidden-xs hidden-sm" data-resizable-column-id="Content">Content</th>
@@ -122,6 +123,7 @@ use BusinessLogic\Notification\NotificationStatus;
             <tbody>
                 <?php foreach( $this->getNotifications() as /* @var $notification Notification */ $notification ): ?>
                     <tr class="<?php echo $this->getRowClass( (int) $notification->getId() ) ?>">
+                        <td><?php echo $notification->getId() ?></td>
                         <td><?php echo $notification->getApplicationName() ?></td>
                         <td><?php echo $notification->getTitle() ?></td>
                         <td class="hidden-xs hidden-sm">

@@ -25,7 +25,6 @@ require_once '../Settings.php';
 
 use BusinessLogic\Application\ApplicationLinkType;
 use BusinessLogic\Date\DateBook;
-use BusinessLogic\Notification\DeliveryStatus;
 use BusinessLogic\Notification\Notification;
 use BusinessLogic\Notification\NotificationStatus;
 use DbAbstraction\Device\DeviceAction;
