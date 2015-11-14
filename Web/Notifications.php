@@ -49,8 +49,8 @@ class Notifications extends BasePage
 
         $notificationId = null;
         $applicationId = $this->getApplicationId();
-        $status = $this->getPost()->getValue( "status" ) == "" ? null : (int) $this->getPost()->getValue( "status" );
-        $deviceType = $this->getPost()->getValue( "type" ) == "" ? null : $this->getPost()->getValue( "type" );
+        $status = $this->getGet()->getValue( "status" ) == "" ? null : (int) $this->getGet()->getValue( "status" );
+        $deviceType = $this->getGet()->getValue( "type" ) == "" ? null : $this->getGet()->getValue( "type" );
         $perPage = 10;
         $currentPage = $this->getCurrentPage();
 
@@ -67,7 +67,7 @@ class Notifications extends BasePage
 
     protected function deleteNotification()
     {
-        if( NotificationAction::delete( (int) $this->getPost()->getValue( "modal-notification-id" ) ) == null )
+        if( NotificationAction::delete( (int) $this->getGet()->getValue( "modal-notification-id" ) ) == null )
         {
             $this->getHttpResponse()->redirect( "Notifications.php?error=01&applicationId=" . $this->getApplicationId() . "&page=" . $this->getCurrentPage() );
         }
@@ -84,7 +84,7 @@ class Notifications extends BasePage
 
     public function getApplicationId()
     {
-        return $this->getPost()->getValue( "applicationId" ) == null ? null : (int) $this->getPost()->getValue( "applicationId" );
+        return $this->getGet()->getValue( "applicationId" ) == null ? null : (int) $this->getGet()->getValue( "applicationId" );
     }
 
     public function getNotifications()
@@ -125,6 +125,21 @@ class Notifications extends BasePage
     public function getPagination()
     {
         return $this->pagination;
+    }
+
+    public function showFilters()
+    {
+        $get = $_GET;
+        unset( $get["page"] );
+        foreach( $get as $key => $value )
+        {
+            if( $value == "" || $value == "All" )
+            {
+                unset( $get[$key] );
+            }
+        }
+
+        return (count( $get ) > 0);
     }
 
 }

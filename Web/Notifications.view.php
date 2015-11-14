@@ -45,7 +45,7 @@ use BusinessLogic\Notification\NotificationStatus;
     </a>
 
     <div id="SubContainer">
-        <form method="post" class="form-horizontal FiltersForm">
+        <form method="get" class="form-horizontal FiltersForm <?php echo (!$this->showFilters() ? "filters-form-hide" : "") ?>">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="form-group">
@@ -54,7 +54,7 @@ use BusinessLogic\Notification\NotificationStatus;
                             <select name="application_id" class="form-control">
                                 <option></option>
                                 <?php foreach( ApplicationBook::getApplications() as /* @var $application Application */ $application ): ?>
-                                    <option value="<?php echo $application->getId() ?>" <?php echo ($this->getPost()->getValue( "application_id" )==$application->getId() ? "selected" : ""); ?>><?php echo $application->getName() ?></option>
+                                    <option value="<?php echo $application->getId() ?>" <?php echo ($this->getGet()->getValue( "application_id" )==$application->getId() ? "selected" : ""); ?>><?php echo $application->getName() ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -66,7 +66,7 @@ use BusinessLogic\Notification\NotificationStatus;
                             <select name="type" class="form-control">
                                 <option></option>
                                 <?php foreach( DeviceBook::getDeviceType() as $deviceType ): ?>
-                                    <option value="<?php echo $deviceType ?>" <?php echo ($this->getPost()->getValue( "type" )==$deviceType ? "selected" : ""); ?>><?php echo $deviceType ?></option>
+                                    <option value="<?php echo $deviceType ?>" <?php echo ($this->getGet()->getValue( "type" )==$deviceType ? "selected" : ""); ?>><?php echo $deviceType ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -77,9 +77,9 @@ use BusinessLogic\Notification\NotificationStatus;
                         <div class="col-sm-10">
                             <select name="status" class="form-control">
                                 <option></option>
-                                <option value="<?php echo NotificationStatus::DRAFT ?>" <?php echo ($this->getPost()->getValue( "status" )==NotificationStatus::DRAFT ? "selected" : "") ?>>Draft</option>
-                                <option value="<?php echo NotificationStatus::APPROVED ?>" <?php echo ($this->getPost()->getValue( "status" )==NotificationStatus::APPROVED ? "selected" : "") ?>>Approved</option>
-                                <option value="<?php echo NotificationStatus::CLOSED ?>" <?php echo ($this->getPost()->getValue( "status" )==NotificationStatus::CLOSED ? "selected" : "") ?>>Closed</option>
+                                <option value="<?php echo NotificationStatus::DRAFT ?>" <?php echo ($this->getGet()->getValue( "status" )==NotificationStatus::DRAFT ? "selected" : "") ?>>Draft</option>
+                                <option value="<?php echo NotificationStatus::APPROVED ?>" <?php echo ($this->getGet()->getValue( "status" )==NotificationStatus::APPROVED ? "selected" : "") ?>>Approved</option>
+                                <option value="<?php echo NotificationStatus::CLOSED ?>" <?php echo ($this->getGet()->getValue( "status" )==NotificationStatus::CLOSED ? "selected" : "") ?>>Closed</option>
                             </select>
                         </div>
                     </div>
