@@ -29,13 +29,18 @@
     vertical-align: top;
 }
 
-.MobileId
+.mobile-info
+{
+    font-weight: bold;
+    display: inline-block;
+}
+
+.mobile-id
 {
     max-width: 530px;
     overflow: hidden;
     text-overflow: ellipsis;
     display: inline-block;
-    margin-left: 10px;
 }
 
 #SubContainer
@@ -43,4 +48,9 @@
     max-width: 1000px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.buttons-col
+{
+    min-width: 165px;
 }

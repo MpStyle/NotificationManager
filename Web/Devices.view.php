@@ -96,16 +96,12 @@ use BusinessLogic\Device\DeviceBook;
             <thead>
                 <tr>
                     <td>&nbsp;</td>
+                    <td></td>
                     <th data-resizable-column-id="MobileId">
-                        Mobile ID
+                        Device
                     </th>
-<!--                    <th class="hidden-xs" data-resizable-column-id="LastLoginDate">
-                        Last login date
-                    </th>-->
-                    <!--<th class="hidden-xs" data-resizable-column-id="OS">OS</th>-->
                     <th class="hidden-xs hidden-sm" data-resizable-column-id="AppInfo">App info</th>
-                    <!--<th class="hidden-xs hidden-sm" data-resizable-column-id="BrandAndModel">Brand and model</th>-->
-                    <th data-resizable-column-id="DevicesOther"></th>
+                    <th class="buttons-col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -114,20 +110,14 @@ use BusinessLogic\Device\DeviceBook;
                         <td><?php echo $device->getId() ?></td>
                         <td>
                             <img class="DeviceFlag" src="Images/flags/<?php echo $device->getLocalizationName() ?>.png" />
-                            <div class="MobileId" title="<?php echo $device->getMobileId() ?>"><?php echo $device->getMobileId() ?></div>
                         </td>
-<!--                        <td class="hidden-xs">
-                            <?php echo $device->getUpdateDate() ?>
-                        </td>-->
-<!--                        <td class="hidden-xs">
-                            <?php echo $device->getType() ?> - <?php echo $device->getOsVersion() ?>
-                        </td>-->
+                        <td>
+                            <div class="mobile-info"><?php echo $device->getBrand() ?> - <?php echo $device->getModel() ?> | <?php echo $device->getType() ?> - <?php echo $device->getOsVersion() ?></div>
+                            <div class="mobile-id" title="<?php echo $device->getMobileId() ?>"><?php echo $device->getMobileId() ?></div>
+                        </td>
                         <td class="hidden-xs hidden-sm">
                             <?php echo $device->getApplicationName() ?> - <?php echo $device->getApplicationVersion() ?>
                         </td>
-<!--                        <td class="hidden-xs hidden-sm">
-                            <?php echo $device->getBrand() ?> - <?php echo $device->getModel() ?>
-                        </td>-->
                         <td>
                             <form method="post">
                                 <div class="btn-group" role="group">
