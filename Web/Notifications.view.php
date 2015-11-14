@@ -113,7 +113,7 @@ use BusinessLogic\Notification\NotificationStatus;
                     <th class="hidden-xs hidden-sm">Status</th>
                     <!--<th class="hidden-xs hidden-sm" data-resizable-column-id="ReachedDevices">Reached devices</th>-->
                     <th class="hidden-xs hidden-sm">Last update</th>
-                    <th></th>
+                    <th class="buttons-col"></th>
                 </tr>
             </thead>
             <tbody>
