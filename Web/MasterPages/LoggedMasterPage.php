@@ -40,7 +40,7 @@ class LoggedMasterPage extends MAbstractMasterPageController {
 
         // Controlla se il token di Google è valido
         if ($this->googleService->isValidToken() === false) {
-            echo "Invalid Token";
+            // echo "Invalid Token";
 
             $currentFile = $_SERVER["PHP_SELF"];
             $parts = Explode('/', $currentFile);
@@ -94,7 +94,7 @@ class LoggedMasterPage extends MAbstractMasterPageController {
     public function logout($queryString = "") {
         MDataType::mustBeString($queryString);
 
-        $this->googleService->revokeToken(MNetworkSession::get(Session::GOOGLE_ACCESS_TOKEN));
+        $this->googleService->revokeToken();
         $this->getHttpResponse()->redirect('Login.php?' . $queryString);
     }
 
