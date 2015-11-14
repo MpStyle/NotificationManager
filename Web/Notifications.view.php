@@ -1,5 +1,4 @@
 <?php
-
 namespace Web;
 
 use BusinessLogic\Application\Application;
@@ -14,7 +13,7 @@ use BusinessLogic\Notification\NotificationStatus;
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
 <div id="content">
-    <?php switch ($this->getGet()->getValue("error")): ?><?php case "00": ?>
+    <?php switch( $this->getGet()->getValue( "error" ) ): ?><?php case "00": ?>
             <div class="alert alert-success ErrorMessage-MarginBottom20" role="alert">The Notifications was successfully saved.</div>
             <?php break; ?><?php case "01": ?>
             <div class="alert alert-danger ErrorMessage-MarginBottom20" role="alert">The Notifications was not deleted.</div>
@@ -54,8 +53,8 @@ use BusinessLogic\Notification\NotificationStatus;
                         <div class="col-sm-10">
                             <select name="application_id" class="form-control">
                                 <option></option>
-                                <?php foreach (ApplicationBook::getApplications() as /* @var $application Application */ $application): ?>
-                                    <option value="<?php echo $application->getId() ?>" <?php echo ($this->getPost()->getValue("application_id") == $application->getId() ? "selected" : ""); ?>><?php echo $application->getName() ?></option>
+                                <?php foreach( ApplicationBook::getApplications() as /* @var $application Application */ $application ): ?>
+                                    <option value="<?php echo $application->getId() ?>" <?php echo ($this->getPost()->getValue( "application_id" )==$application->getId() ? "selected" : ""); ?>><?php echo $application->getName() ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -66,8 +65,8 @@ use BusinessLogic\Notification\NotificationStatus;
                         <div class="col-sm-10">
                             <select name="type" class="form-control">
                                 <option></option>
-                                <?php foreach (DeviceBook::getDeviceType() as $deviceType): ?>
-                                    <option value="<?php echo $deviceType ?>" <?php echo ($this->getPost()->getValue("type") == $deviceType ? "selected" : ""); ?>><?php echo $deviceType ?></option>
+                                <?php foreach( DeviceBook::getDeviceType() as $deviceType ): ?>
+                                    <option value="<?php echo $deviceType ?>" <?php echo ($this->getPost()->getValue( "type" )==$deviceType ? "selected" : ""); ?>><?php echo $deviceType ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -78,9 +77,9 @@ use BusinessLogic\Notification\NotificationStatus;
                         <div class="col-sm-10">
                             <select name="status" class="form-control">
                                 <option></option>
-                                <option value="<?php echo NotificationStatus::DRAFT ?>" <?php echo ($this->getPost()->getValue("status") == NotificationStatus::DRAFT ? "selected" : "") ?>>Draft</option>
-                                <option value="<?php echo NotificationStatus::APPROVED ?>" <?php echo ($this->getPost()->getValue("status") == NotificationStatus::APPROVED ? "selected" : "") ?>>Approved</option>
-                                <option value="<?php echo NotificationStatus::CLOSED ?>" <?php echo ($this->getPost()->getValue("status") == NotificationStatus::CLOSED ? "selected" : "") ?>>Closed</option>
+                                <option value="<?php echo NotificationStatus::DRAFT ?>" <?php echo ($this->getPost()->getValue( "status" )==NotificationStatus::DRAFT ? "selected" : "") ?>>Draft</option>
+                                <option value="<?php echo NotificationStatus::APPROVED ?>" <?php echo ($this->getPost()->getValue( "status" )==NotificationStatus::APPROVED ? "selected" : "") ?>>Approved</option>
+                                <option value="<?php echo NotificationStatus::CLOSED ?>" <?php echo ($this->getPost()->getValue( "status" )==NotificationStatus::CLOSED ? "selected" : "") ?>>Closed</option>
                             </select>
                         </div>
                     </div>
@@ -92,7 +91,7 @@ use BusinessLogic\Notification\NotificationStatus;
                             Search
                         </button>
 
-                        <a href="?page=<?php echo $this->getGet()->getKey("page") ?>" class="btn btn-default">
+                        <a href="?page=<?php echo $this->getGet()->getKey( "page" ) ?>" class="btn btn-default">
                             <span class="glyphicon glyphicon-remove"></span>
                             Clear
                         </a>
@@ -118,18 +117,18 @@ use BusinessLogic\Notification\NotificationStatus;
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($this->getNotifications() as /* @var $notification Notification */ $notification): ?>
-                    <tr class="<?php echo $this->getRowClass((int) $notification->getId()) ?>">
+                <?php foreach( $this->getNotifications() as /* @var $notification Notification */ $notification ): ?>
+                    <tr class="<?php echo $this->getRowClass( (int) $notification->getId() ) ?>">
                         <td><?php echo $notification->getId() ?></td>
                         <td><?php echo $notification->getApplicationName() ?></td>
                         <td>
-                            <b><?php echo $notification->getTitle() ?></b> - <?php echo $notification->getMessage() ?>
+                            <b><?php echo htmlentities( $notification->getTitle() ) ?></b> - <?php echo htmlentities( $notification->getMessage() ) ?>
                         </td>
-                        <td class="hidden-xs"><?php echo $notification->getDeviceType() == '' ? 'All' : $notification->getDeviceType() ?></td>
+                        <td class="hidden-xs"><?php echo $notification->getDeviceType()=='' ? 'All' : $notification->getDeviceType() ?></td>
                         <td class="hidden-xs hidden-sm">
-                            <?php if ($notification->getStatusId() == NotificationStatus::APPROVED): ?>
+                            <?php if( $notification->getStatusId()==NotificationStatus::APPROVED ): ?>
                                 Approved
-                            <?php elseif ($notification->getStatusId() == NotificationStatus::CLOSED): ?>
+                            <?php elseif( $notification->getStatusId()==NotificationStatus::CLOSED ): ?>
                                 Closed
                             <?php else: ?>
                                 Draft
@@ -140,7 +139,7 @@ use BusinessLogic\Notification\NotificationStatus;
                         <td>
                             <form method="post">
                                 <div class="btn-group" role="group">
-                                    <?php if ($notification->getStatusId() == NotificationStatus::CLOSED): ?>
+                                    <?php if( $notification->getStatusId()==NotificationStatus::CLOSED ): ?>
                                         <a href="EditNotification.php?id=<?php echo $notification->getId() ?>" class="btn btn-default" title="Show">
                                             <span class="glyphicon glyphicon-eye-open"></span> 
                                         </a>
@@ -153,7 +152,7 @@ use BusinessLogic\Notification\NotificationStatus;
                                             type="button" 
                                             title="Delete"
                                             class="btn btn-danger" 
-                                            <?php echo ($notification->getDeliveryStatus() == DeliveryStatus::SENDING ? "disabled" : ""); ?>
+                                            <?php echo ($notification->getDeliveryStatus()==DeliveryStatus::SENDING ? "disabled" : ""); ?>
                                             data-toggle="modal" data-target=".DeleteNotificationModal">
                                         <span class="glyphicon glyphicon-remove"></span> 
                                     </button>
@@ -170,8 +169,8 @@ use BusinessLogic\Notification\NotificationStatus;
 
 
         <ul class="pagination">
-            <?php for ($i = 0; $i < $this->getPages(); $i++): ?>
-                <li class="<?php echo ($this->getCurrentPage() == $i ? "active" : "") ?>"><a href="?applicationId=<?php $this->getApplicationId() ?>&page=<?php echo $i ?>"><?php echo $i + 1 ?></a></li>
+            <?php for( $i = 0; $i<$this->getPages(); $i++ ): ?>
+                <li class="<?php echo ($this->getCurrentPage()==$i ? "active" : "") ?>"><a href="?applicationId=<?php $this->getApplicationId() ?>&page=<?php echo $i ?>"><?php echo $i+1 ?></a></li>
             <?php endfor; ?>
         </ul>
     </div>
