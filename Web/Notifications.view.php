@@ -153,13 +153,13 @@ use BusinessLogic\Notification\NotificationStatus;
                                             title="Delete"
                                             class="btn btn-danger" 
                                             <?php echo ($notification->getDeliveryStatus()==DeliveryStatus::SENDING ? "disabled" : ""); ?>
-                                            data-toggle="modal" data-target=".DeleteNotificationModal">
+                                            data-toggle="modal" data-target=".delete-notification-modal">
                                         <span class="glyphicon glyphicon-remove"></span> 
                                     </button>
                                 </div>
 
-                                <input type="hidden" class="NotificationId" name="NotificationId" value="<?php echo $notification->getId() ?>" />
-                                <input type="hidden" class="NotificationTitle" name="NotificationTitle" value="<?php echo $notification->getTitle() ?>" />
+                                <input type="hidden" class="notification-id" name="NotificationId" value="<?php echo $notification->getId() ?>" />
+                                <input type="hidden" class="notification-title" name="NotificationTitle" value="<?php echo $notification->getTitle() ?>" />
                             </form>
                         </td>
                     </tr>
@@ -171,18 +171,18 @@ use BusinessLogic\Notification\NotificationStatus;
         <?php $this->getPagination()->show() ?>
     </div>
 
-    <div class="modal fade DeleteNotificationModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal fade delete-notification-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-body">
-                    Do yuo want to delete notification "<span class="NotificationTitle"></span>"?
+                    Do yuo want to delete notification "<span class="modal-notification-title"></span>"?
                 </div>
                 <div class="modal-footer">
                     <form method="post">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-danger" name="action" value="deleteNotification">Delete</button>
 
-                        <input type="hidden" name="NotificationId" class="NotificationId" value="" />
+                        <input type="hidden" name="modal-notification-id" class="modal-notification-id" value="" />
                     </form>
                 </div>
             </div>
