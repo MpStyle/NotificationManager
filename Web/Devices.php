@@ -34,7 +34,7 @@ class Devices extends BasePage
     private $devices = null;
     private $pages = 1;
     private $deviceCount = 0;
-    private $pagination=null;
+    private $pagination = null;
 
     public function __construct()
     {
@@ -48,39 +48,40 @@ class Devices extends BasePage
 
         $deviceId = null;
         $enabled = null;
-        $applicationId = $this->getApplicationId() == null ? $this->getApplicationId() : $this->getPost()->getValueByType( "application_id", MDataType::INT );
-        $type = $this->getPost()->getValue( "type" ) == "" ? null : $this->getPost()->getValue( "type" );
-        $text = $this->getPost()->getValue( "free_search" ) == "" ? null : $this->getPost()->getValue( "free_search" );
+        $applicationId = $this->getApplicationId() == null ? $this->getApplicationId() : $this->getGet()->getValueByType( "application_id", MDataType::INT );
+        $type = $this->getGet()->getValue( "type" ) == "" ? null : $this->getGet()->getValue( "type" );
+        $text = $this->getGet()->getValue( "free_search" ) == "" ? null : $this->getGet()->getValue( "free_search" );
+        $localizationId = $this->getGet()->getValue( "localization-id" ) == "" ? null : (int) $this->getGet()->getValue( "localization-id" );
         $perPage = 10;
 
         $applicationId = $applicationId == null ? $applicationId : (int) $applicationId;
 
-        /* @var $result MPDOResult */ $result = DeviceAction::getPageCount( $deviceId, $enabled, $applicationId, $type, $text, null, $perPage );
+        /* @var $result MPDOResult */ $result = DeviceAction::getPageCount( $deviceId, $enabled, $applicationId, $localizationId, $type, $text, null, $perPage );
         $this->pages = $result->getData( 0, 'PageCount' );
-        
-        $this->pagination=new Views\Pagination($this->pages, $this);
 
-        /* @var $result MPDOResult */ $result = DeviceAction::getCount( $deviceId, $enabled, $applicationId, $type, $text, null );
+        $this->pagination = new Views\Pagination( $this->pages, $this );
+
+        /* @var $result MPDOResult */ $result = DeviceAction::getCount( $deviceId, $enabled, $applicationId, $localizationId, $type, $text, null );
         $this->deviceCount = $result->getData( 0, 'DeviceCount' );
 
-        $this->devices = DeviceBook::getDevices( $deviceId, $enabled, $applicationId, $type, $text, null, $perPage, $this->pagination->getCurrentPage() );
+        $this->devices = DeviceBook::getDevices( $deviceId, $enabled, $applicationId, $localizationId, $type, $text, null, $perPage, $this->pagination->getCurrentPage() );
     }
 
     protected function disableDevice()
     {
-        DeviceAction::update( (int) $this->getPost()->getValue( "DeviceId" ), (int) $this->getPost()->getValue( "ApplicationId" ), 0 );
+        DeviceAction::update( (int) $this->getGet()->getValue( "DeviceId" ), (int) $this->getGet()->getValue( "ApplicationId" ), 0 );
         $this->getHttpResponse()->redirect( "Devices.php?error=03&applicationId=" . $this->getApplicationId() . "&page=" . $this->getCurrentPage() );
     }
 
     protected function enableDevice()
     {
-        DeviceAction::update( (int) $this->getPost()->getValue( "DeviceId" ), (int) $this->getPost()->getValue( "ApplicationId" ), 1 );
+        DeviceAction::update( (int) $this->getGet()->getValue( "DeviceId" ), (int) $this->getGet()->getValue( "ApplicationId" ), 1 );
         $this->getHttpResponse()->redirect( "Devices.php?error=03&applicationId=" . $this->getApplicationId() . "&page=" . $this->getCurrentPage() );
     }
 
     protected function deleteDevice()
     {
-        if( DeviceAction::delete( (int) $this->getPost()->getValue( "DeleteDeviceId" ) ) == null )
+        if( DeviceAction::delete( (int) $this->getGet()->getValue( "DeleteDeviceId" ) ) == null )
         {
             $this->getHttpResponse()->redirect( "Devices.php?error=01&applicationId=" . $this->getApplicationId() . "&page=" . $this->getCurrentPage() );
         }
@@ -134,4 +135,20 @@ class Devices extends BasePage
     {
         return $this->deviceCount;
     }
+
+    public function showFilters()
+    {
+        $get = $_GET;
+        unset( $get["page"] );
+        foreach( $get as $key => $value )
+        {
+            if( $value == "" || $value == "All" )
+            {
+                unset( $get[$key] );
+            }
+        }
+
+        return (count( $get ) > 0);
+    }
+
 }

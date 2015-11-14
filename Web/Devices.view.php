@@ -5,6 +5,7 @@ use BusinessLogic\Application\Application;
 use BusinessLogic\Application\ApplicationBook;
 use BusinessLogic\Device\Device;
 use BusinessLogic\Device\DeviceBook;
+use BusinessLogic\Localization\Localization;
 
 /* @var $this Devices */
 ?>
@@ -40,7 +41,7 @@ use BusinessLogic\Device\DeviceBook;
     </div>
 
     <div id="SubContainer">
-        <form method="post" class="form-horizontal FiltersForm">
+        <form method="get" class="form-horizontal FiltersForm <?php echo (!$this->showFilters() ? "filters-form-hide" : "") ?>">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="form-group">
@@ -49,8 +50,35 @@ use BusinessLogic\Device\DeviceBook;
                             <select name="application_id" class="form-control">
                                 <option>All</option>
                                 <?php foreach( ApplicationBook::getApplications() as /* @var $application Application */ $application ): ?>
-                                    <option value="<?php echo $application->getId() ?>" <?php echo ($this->getPost()->getValue( "application_id" ) == $application->getId() ? "selected" : ""); ?>><?php echo $application->getName() ?></option>
+                                    <option value="<?php echo $application->getId() ?>" <?php echo ($this->getGet()->getValue( "application_id" )==$application->getId() ? "selected" : ""); ?>><?php echo $application->getName() ?></option>
                                 <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Localization:</label>
+                        <div class="col-sm-10">
+                            <select name="localization-id" class="form-control">
+                                <option value="">All</option>
+                                <option value="<?php echo Localization::EN ?>" <?php echo ($this->getGet()->getValue( "localization-id" )==Localization::EN ? "selected" : ""); ?>>
+                                    English
+                                </option>
+                                <option value="<?php echo Localization::DE ?>" <?php echo ($this->getGet()->getValue( "localization-id" )==Localization::DE ? "selected" : ""); ?>>
+                                    German
+                                </option>
+                                <option value="<?php echo Localization::ES ?>" <?php echo ($this->getGet()->getValue( "localization-id" )==Localization::ES ? "selected" : ""); ?>>
+                                    Spanish
+                                </option>
+                                <option value="<?php echo Localization::FR ?>" <?php echo ($this->getGet()->getValue( "localization-id" )==Localization::FR ? "selected" : ""); ?>>
+                                    France
+                                </option>
+                                <option value="<?php echo Localization::IT ?>" <?php echo ($this->getGet()->getValue( "localization-id" )==Localization::IT ? "selected" : ""); ?>>
+                                    Italy
+                                </option>
+                                <option value="<?php echo Localization::RU ?>" <?php echo ($this->getGet()->getValue( "localization-id" )==Localization::RU ? "selected" : ""); ?>>
+                                    Russia
+                                </option>
                             </select>
                         </div>
                     </div>
@@ -59,9 +87,9 @@ use BusinessLogic\Device\DeviceBook;
                         <label class="col-sm-2 control-label">OS:</label>
                         <div class="col-sm-10">
                             <select name="type" class="form-control">
-                                <option>All</option>
+                                <option value="">All</option>
                                 <?php foreach( DeviceBook::getDeviceType() as $deviceType ): ?>
-                                    <option value="<?php echo $deviceType ?>" <?php echo ($this->getPost()->getValue( "type" ) == $deviceType ? "selected" : ""); ?>><?php echo $deviceType ?></option>
+                                    <option value="<?php echo $deviceType ?>" <?php echo ($this->getGet()->getValue( "type" )==$deviceType ? "selected" : ""); ?>><?php echo $deviceType ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -70,7 +98,7 @@ use BusinessLogic\Device\DeviceBook;
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Free text:</label>
                         <div class="col-sm-10">
-                            <input type="text" name="free_search" class="form-control" value="<?php echo $this->getPost()->getValue( "free_search" ) ?>" placeholder="Mobile ID, brand, model, OS name, OS version, or app name and version..." />
+                            <input type="text" name="free_search" class="form-control" value="<?php echo $this->getGet()->getValue( "free_search" ) ?>" placeholder="Mobile ID, brand, model, OS name, OS version, or app name and version..." />
                         </div>
                     </div>
 
@@ -113,7 +141,7 @@ use BusinessLogic\Device\DeviceBook;
                         </td>
                         <td>
                             <div class="mobile-info"><?php echo $device->getBrand() ?> - <?php echo $device->getModel() ?> | <?php echo $device->getType() ?> - <?php echo $device->getOsVersion() ?></div>
-                            <div class="mobile-id" title="<?php echo $device->getMobileId() ?>"><?php echo $device->getMobileId() ?></div>
+                            <div class="mobile-id" title="Mobile id: <?php echo $device->getMobileId() ?>"><?php echo $device->getMobileId() ?></div>
                         </td>
                         <td class="hidden-xs hidden-sm">
                             <?php echo $device->getApplicationName() ?> - <?php echo $device->getApplicationVersion() ?>
@@ -122,11 +150,11 @@ use BusinessLogic\Device\DeviceBook;
                             <form method="post">
                                 <div class="btn-group" role="group">
                                     <?php if( $device->getEnabled() ): ?>
-                                    <button id="DisableDeviceButton" type="submit" name="action" value="disableDevice" class="btn btn-warning" title="Disable">
+                                        <button id="DisableDeviceButton" type="submit" name="action" value="disableDevice" class="btn btn-warning" title="Disable">
                                             <span class="glyphicon glyphicon-thumbs-down"></span> 
                                         </button>
                                     <?php else: ?>
-                                    <button id="EnableDeviceButton" type="submit" name="action" value="enableDevice" class="btn btn-success" title="Enable">
+                                        <button id="EnableDeviceButton" type="submit" name="action" value="enableDevice" class="btn btn-success" title="Enable">
                                             <span class="glyphicon glyphicon-thumbs-up"></span> 
                                         </button>
                                     <?php endif; ?>

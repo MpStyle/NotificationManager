@@ -45,13 +45,14 @@ class Pagination extends MAbstractViewController
 
     public function getQueryString()
     {
+        //echo $_SERVER['QUERY_STRING'];
         $queryString = $_SERVER['QUERY_STRING'];
         if( \MToolkit\Core\MString::isNullOrEmpty( $queryString ) )
         {
             return "";
         }
 
-        return $queryString . "&";
+        return ($queryString . "&");
     }
 
     public function getCurrentPage()
@@ -72,21 +73,21 @@ class Pagination extends MAbstractViewController
 
     public function showPrevious()
     {
-        if( $this->getCurrentPage()<=0 )  
+        if( $this->getCurrentPage()<=0 )
         {
             return false;
         }
-        
+
         return true;
     }
 
     public function showNext()
     {
-        if( $this->getCurrentPage()>=$this->pageCount-1 )  
+        if( $this->getCurrentPage()>=$this->pageCount-1 )
         {
             return false;
         }
-        
+
         return true;
     }
 

@@ -75,9 +75,13 @@ body
 .FiltersForm
 {
     clear: both;
-    display: none;
     overflow: hidden;
     margin-bottom: 20px;
+}
+
+.filters-form-hide
+{
+    display: none;
 }
 
 .AddEntityForm

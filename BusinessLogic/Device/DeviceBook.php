@@ -43,18 +43,19 @@ final class DeviceBook
      * @param int $page
      * @return MList
      */
-    public static function getDevices( $id = null, $enabled = null, $applicationId = null, $type = null, $freeSearch = null, $mobileId = null, $perPage = 10000000, $page = 0 )
+    public static function getDevices( $id = null, $enabled = null, $applicationId = null, $localizationId=null, $type = null, $freeSearch = null, $mobileId = null, $perPage = 10000000, $page = 0 )
     {
         MDataType::mustBeNullableInt( $id );
         MDataType::mustBeNullableInt( $enabled );
         MDataType::mustBeNullableInt( $applicationId );
+        MDataType::mustBeNullableInt( $localizationId );
         MDataType::mustBeNullableString( $type );
         MDataType::mustBeNullableString( $freeSearch );
         MDataType::mustBeNullableString( $mobileId );
         MDataType::mustBeInt( $perPage );
         MDataType::mustBeInt( $page );
 
-        /* @var $deviceList MPDOResult */ $deviceList = DeviceAction::get( $id, $enabled, $applicationId, $type, $freeSearch, $mobileId, $perPage, $page );
+        /* @var $deviceList MPDOResult */ $deviceList = DeviceAction::get( $id, $enabled, $applicationId, $localizationId, $type, $freeSearch, $mobileId, $perPage, $page );
         /* @var $devices MList */ $devices = new MList();
 
         if( $deviceList==null )
