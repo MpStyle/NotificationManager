@@ -80,7 +80,6 @@ class EditNotification extends BasePage
             // Create Notification
             $result = NotificationAction::insert(
                             $this->getPost()->getValue( "notification_title" )
-                            , $this->getPost()->getValue( "notification_short_message" )
                             , $this->getPost()->getValue( "notification_message" )
                             , (int) ($isDraft ? NotificationStatus::DRAFT : NotificationStatus::APPROVED )
                             , $this->getPost()->getValue( "device_type" ) == "" ? null : $this->getPost()->getValue( "device_type" )
@@ -102,7 +101,6 @@ class EditNotification extends BasePage
             $result = NotificationAction::update(
                             (int) $this->getCurrentNotification()->getId()
                             , $this->getPost()->getValue( "notification_title" )
-                            , $this->getPost()->getValue( "notification_short_message" )
                             , $this->getPost()->getValue( "notification_message" )
                             , (int) ($isDraft ? NotificationStatus::DRAFT : NotificationStatus::APPROVED )
                             , $this->getPost()->getValue( "device_type" ) == "" ? null : $this->getPost()->getValue( "device_type" )

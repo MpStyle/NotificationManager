@@ -13,16 +13,15 @@ use BusinessLogic\Enum\Post;
             <div class="alert alert-danger ErrorMessage-MarginBottom20" role="alert">Error: the app was not saved correctly.</div>
     <?php endswitch; ?>
 
-    <div id="SubHeader">
-        <h2>
+    <div id="sub-header">
+        <span class="title">
             <span id="toggle_menu" class="glyphicon glyphicon-menu-hamburger hidden-sm hidden-md hidden-lg"></span> 
-            <span class="glyphicon glyphicon-th hidden-xs"></span> 
             <?php if( $this->getGet()->getValue( "id" ) == null ): ?>
                 Create app
             <?php else: ?>
                 Edit app
             <?php endif; ?>
-        </h2>
+        </span>
     </div>
 
     <div id="SubContainer">

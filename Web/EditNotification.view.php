@@ -21,10 +21,9 @@ use DbAbstraction\Device\DeviceAction;
             <div class="alert alert-danger ErrorMessage-MarginBottom20" role="alert">Error: the app was not correctly saved.</div>
     <?php endswitch; ?>
 
-    <div id="SubHeader">
-        <h2 class="Title">
+    <div id="sub-header">
+        <span class="title">
             <span id="toggle_menu" class="glyphicon glyphicon-menu-hamburger hidden-sm hidden-md hidden-lg"></span> 
-            <span class="glyphicon glyphicon-envelope hidden-xs"></span>
             <?php if( $this->getGet()->getValue( "id" )==null ): ?>
                 Create notification
             <?php else: ?>
@@ -34,7 +33,7 @@ use DbAbstraction\Device\DeviceAction;
                     Edit notification
                 <?php endif; ?>
             <?php endif; ?>
-        </h2>
+        </span>
     </div>
 
     <div id="SubContainer">
@@ -79,11 +78,6 @@ use DbAbstraction\Device\DeviceAction;
                     <div class="form-group">
                         <label>Title:</label>
                         <input type="text" name="notification_title" value="<?php echo $this->getCurrentNotification()->getTitle() ?>" class="form-control" placeholder="Enter the notification title" maxlength="100" required="required" />
-                    </div>
-
-                    <div class="form-group">
-                        <label>Short message:</label>
-                        <input type="text" name="notification_short_message" value="<?php echo $this->getCurrentNotification()->getShortMessage() ?>" class="form-control" placeholder="Enter the notification short message" required="required" />
                     </div>
 
                     <div class="form-group">
@@ -158,7 +152,7 @@ use DbAbstraction\Device\DeviceAction;
                                 name="action" 
                                 value="confirmEdit" 
                                 class="btn btn-primary">
-                                    <?php echo ($this->getCurrentNotification()->getStatusId()==NotificationStatus::CLOSED ? "Save a copy" : "Save"); ?>
+                                    <?php echo ($this->getCurrentNotification()->getStatusId()==NotificationStatus::CLOSED ? "Save a copy and send" : "Save and send"); ?>
                             </button>
 
                             <button 
@@ -166,7 +160,7 @@ use DbAbstraction\Device\DeviceAction;
                                 name="action" 
                                 value="saveDraft" 
                                 class="btn btn-default">
-                                    <?php echo ($this->getCurrentNotification()->getStatusId()==NotificationStatus::CLOSED ? "Save a copy draft" : "Save a draft"); ?>
+                                    <?php echo ($this->getCurrentNotification()->getStatusId()==NotificationStatus::CLOSED ? "Save a draft copy" : "Save a draft"); ?>
                             </button>
 
                             <a href="Notifications.php" class="btn btn-default">Cancel</a>

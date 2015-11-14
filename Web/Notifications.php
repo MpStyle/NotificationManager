@@ -74,11 +74,6 @@ class Notifications extends BasePage
         }
     }
 
-    protected function createNewNotification()
-    {
-        $this->getHttpResponse()->redirect( "EditNotification.php" );
-    }
-
     public function getCurrentPage()
     {
         return $this->getGet()->getValue( "page" ) == null ? 0 : (int) $this->getGet()->getValue( "page" );

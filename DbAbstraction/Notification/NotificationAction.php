@@ -99,7 +99,6 @@ class NotificationAction
     public static function update( 
 		$id
 		, $title
-		, $shortMessage
 		, $message
 		, $statusId
 		, $deviceType
@@ -114,7 +113,6 @@ class NotificationAction
     {
         MDataType::mustBeInt( $id );
         MDataType::mustBeNullableString( $title );
-        MDataType::mustBeNullableString( $shortMessage );
         MDataType::mustBeInt( $statusId );
         MDataType::mustBeNullableString( $deviceType );
         MDataType::mustBeNullableString( $startDate );
@@ -125,14 +123,13 @@ class NotificationAction
         MDataType::mustBeNullableInt( $internalLinkId );
         MDataType::mustBeNullableInt( $iconId );
 
-        $query = "CALL notificationUpdate(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $query = "CALL notificationUpdate(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         /* @var $connection PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
 
         $sql->bindValue( $id );
         $sql->bindValue( $title );
-        $sql->bindValue( $shortMessage );
         $sql->bindValue( $message );
         $sql->bindValue( $statusId );
         $sql->bindValue( $deviceType );

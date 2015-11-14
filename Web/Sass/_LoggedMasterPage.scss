@@ -24,7 +24,7 @@
 
 body
 {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
     margin: 0px;
     background-color: #f1f1f1;
     color: #333;
@@ -39,15 +39,20 @@ body
     display: inline-block;
 }
 
-#TopToolbar
+#top-toolbar
 {
+    position: fixed;
+    right: 0.2em;
+
     a, a:hover {
         text-decoration: none;
+        color: #fff;
+        margin-left: 10px;
     }
 }
 
 @media (max-width: 992px) {
-    #TopToolbar
+    #top-toolbar
     {
         .glyphicon
         {
@@ -95,23 +100,19 @@ body
 
 /* HEADER */
 
-#Header
+#sub-header
 {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
     padding: 7px 5px;
     z-index: 700;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-
-    #AppNameContainer
-    {
-        margin: 0px;
-        padding: 0px;
-
-        a
-        {
-            text-decoration: none;
-            color: #fff;
-        }
-    }
+    box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
+    background: #4285f4;
+    height: 45px;
+    color: #fff;
+    font-size: 1.5em;
 }
 
 /* CONTENT */
@@ -128,7 +129,7 @@ body
     display: none;
 }
 
-#LeftColumn
+#left-column
 {
     background-color: #333;
     position: fixed;
@@ -139,7 +140,7 @@ body
     overflow: auto;
     overflow-x: hidden;
     -ms-overflow-x: hidden;
-    top: 50px;
+    top: 45px;
     bottom: 0px;
     z-index: 600;
 
@@ -256,7 +257,7 @@ body
 } 
 
 @media (max-width: 767px) {
-    #LeftColumn
+    #left-column
     {
         width: 85%;
         max-width: 400px;
@@ -317,135 +318,16 @@ body
     margin-top: 0px;
 }
 
-#SubHeader, #SubContainer
+#SubContainer
 {
-    max-width: 800px;
+    max-width: 1000px;
     margin-left: auto;
     margin-right: auto;
 }
 
-#SubHeader .glyphicon
-{
-    padding-right: 10px;
-}
-
 @media (max-width: 767px) {
-    #SubHeader
-    {
-        z-index: 500;
-
-        position: fixed;
-        top: 0px;
-        left: 0px;
-        right: 0px;
-        background-image: -webkit-linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);
-        background-image: -o-linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);
-        background-image: -webkit-gradient(linear, left top, left bottom, from(#54b4eb), color-stop(60%, #2fa4e7), to(#1d9ce5));
-        background-image: linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);
-        background-repeat: no-repeat;
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff54b4eb', endColorstr='#ff1d9ce5', GradientType=0);
-        border-bottom: 1px solid #178acc;
-        -webkit-filter: none;
-        filter: none;
-        -webkit-box-shadow: 0 1px 10px rgba(0,0,0,0.1);
-        box-shadow: 0 1px 10px rgba(0,0,0,0.1);
-        padding: 5px;
-
-        h2
-        {
-            color: #fff;
-            margin-top: 5px;
-            margin-bottom: 0px;
-            font-size: 1.4em;
-
-            small
-            {
-                color: #fff;
-            }
-        }
-    }
-
     #SubContainer
     {
         margin-top: 65px;
-    }
-}
-
-.Unpin
-{
-    #LeftColumn 
-    {
-        width: 51px;
-
-        .UserBar 
-        {
-            background-color: transparent;
-
-            .UserDetails
-            {
-                margin-top: 10px;
-                padding: 0px;
-            }
-
-            .CoverContainer
-            {
-                display: none;
-            }
-
-            .AvatarContainer
-            {
-                margin: 0px;
-            }
-
-            .LogoutForm
-            {
-                display: none;
-            }
-
-            .UserName
-            {
-                display: none;
-            }
-        }
-
-        #menu, #BottomMenu
-        {
-            li
-            {    
-                .glyphicon
-                {
-                    padding-right: 0px;
-                }
-
-                a
-                {
-                    background-color: transparent;
-                    color: #fff;
-                    text-align: center;
-                    padding-left: 0px !important;
-                    padding-right: 0px !important;
-
-                    .MenuItemLabel
-                    {
-                        display: none;
-                    }
-                }
-
-                a:hover
-                    {
-                    color: #333;
-                    background-color: #f1f1f1;
-                }
-            }
-        }
-    }
-
-    @media (min-width: 767px) {
-        #ContentWrapper
-        {
-            margin-left: 0px;
-            padding-left: 60px;
-            width: 100%;
-        }
     }
 }

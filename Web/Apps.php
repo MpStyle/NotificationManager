@@ -35,7 +35,7 @@ class Apps extends BasePage
     {
         parent::__construct( __DIR__ . '/Apps.view.php' );
 
-        parent::setMasterPage( new LoggedMasterPage( $this ) );
+        parent::setMasterPage( new LoggedMasterPage( $this ) );        
         $this->addMasterPagePart( 'content', 'content' );
 
         $this->addJavascript( "Javascripts/Apps.js" );
@@ -43,11 +43,6 @@ class Apps extends BasePage
         
         /* @var $result MPDOResult */ $result = ApplicationAction::getCount( null, null );
         $this->applicationCount = $result->getData( 0, 'AppCount' );
-    }
-
-    protected function createNewApp()
-    {
-        $this->getHttpResponse()->redirect( "EditApp.php" );
     }
 
     protected function deleteApplication()

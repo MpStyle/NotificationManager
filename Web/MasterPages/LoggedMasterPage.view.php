@@ -1,4 +1,5 @@
 <?php
+
 namespace Web\MasterPages;
 
 /* @var $this LoggedMasterPage */
@@ -28,18 +29,8 @@ namespace Web\MasterPages;
         <div id="MenuDarkSide" class="hidden-sm hidden-md hidden-lg"></div>
 
         <div id="Wrapper" class="container-fluid">
-
-            <div id="Header" class="navbar navbar-default navbar-fixed-top hidden-xs" role="navigation">
-
-                <h1 id="AppNameContainer">
-                    <a href="Home.php">
-                        <?php echo \Settings::APP_NAME ?>
-                    </a>
-                </h1>
-            </div>
-
-            <div id="Container" class="row <?php echo ($this->getPinLeftBar()? "" : "Unpin") ?>">
-                <div id="LeftColumn" class="hidden-xs col-sm-3 col-md-2 col-lg-2">
+            <div id="Container" class="row">
+                <div id="left-column" class="hidden-xs col-sm-3 col-md-2 col-lg-2">
                     <div class="UserBar">
                         <div class="CoverContainer" style="background-image: url(<?php echo $this->getUserCoverPhoto() ?>)"></div>
 
@@ -61,31 +52,31 @@ namespace Web\MasterPages;
                     </div>
 
                     <ul id="menu" role="navigation" class="nav nav-pills nav-stacked">
-                        <li>
+                        <li role="presentation">
                             <a href="Apps.php" data-toggle="tooltip" data-placement="right" title="List of the apps">
                                 <span class="glyphicon glyphicon-th"></span>
                                 <span class="MenuItemLabel">Apps</span>
                             </a>
                         </li>
-                        <li>
+                        <li role="presentation">
                             <a href="Devices.php" data-toggle="tooltip" data-placement="right" title="List of the devices">
                                 <span class="glyphicon glyphicon-phone"></span>
                                 <span class="MenuItemLabel">Devices</span>
                             </a>
                         </li>
-                        <li>
+                        <li role="presentation">
                             <a href="Notifications.php" data-toggle="tooltip" data-placement="right" title="List of the notifications">
                                 <span class="glyphicon glyphicon-envelope"></span>
                                 <span class="MenuItemLabel">Notifications</span>
                             </a>
                         </li>
-                        <li>
+                        <li role="presentation" class="disabled">
                             <a href="#">
                                 <span class="glyphicon glyphicon-upload"></span>
                                 <span class="MenuItemLabel">Web services</span>
                             </a>
                             <ul role="navigation" class="nav nav-pills nav-stacked">
-                                <li>
+                                <li role="presentation">
                                     <a href="WebServicesV100.php" data-toggle="tooltip" data-placement="right" title="Version 1.0">
                                         <span class="glyphicon glyphicon-stop"></span>
                                         <span class="MenuItemLabel">Version 1.0</span>
@@ -97,12 +88,6 @@ namespace Web\MasterPages;
                     </ul>
 
                     <ul id="BottomMenu" role="navigation" class="nav nav-pills nav-stacked ">
-                        <li>
-                            <a href="#" id="PinToggle">
-                                <span class="glyphicon glyphicon-pushpin"></span>
-                                <span class="MenuItemLabel">Unpin left bar</span>
-                            </a>
-                        </li>
                         <li>
                             <a href="Settings.php">
                                 <span class="glyphicon glyphicon-cog"></span>

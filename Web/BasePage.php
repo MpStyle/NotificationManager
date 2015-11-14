@@ -33,7 +33,7 @@ use MToolkit\Controller\MAbstractPageController;
 use MToolkit\Controller\MAbstractViewController;
 use MToolkit\Core\MDataType;
 
-class BasePage extends MAbstractPageController
+abstract class BasePage extends MAbstractPageController
 {
     /**
      * @var Application

@@ -20,15 +20,11 @@ namespace BusinessLogic\GoogleApiServices;
  * @author  Michele Pagnin
  */
 
-
-require_once __DIR__ . '/../../GoogleAPIClient/Google_Client.php';
-require_once __DIR__ . '/../../GoogleAPIClient/contrib/Google_PlusService.php';
-
 use BusinessLogic\Configuration\Configuration;
 use BusinessLogic\Configuration\ConfigurationBook;
 use Exception;
 use Google_Client;
-use Google_PlusService;
+use Google_Service_Plus;
 
 class GoogleApiServices
 {
@@ -74,7 +70,7 @@ class GoogleApiServices
         {
             $this->googleClient->verifyIdToken( $this->tokenId );
             $this->googleClient->setAccessToken($as);
-            $plus = new Google_PlusService( $this->googleClient );
+            $plus = new Google_Service_Plus( $this->googleClient );
             $me = $plus->people->get('me');
         }
         catch( Exception $ex )
@@ -107,7 +103,7 @@ class GoogleApiServices
         {
             $this->googleClient->verifyIdToken( $this->tokenId );
             $this->googleClient->setAccessToken($as);
-            $plus = new Google_PlusService( $this->googleClient );
+            $plus = new Google_Service_Plus( $this->googleClient );
             $me = $plus->people->get('me');
         }
         catch( Exception $ex )

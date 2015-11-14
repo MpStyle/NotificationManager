@@ -8,11 +8,12 @@
         }
     ],
     "require": {
-        "twbs/bootstrap": "v3.3.4",
+        "twbs/bootstrap": "v3.3.5",
         "mpstyle/mtoolkit": "dev-master",
         "moment/moment": "dev-master",
         "eonasdan/bootstrap-datetimepicker": "4.7.14",
         "eternicode/bootstrap-datepicker": "1.4.x-dev",
-        "twbs/bootstrap-sass": "v3.3.5"
+        "twbs/bootstrap-sass": "v3.3.5",
+        "google/apiclient": "dev-master"
     }
 }

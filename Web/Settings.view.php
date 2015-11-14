@@ -9,11 +9,11 @@ use BusinessLogic\Configuration\ConfigurationBook;
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
 <div id="content">
-    <div id="SubHeader">
-        <h2 class="Title">
+    <div id="sub-header">
+        <span class="Title">
             <span id="toggle_menu" class="glyphicon glyphicon-menu-hamburger hidden-sm hidden-md hidden-lg"></span> 
-            <span class="glyphicon glyphicon-cog hidden-xs"></span>Settings
-        </h2>
+            Settings
+        </span>
     </div>
 
     <div id="SubContainer">

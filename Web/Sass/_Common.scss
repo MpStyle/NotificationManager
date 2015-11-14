@@ -27,6 +27,7 @@
 .FormContainer
 {
     max-width: 800px;
+    margin: 0px auto;
 }
 
 /* TABLES ENTITIES */
@@ -36,6 +37,7 @@
     width: 100%;
     background-color: #fff;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    margin-bottom: 10px;
 
     .NoWrap
     {
@@ -77,38 +79,39 @@
     margin-bottom: 20px;
 }
 
-.btn
-{
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-}
-
-.btn-group 
-{
-    white-space: nowrap;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-    
-    .btn 
-    {
-        box-shadow: none;
-    }
-}
-
 .panel
 {
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-}
-/*
-input[type="text"], input[type="number"], select, textarea
-{
-    border: 0px;
-    border-bottom:1px solid #cccccc;
-    @include border-radius(0);
-    box-shadow: none;
-    -webkit-box-shadow: none;
+    margin-bottom: 10px;
 }
 
-input[type="text"]:active, input[type="number"]:active, select:active, textarea:active
+#add-button
 {
-    box-shadow: none;
-    -webkit-box-shadow: none;
-}*/
+    position: fixed;
+    right: 2.5em;
+    bottom: 2.5em;
+    padding: 1.1em;
+    text-align: center;
+    background-color: red;
+    color: #fff;
+    display: inline-block;
+    @include border-radius(7em);
+    width: 3.5em;
+    height: 3.5em;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    
+    background-color: #c9302c;
+    background-image: -webkit-linear-gradient(#e12b31, #c71c22 60%, #b5191f);
+    background-image: -o-linear-gradient(#e12b31, #c71c22 60%, #b5191f);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#e12b31), color-stop(60%, #c71c22), to(#b5191f));
+    background-image: linear-gradient(#e12b31, #c71c22 60%, #b5191f);
+    border-bottom: 1px solid #9a161a;
+}
+
+#add-button:active
+{
+    color: #ffffff;
+    background-color: #9a161a;
+    border-color: #911419;
+    background-image: none;
+}

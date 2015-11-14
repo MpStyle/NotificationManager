@@ -22,22 +22,20 @@ use BusinessLogic\Device\DeviceBook;
             <?php break; ?>
     <?php endswitch; ?>
 
-    <div id="SubHeader">
-        <h2 class="Title">
+    <div id="sub-header">
+        <span class="title">
             <span id="toggle_menu" class="glyphicon glyphicon-menu-hamburger hidden-sm hidden-md hidden-lg"></span> 
-            <span class="glyphicon glyphicon-phone hidden-xs"></span>Device list 
+            Device list 
             <small>(<?php echo $this->getDeviceCount() ?>)</small>
-        </h2>
+        </span>
 
-        <div class="pull-right btn-group" role="group" id="TopToolbar">
-            <a href="" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Refresh the page">
+        <div class="pull-right btn-group" role="group" id="top-toolbar">
+            <a href="" data-toggle="tooltip" data-placement="bottom" title="Refresh the page">
                 <span class="glyphicon glyphicon-refresh"></span> 
-                <span class="hidden-xs hidden-sm">Refresh page</span>
             </a>
-            <span class="btn btn-default ShowFilter" data-toggle="tooltip" data-placement="bottom" title="Show/hide the filters">
+            <a href="#" class="ShowFilter" data-toggle="tooltip" data-placement="bottom" title="Show/hide the filters">
                 <span class="glyphicon glyphicon-search"></span> 
-                <span class="hidden-xs hidden-sm">Show/hide filter</span>
-            </span>
+            </a>
         </div>
     </div>
 
@@ -76,7 +74,7 @@ use BusinessLogic\Device\DeviceBook;
                         </div>
                     </div>
 
-                    <div class="pull-right">
+                    <div class="pull-right btn-group" role="group">
 
                         <button type="submit" class="btn btn-primary">
                             <span class="glyphicon glyphicon-search"></span> 
@@ -97,54 +95,53 @@ use BusinessLogic\Device\DeviceBook;
         <table class="EntityList" data-resizable-columns-id="devices-table">
             <thead>
                 <tr>
+                    <td>&nbsp;</td>
                     <th data-resizable-column-id="MobileId">
                         Mobile ID
                     </th>
-                    <th class="hidden-xs" data-resizable-column-id="LastLoginDate">
+<!--                    <th class="hidden-xs" data-resizable-column-id="LastLoginDate">
                         Last login date
-                    </th>
-                    <th class="hidden-xs" data-resizable-column-id="OS">OS</th>
+                    </th>-->
+                    <!--<th class="hidden-xs" data-resizable-column-id="OS">OS</th>-->
                     <th class="hidden-xs hidden-sm" data-resizable-column-id="AppInfo">App info</th>
-                    <th class="hidden-xs hidden-sm" data-resizable-column-id="BrandAndModel">Brand and model</th>
+                    <!--<th class="hidden-xs hidden-sm" data-resizable-column-id="BrandAndModel">Brand and model</th>-->
                     <th data-resizable-column-id="DevicesOther"></th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach( $this->getDevices() as /* @var $device Device */ $device ): ?>
                     <tr class="<?php echo ($device->getEnabled()? : 'warning'); ?>">
+                        <td><?php echo $device->getId() ?></td>
                         <td>
                             <img class="DeviceFlag" src="Images/flags/<?php echo $device->getLocalizationName() ?>.png" />
                             <div class="MobileId" title="<?php echo $device->getMobileId() ?>"><?php echo $device->getMobileId() ?></div>
                         </td>
-                        <td class="hidden-xs">
+<!--                        <td class="hidden-xs">
                             <?php echo $device->getUpdateDate() ?>
-                        </td>
-                        <td class="hidden-xs">
+                        </td>-->
+<!--                        <td class="hidden-xs">
                             <?php echo $device->getType() ?> - <?php echo $device->getOsVersion() ?>
-                        </td>
+                        </td>-->
                         <td class="hidden-xs hidden-sm">
                             <?php echo $device->getApplicationName() ?> - <?php echo $device->getApplicationVersion() ?>
                         </td>
-                        <td class="hidden-xs hidden-sm">
+<!--                        <td class="hidden-xs hidden-sm">
                             <?php echo $device->getBrand() ?> - <?php echo $device->getModel() ?>
-                        </td>
+                        </td>-->
                         <td>
                             <form method="post">
                                 <div class="btn-group" role="group">
                                     <?php if( $device->getEnabled() ): ?>
-                                        <button id="DisableDeviceButton" type="submit" name="action" value="disableDevice" class="btn btn-warning">
+                                    <button id="DisableDeviceButton" type="submit" name="action" value="disableDevice" class="btn btn-warning" title="Disable">
                                             <span class="glyphicon glyphicon-thumbs-down"></span> 
-                                            <span class="hidden-xs hidden-sm hidden-md">Disable</span>
                                         </button>
                                     <?php else: ?>
-                                        <button id="EnableDeviceButton" type="submit" name="action" value="enableDevice" class="btn btn-success">
+                                    <button id="EnableDeviceButton" type="submit" name="action" value="enableDevice" class="btn btn-success" title="Enable">
                                             <span class="glyphicon glyphicon-thumbs-up"></span> 
-                                            <span class="hidden-xs hidden-sm hidden-md">Enable</span>
                                         </button>
                                     <?php endif; ?>
-                                    <button id="DeleteDeviceButton" type="button" class="btn btn-danger" data-toggle="modal" data-target=".DeleteDeviceModal">
+                                    <button id="DeleteDeviceButton" type="button" class="btn btn-danger" data-toggle="modal" data-target=".DeleteDeviceModal" title="Delete">
                                         <span class="glyphicon glyphicon-remove"></span> 
-                                        <span class="hidden-xs hidden-sm hidden-md">Delete</span>
                                     </button>
                                 </div>
 
@@ -169,14 +166,14 @@ use BusinessLogic\Device\DeviceBook;
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-body">
-                    Do yuo want to delete device "<span class="MobileId"></span>"?
+                    Do yuo want to delete device with id <span class="modal-delete-device-id"></span>?
                 </div>
                 <div class="modal-footer">
                     <form method="post">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-danger" name="action" value="deleteDevice">Delete</button>
 
-                        <input type="hidden" name="DeleteDeviceId" class="DeleteDeviceId" value="" />
+                        <input type="hidden" name="model-delete-device-id" class="modal-delete-device-id" value="" />
                     </form>
                 </div>
             </div>

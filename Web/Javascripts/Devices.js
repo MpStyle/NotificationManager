@@ -2,8 +2,10 @@ function Devices()
 {
     $('.DeleteDeviceModal').on('show.bs.modal', function (event) {
         var $button = $(event.relatedTarget);
-        $('.DeleteDeviceModal .MobileId').html($button.parents("form").find(".MobileId").val());
-        $('.DeleteDeviceModal .DeleteDeviceId').val($button.parents("form").find(".DeviceId").val());
+        var deviceId=$button.parents("form").find(".DeviceId").val();
+        
+        $('.DeleteDeviceModal .modal-delete-device-id').html(deviceId);
+        $('.DeleteDeviceModal .modal-delete-device-id').val(deviceId);
     });
 
     $(".ErrorMessage").fadeTo(2000, 500).slideUp(500, function () {

@@ -9,12 +9,12 @@ use BusinessLogic\Localization\LocalizationBook;
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
 <div id="content">
-    <div id="SubHeader">
-        <h2>
+    <div id="sub-header">
+        <span class="title">
             <span id="toggle_menu" class="glyphicon glyphicon-menu-hamburger hidden-sm hidden-md hidden-lg"></span> 
-            <span class="glyphicon glyphicon-upload hidden-xs"></span> Web services 
+            Web services 
             <small>version: 1.0.0</small>
-        </h2>
+        </span>
     </div>
 
     <div id="SubContainer">
