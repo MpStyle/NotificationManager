@@ -122,7 +122,7 @@ use BusinessLogic\Notification\NotificationStatus;
                         <td><?php echo $notification->getId() ?></td>
                         <td><?php echo $notification->getApplicationName() ?></td>
                         <td>
-                            <b><?php echo htmlentities( $notification->getTitle() ) ?></b> - <?php echo htmlentities( $notification->getMessage() ) ?>
+                            <b><?php echo utf8_encode( $notification->getTitle() ) ?></b> - <?php echo utf8_encode( $notification->getMessage() ) ?>
                         </td>
                         <td class="hidden-xs"><?php echo $notification->getDeviceType()=='' ? 'All' : $notification->getDeviceType() ?></td>
                         <td class="hidden-xs hidden-sm">

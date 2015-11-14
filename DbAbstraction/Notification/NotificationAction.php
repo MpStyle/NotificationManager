@@ -46,7 +46,6 @@ class NotificationAction
      */
     public static function insert( 
             $title
-            , $shortMessage
             , $message
             , $statusId
             , $deviceType
@@ -60,7 +59,6 @@ class NotificationAction
             , $localizationId)
     {
         MDataType::mustBeNullableString( $title );
-        MDataType::mustBeNullableString( $shortMessage );
         MDataType::mustBeInt( $statusId );
         MDataType::mustBeNullableString( $deviceType );
         MDataType::mustBeNullableString( $startDate );
@@ -72,13 +70,12 @@ class NotificationAction
         MDataType::mustBeNullableInt( $iconId );
         MDataType::mustBeNullableInt( $localizationId );
 
-        $query = "CALL notificationInsert(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $query = "CALL notificationInsert(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         /* @var $connection PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
 
         $sql->bindValue( $title );
-        $sql->bindValue( $shortMessage );
         $sql->bindValue( $message );
         $sql->bindValue( $statusId );
         $sql->bindValue( $deviceType );
