@@ -18,7 +18,7 @@ use DbAbstraction\Device\DeviceAction;
 <div id="content">
 
     <?php switch( $this->getGet()->getValue( "error" ) ): ?><?php case "01": ?>
-            <div class="alert alert-danger ErrorMessage-MarginBottom20" role="alert">Error: the app was not correctly saved.</div>
+            <div class="alert alert-danger ErrorMessage-MarginBottom20" role="alert">Error: unable to save notification.</div>
     <?php endswitch; ?>
 
     <div id="sub-header">
