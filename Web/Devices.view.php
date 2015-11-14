@@ -155,11 +155,7 @@ use BusinessLogic\Device\DeviceBook;
             </tbody>
         </table>
 
-        <ul class="pagination">
-            <?php for( $i = 0; $i < $this->getPages(); $i++ ): ?>
-                <li class="<?php echo ($this->getCurrentPage() == $i ? "active" : "") ?>"><a href="?applicationId=<?php $this->getApplicationId() ?>&page=<?php echo $i ?>"><?php echo $i + 1 ?></a></li>
-            <?php endfor; ?>
-        </ul>
+        <?php $this->getPagination()->show() ?>
     </div>
 
     <div class="modal fade DeleteDeviceModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">

@@ -34,6 +34,7 @@ class Devices extends BasePage
     private $devices = null;
     private $pages = 1;
     private $deviceCount = 0;
+    private $pagination=null;
 
     public function __construct()
     {
@@ -51,17 +52,18 @@ class Devices extends BasePage
         $type = $this->getPost()->getValue( "type" ) == "" ? null : $this->getPost()->getValue( "type" );
         $text = $this->getPost()->getValue( "free_search" ) == "" ? null : $this->getPost()->getValue( "free_search" );
         $perPage = 10;
-        $currentPage = $this->getCurrentPage();
 
         $applicationId = $applicationId == null ? $applicationId : (int) $applicationId;
 
         /* @var $result MPDOResult */ $result = DeviceAction::getPageCount( $deviceId, $enabled, $applicationId, $type, $text, null, $perPage );
         $this->pages = $result->getData( 0, 'PageCount' );
+        
+        $this->pagination=new Views\Pagination($this->pages, $this);
 
         /* @var $result MPDOResult */ $result = DeviceAction::getCount( $deviceId, $enabled, $applicationId, $type, $text, null );
         $this->deviceCount = $result->getData( 0, 'DeviceCount' );
 
-        $this->devices = DeviceBook::getDevices( $deviceId, $enabled, $applicationId, $type, $text, null, $perPage, $currentPage );
+        $this->devices = DeviceBook::getDevices( $deviceId, $enabled, $applicationId, $type, $text, null, $perPage, $this->pagination->getCurrentPage() );
     }
 
     protected function disableDevice()
@@ -88,29 +90,48 @@ class Devices extends BasePage
         }
     }
 
-    public function getCurrentPage()
-    {
-        return $this->getGet()->getValue( "page" ) == null ? 0 : (int) $this->getGet()->getValue( "page" );
-    }
-
     public function getApplicationId()
     {
         return $this->getGet()->getValue( "applicationId" ) == null ? null : (int) $this->getGet()->getValue( "applicationId" );
     }
 
+    /**
+     * Returns the list of the devices.
+     * 
+     * @return \MToolkit\Core\MList
+     */
     public function getDevices()
     {
         return $this->devices;
     }
 
+    /**
+     * Returns the pagination view.
+     * 
+     * @return Views\Pagination
+     */
+    public function getPagination()
+    {
+        return $this->pagination;
+    }
+
+    /**
+     * Returns the total count of pages.
+     * 
+     * @return int
+     */
     public function getPages()
     {
         return $this->pages;
     }
 
+    /**
+     * Returns the total count of the devices.
+     * 
+     * @return int
+     */
     public function getDeviceCount()
     {
         return $this->deviceCount;
     }
-
 }
