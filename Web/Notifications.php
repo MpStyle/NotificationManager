@@ -35,6 +35,7 @@ class Notifications extends BasePage
     private $notifications = null;
     private $notificationCount = 0;
     private $pages = 1;
+    private $pagination=null;
 
     public function __construct()
     {
@@ -55,6 +56,8 @@ class Notifications extends BasePage
 
         /* @var $result MPDOResult */ $result = NotificationAction::getPageCount( $notificationId, $applicationId, $status, $deviceType, $perPage );
         $this->pages = $result->getData( 0, 'PageCount' );
+        
+        $this->pagination=new Views\Pagination($this->pages, $this);
 
         $result = NotificationAction::getCount( $notificationId, $applicationId, $status, $deviceType );
         $this->notificationCount = $result->getData( 0, 'NotificationCount' );
@@ -112,6 +115,16 @@ class Notifications extends BasePage
         }
 
         return '';
+    }
+
+    /**
+     * Returns the pagination view.
+     * 
+     * @return Views\Pagination
+     */
+    public function getPagination()
+    {
+        return $this->pagination;
     }
 
 }
