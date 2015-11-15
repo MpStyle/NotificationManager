@@ -51,7 +51,7 @@ class GoogleApiServices
     
     public function revokeToken()
     {
-        //$this->googleClient->revokeToken($this->accessToken);
+        $this->googleClient->revokeToken();
     }
     
     public function userInfo()

@@ -95,6 +95,7 @@ class LoggedMasterPage extends MAbstractMasterPageController {
         MDataType::mustBeString($queryString);
 
         $this->googleService->revokeToken();
+        MNetworkSession::deleteAll();
         $this->getHttpResponse()->redirect('Login.php?' . $queryString);
     }
 
