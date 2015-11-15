@@ -99,14 +99,16 @@ namespace Web\MasterPages;
                                 </li>
                             </ul>
                         </li>   
-
-                    </ul>
-
-                    <ul id="BottomMenu" role="navigation" class="nav nav-pills nav-stacked ">
                         <li>
                             <a href="Settings.php">
                                 <span class="glyphicon glyphicon-cog"></span>
                                 <span class="MenuItemLabel">Settings</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="About.php">
+                                <span class="glyphicon glyphicon-info-sign"></span>
+                                <span class="MenuItemLabel">About</span>
                             </a>
                         </li>
                     </ul>
