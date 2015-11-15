@@ -25,10 +25,20 @@ namespace Web\MasterPages;
         <script src="Javascripts/LoggedMasterPage.js"></script>
     </head>
     <body>
-        <div class="top-avatar-container hidden-xs hidden-sm">
-            <img class="user-avatar" src="<?php echo $this->getUserAvatar() ?>" 
-                 data-toggle="popover" 
-                 data-placement="bottom"  />
+        <div id="header">
+            <span class="title">
+                <span id="toggle_menu" class="glyphicon glyphicon-menu-hamburger hidden-md hidden-lg"></span> 
+                <span id="page-title"></span>
+            </span>
+
+            <div class="btn-group" role="group" id="top-toolbar">          
+            </div>
+
+            <div class="top-avatar-container hidden-xs hidden-sm">
+                <img class="user-avatar" src="<?php echo $this->getUserAvatar() ?>" 
+                     data-toggle="popover" 
+                     data-placement="bottom"  />
+            </div>
         </div>
 
         <div id="MenuDarkSide" class="hidden-md hidden-lg"></div>
@@ -43,7 +53,7 @@ namespace Web\MasterPages;
                             <span class="avatar-container">
                                 <img class="user-avatar" src="<?php echo $this->getUserAvatar() ?>" />
                             </span>
-                            
+
                             <span class="user-name"><?php echo $this->getUserName() ?></span>
 
                             <form action="" method="post" class="logout-form">                                

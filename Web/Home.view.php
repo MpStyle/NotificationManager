@@ -6,13 +6,10 @@ namespace Web;
 ?>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<div id="content">
+<span id="page-title">
+    Home
+</span>
 
-    <div id="sub-header">
-        <span class="title">
-            <span id="toggle_menu" class="glyphicon glyphicon-menu-hamburger hidden-md hidden-lg"></span> 
-            Home
-        </span>
-    </div>
+<div class="btn-group" role="group" id="top-toolbar"></div>
 
-</div>
+<div id="content"></div>

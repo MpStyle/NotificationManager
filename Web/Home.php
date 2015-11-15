@@ -32,6 +32,8 @@ class Home extends BasePage
         
         parent::setMasterPage(new LoggedMasterPage($this));
         $this->addMasterPagePart('content', 'content');
+        $this->addMasterPagePart( 'top-toolbar', 'top-toolbar' );
+        $this->addMasterPagePart( 'page-title', 'page-title' );
         
         $this->addJavascript("Javascripts/Home.js");
         $this->addCss("Styles/Home.css");

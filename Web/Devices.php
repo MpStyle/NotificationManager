@@ -42,6 +42,8 @@ class Devices extends BasePage
 
         parent::setMasterPage( new LoggedMasterPage( $this ) );
         $this->addMasterPagePart( 'content', 'content' );
+        $this->addMasterPagePart( 'top-toolbar', 'top-toolbar' );
+        $this->addMasterPagePart( 'page-title', 'page-title' );
 
         $this->addJavascript( "Javascripts/Devices.js" );
         $this->addCss( "Styles/Devices.css" );

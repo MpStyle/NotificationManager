@@ -11,34 +11,42 @@ use BusinessLogic\Localization\Localization;
 ?>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
+<span id="page-title">
+    Device list 
+    <small>(<?php echo $this->getDeviceCount() ?>)</small>
+</span>
+
+<div class="btn-group" role="group" id="top-toolbar">
+    <a href="" data-toggle="tooltip" data-placement="bottom" title="Refresh the page">
+        <span class="glyphicon glyphicon-refresh"></span> 
+    </a>
+    <a href="#" class="ShowFilter" data-toggle="tooltip" data-placement="bottom" title="Show/hide the filters">
+        <span class="glyphicon glyphicon-search"></span> 
+    </a>         
+</div>
+
 <div id="content">
-    <?php switch( $this->getGet()->getValue( "error" ) ): ?><?php case "00": ?>
+    <?php switch( $this->getGet()->getValue( "error" ) ): case "00": ?>
             <div class="alert alert-success ErrorMessage ErrorMessage-MarginBottom20" role="alert">The device was successfully saved.</div>
-            <?php break; ?><?php case "01": ?>
+            <?php
+            break;
+        case "01":
+            ?>
             <div class="alert alert-danger ErrorMessage ErrorMessage-MarginBottom20" role="alert">The device was not deleted.</div>
-            <?php break; ?><?php case "02": ?>
+            <?php
+            break;
+        case "02":
+            ?>
             <div class="alert alert-success ErrorMessage ErrorMessage-MarginBottom20" role="alert">The device was successfully deleted.</div>    
-            <?php break; ?><?php case "03": ?>
+            <?php
+            break;
+        case "03":
+            ?>
             <div class="alert alert-success ErrorMessage ErrorMessage-MarginBottom20" role="alert">The device was successfully updated.</div>    
-            <?php break; ?>
-    <?php endswitch; ?>
-
-    <div id="sub-header">
-        <span class="title">
-            <span id="toggle_menu" class="glyphicon glyphicon-menu-hamburger hidden-md hidden-lg"></span> 
-            Device list 
-            <small>(<?php echo $this->getDeviceCount() ?>)</small>
-        </span>
-
-        <div class="pull-right btn-group" role="group" id="top-toolbar">
-            <a href="" data-toggle="tooltip" data-placement="bottom" title="Refresh the page">
-                <span class="glyphicon glyphicon-refresh"></span> 
-            </a>
-            <a href="#" class="ShowFilter" data-toggle="tooltip" data-placement="bottom" title="Show/hide the filters">
-                <span class="glyphicon glyphicon-search"></span> 
-            </a>
-        </div>
-    </div>
+            <?php
+            break;
+    endswitch;
+    ?>
 
     <div id="SubContainer">
         <form method="get" class="form-horizontal FiltersForm <?php echo (!$this->showFilters() ? "filters-form-hide" : "") ?>">
@@ -50,7 +58,7 @@ use BusinessLogic\Localization\Localization;
                             <select name="application_id" class="form-control">
                                 <option>All</option>
                                 <?php foreach( ApplicationBook::getApplications() as /* @var $application Application */ $application ): ?>
-                                    <option value="<?php echo $application->getId() ?>" <?php echo ($this->getGet()->getValue( "application_id" )==$application->getId() ? "selected" : ""); ?>><?php echo $application->getName() ?></option>
+                                    <option value="<?php echo $application->getId() ?>" <?php echo ($this->getGet()->getValue( "application_id" ) == $application->getId() ? "selected" : ""); ?>><?php echo $application->getName() ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -61,22 +69,22 @@ use BusinessLogic\Localization\Localization;
                         <div class="col-sm-10">
                             <select name="localization-id" class="form-control">
                                 <option value="">All</option>
-                                <option value="<?php echo Localization::EN ?>" <?php echo ($this->getGet()->getValue( "localization-id" )==Localization::EN ? "selected" : ""); ?>>
+                                <option value="<?php echo Localization::EN ?>" <?php echo ($this->getGet()->getValue( "localization-id" ) == Localization::EN ? "selected" : ""); ?>>
                                     English
                                 </option>
-                                <option value="<?php echo Localization::DE ?>" <?php echo ($this->getGet()->getValue( "localization-id" )==Localization::DE ? "selected" : ""); ?>>
+                                <option value="<?php echo Localization::DE ?>" <?php echo ($this->getGet()->getValue( "localization-id" ) == Localization::DE ? "selected" : ""); ?>>
                                     German
                                 </option>
-                                <option value="<?php echo Localization::ES ?>" <?php echo ($this->getGet()->getValue( "localization-id" )==Localization::ES ? "selected" : ""); ?>>
+                                <option value="<?php echo Localization::ES ?>" <?php echo ($this->getGet()->getValue( "localization-id" ) == Localization::ES ? "selected" : ""); ?>>
                                     Spanish
                                 </option>
-                                <option value="<?php echo Localization::FR ?>" <?php echo ($this->getGet()->getValue( "localization-id" )==Localization::FR ? "selected" : ""); ?>>
+                                <option value="<?php echo Localization::FR ?>" <?php echo ($this->getGet()->getValue( "localization-id" ) == Localization::FR ? "selected" : ""); ?>>
                                     France
                                 </option>
-                                <option value="<?php echo Localization::IT ?>" <?php echo ($this->getGet()->getValue( "localization-id" )==Localization::IT ? "selected" : ""); ?>>
+                                <option value="<?php echo Localization::IT ?>" <?php echo ($this->getGet()->getValue( "localization-id" ) == Localization::IT ? "selected" : ""); ?>>
                                     Italy
                                 </option>
-                                <option value="<?php echo Localization::RU ?>" <?php echo ($this->getGet()->getValue( "localization-id" )==Localization::RU ? "selected" : ""); ?>>
+                                <option value="<?php echo Localization::RU ?>" <?php echo ($this->getGet()->getValue( "localization-id" ) == Localization::RU ? "selected" : ""); ?>>
                                     Russia
                                 </option>
                             </select>
@@ -89,7 +97,7 @@ use BusinessLogic\Localization\Localization;
                             <select name="type" class="form-control">
                                 <option value="">All</option>
                                 <?php foreach( DeviceBook::getDeviceType() as $deviceType ): ?>
-                                    <option value="<?php echo $deviceType ?>" <?php echo ($this->getGet()->getValue( "type" )==$deviceType ? "selected" : ""); ?>><?php echo $deviceType ?></option>
+                                    <option value="<?php echo $deviceType ?>" <?php echo ($this->getGet()->getValue( "type" ) == $deviceType ? "selected" : ""); ?>><?php echo $deviceType ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>

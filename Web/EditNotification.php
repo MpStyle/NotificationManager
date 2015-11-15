@@ -41,6 +41,8 @@ class EditNotification extends BasePage
 
         parent::setMasterPage( new LoggedMasterPage( $this ) );
         $this->addMasterPagePart( 'content', 'content' );
+        $this->addMasterPagePart( 'top-toolbar', 'top-toolbar' );
+        $this->addMasterPagePart( 'page-title', 'page-title' );
 
         $this->addJavascript( "Javascripts/EditNotification.js" );
         $this->addJavascript( "../vendor/moment/moment/min/moment.min.js" );
@@ -72,8 +74,8 @@ class EditNotification extends BasePage
 
         $localization = $this->getPost()->getValue( "localization_id" ) == "" ? null : (int) $this->getPost()->getValue( "localization_id" );
 
-        $notificationStatusId=$this->getCurrentNotification()->getStatusId();
-        
+        $notificationStatusId = $this->getCurrentNotification()->getStatusId();
+
         // Sarà inserita una nuova notifica se non è stato passato un id o se la notifica è stata chiusa
         if( $this->getGet()->getValue( "id" ) == null || $notificationStatusId == NotificationStatus::CLOSED )
         {
@@ -96,7 +98,7 @@ class EditNotification extends BasePage
             $notificationId = $result->getData( 0, "NotificationId" );
         }
         else
-        {            
+        {
             // Edit Notification
             $result = NotificationAction::update(
                             (int) $this->getCurrentNotification()->getId()
@@ -145,6 +147,21 @@ class EditNotification extends BasePage
     public function getCurrentNotification( $id = null )
     {
         return parent::getCurrentNotification( (int) $this->getGet()->getValue( "id" ) );
+    }
+
+    public function getPageTitle()
+    {
+        if( $this->getGet()->getValue( "id" ) == null )
+        {
+            return "Create notification";
+        }
+
+        if( $this->getCurrentNotification()->getStatusId() == NotificationStatus::CLOSED )
+        {
+            return "Show notification";
+        }
+
+        return "Edit notification";
     }
 
 }

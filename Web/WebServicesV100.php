@@ -34,6 +34,8 @@ class WebServicesV100 extends BasePage
 
         parent::setMasterPage( new LoggedMasterPage( $this ) );
         $this->addMasterPagePart( 'content', 'content' );
+        $this->addMasterPagePart( 'top-toolbar', 'top-toolbar' );
+        $this->addMasterPagePart( 'page-title', 'page-title' );
 
         $this->addJavascript( "Javascripts/WebServicesV100.js" );
         $this->addCss( "Styles/WebServicesV100.css" );

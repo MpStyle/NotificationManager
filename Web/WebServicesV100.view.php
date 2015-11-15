@@ -8,15 +8,14 @@ use BusinessLogic\Localization\LocalizationBook;
 ?>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<div id="content">
-    <div id="sub-header">
-        <span class="title">
-            <span id="toggle_menu" class="glyphicon glyphicon-menu-hamburger hidden-md hidden-lg"></span> 
-            Web services 
-            <small>version: 1.0.0</small>
-        </span>
-    </div>
+<span id="page-title">
+    Web services 
+    <small>version: 1.0.0</small>
+</span>
 
+<div class="btn-group" role="group" id="top-toolbar"></div>
+
+<div id="content">
     <div id="SubContainer">
 
         <div class="panel-group" id="web_services_accordion" role="tablist" aria-multiselectable="true">
@@ -226,7 +225,7 @@ use BusinessLogic\Localization\LocalizationBook;
                                     <input type="text" name="clientId" class="form-control" />
                                 </div>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">notificationId:</label>
                                 <div class="col-sm-10">
@@ -255,9 +254,9 @@ use BusinessLogic\Localization\LocalizationBook;
                     </div>
                 </div>
             </div>
-            
-            
-            
+
+
+
             <div class="panel panel-primary">
                 <div class="panel-heading" role="tab" id="get_registration_status_title">
                     <h3 class="panel-title">
@@ -310,7 +309,7 @@ use BusinessLogic\Localization\LocalizationBook;
                                     </select>
                                 </div>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">localizationId:</label>
                                 <div class="col-sm-10">

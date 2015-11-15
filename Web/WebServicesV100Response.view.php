@@ -7,15 +7,14 @@ use BusinessLogic\Json\JsonBook;
 ?>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<div id="content">
-    <div id="sub-header">
-        <span class="title">
-            <span id="toggle_menu" class="glyphicon glyphicon-menu-hamburger hidden-md hidden-lg"></span> 
-            Web service response 
-            <small>version: 1.0.0</small>
-        </span>
-    </div>
+<span id="page-title">
+    Web service response 
+    <small>version: 1.0.0</small>
+</span>
 
+<div class="btn-group" role="group" id="top-toolbar"></div>
+
+<div id="content">
     <div id="SubContainer">
         <h3><?php echo $this->getPost()->getValue( "methodName" ) ?></h3>
 
@@ -37,7 +36,7 @@ use BusinessLogic\Json\JsonBook;
                 <form method="post" action="WebServicesV100Response.php" class="form-horizontal">
                     <input type="hidden" name="methodName" value="<?php echo $this->getPost()->getValue( "methodName" ) ?>" />
                     <input type="hidden" name="methodUrl" value="<?php echo $this->getPost()->getValue( "methodUrl" ) ?>" />
-                    
+
                     <?php foreach( $this->getParameters() as $key => $value ): ?>
                         <div class="form-group">
                             <label class="col-sm-2 control-label"><?php echo $key ?>:</label>

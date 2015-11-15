@@ -1,5 +1,4 @@
 <?php
-
 namespace Web;
 
 use BusinessLogic\Application\Application;
@@ -9,29 +8,32 @@ use BusinessLogic\Application\ApplicationBook;
 ?>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
+<span id="page-title">
+    App list 
+    <small>(<?php echo $this->getApplicationCount() ?>)</small>
+</span>
+
+<div class="btn-group" role="group" id="top-toolbar">
+    <a href="" data-toggle="tooltip" data-placement="bottom" title="Refresh the page">
+        <span class="glyphicon glyphicon-refresh"></span> 
+    </a>            
+</div>
+
 <div id="content">
-    <?php switch ($this->getGet()->getValue("error")): ?><?php case "00": ?>
+    <?php switch( $this->getGet()->getValue( "error" ) ): ?><?php case "00": ?>
             <div class="alert alert-success ErrorMessage ErrorMessage-MarginBottom20" role="alert">The app was successfully saved.</div>
-            <?php break; case "01": ?>
+            <?php
+            break;
+        case "01":
+            ?>
             <div class="alert alert-danger ErrorMessage ErrorMessage-MarginBottom20" role="alert">The app was not deleted.</div>
-            <?php break; case "02": ?>
+            <?php
+            break;
+        case "02":
+            ?>
             <div class="alert alert-success ErrorMessage ErrorMessage-MarginBottom20" role="alert">The app was successfully deleted.</div>    
             <?php break; ?>
     <?php endswitch; ?>
-
-    <div id="sub-header">
-        <span class="title">
-            <span id="toggle_menu" class="glyphicon glyphicon-menu-hamburger hidden-md hidden-lg"></span> 
-            App list 
-            <small>(<?php echo $this->getApplicationCount() ?>)</small>
-        </span>
-
-        <div class="btn-group" role="group" id="top-toolbar">
-            <a href="" data-toggle="tooltip" data-placement="bottom" title="Refresh the page">
-                <span class="glyphicon glyphicon-refresh"></span> 
-            </a>            
-        </div>
-    </div>
 
     <a href="EditApp.php" id="add-button" data-toggle="tooltip" 
        data-placement="bottom" title="Create new application">
@@ -50,7 +52,7 @@ use BusinessLogic\Application\ApplicationBook;
                 </tr>
             </thead>
             <tbody>
-                <?php foreach (ApplicationBook::getApplications() as /* @var $application Application */ $application): ?>
+                <?php foreach( ApplicationBook::getApplications() as /* @var $application Application */ $application ): ?>
                     <tr>
                         <td class="NoWrapEllipsis"><?php echo $application->getName() ?></td>
                         <td class="hidden-xs">

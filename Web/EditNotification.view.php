@@ -15,29 +15,19 @@ use DbAbstraction\Device\DeviceAction;
 ?>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
+<span id="page-title">
+    <?php echo $this->getPageTitle() ?>
+</span>
+
+<div class="btn-group" role="group" id="top-toolbar"></div>
+
 <div id="content">
 
     <?php switch( $this->getGet()->getValue( "error" ) ): ?><?php case "01": ?>
             <div class="alert alert-danger ErrorMessage-MarginBottom20" role="alert">Error: unable to save notification.</div>
     <?php endswitch; ?>
 
-    <div id="sub-header">
-        <span class="title">
-            <span id="toggle_menu" class="glyphicon glyphicon-menu-hamburger hidden-md hidden-lg"></span> 
-            <?php if( $this->getGet()->getValue( "id" )==null ): ?>
-                Create notification
-            <?php else: ?>
-                <?php if( $this->getCurrentNotification()->getStatusId()==NotificationStatus::CLOSED ): ?>
-                    Show notification
-                <?php else: ?>
-                    Edit notification
-                <?php endif; ?>
-            <?php endif; ?>
-        </span>
-    </div>
-
     <div id="SubContainer">
-
         <div class="panel panel-default FormContainer">
             <div class="panel-body">
                 <form method="post">

@@ -8,14 +8,13 @@ use BusinessLogic\Configuration\ConfigurationBook;
 ?>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<div id="content">
-    <div id="sub-header">
-        <span class="Title">
-            <span id="toggle_menu" class="glyphicon glyphicon-menu-hamburger hidden-md hidden-lg"></span> 
-            Settings
-        </span>
-    </div>
+<span id="page-title">
+    Settings
+</span>
 
+<div class="btn-group" role="group" id="top-toolbar"></div>
+
+<div id="content">
     <div id="SubContainer">
         <form method="post" class="form-horizontal">
             <div class="panel panel-primary">

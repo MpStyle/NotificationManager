@@ -32,6 +32,8 @@ class Login extends BasePage
         
         parent::setMasterPage(new PublicMasterPage($this));
         $this->addMasterPagePart('content', 'content');
+        $this->addMasterPagePart( 'top-toolbar', 'top-toolbar' );
+        $this->addMasterPagePart( 'page-title', 'page-title' );
         
         $this->addJavascript("Javascripts/Login.js");
         $this->addCss("Styles/Login.css");

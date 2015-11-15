@@ -40,6 +40,8 @@ class EditApp extends BasePage
 
         parent::setMasterPage( new LoggedMasterPage( $this ) );
         $this->addMasterPagePart( 'content', 'content' );
+        $this->addMasterPagePart( 'top-toolbar', 'top-toolbar' );
+        $this->addMasterPagePart( 'page-title', 'page-title' );
 
         $this->addJavascript( "Javascripts/EditApp.js" );
         $this->addCss( "Styles/EditApp.css" );
@@ -67,8 +69,8 @@ class EditApp extends BasePage
                             , $this->getPost()->getValue( "client_id" )
                             , $this->getPost()->getValue( "secret_id" )
             );
-            
-            $applicationId=(int)$result->getData(0, "ApplicationId");
+
+            $applicationId = (int) $result->getData( 0, "ApplicationId" );
         }
         else
         {
@@ -112,6 +114,16 @@ class EditApp extends BasePage
     public function getInternalLinks()
     {
         return implode( ", ", $this->internalLinks );
+    }
+
+    public function getPageTitle()
+    {
+        if( $this->getGet()->getValue( "id" ) == null )
+        {
+            return "Create app";
+        }
+
+        return "Edit app";
     }
 
 }

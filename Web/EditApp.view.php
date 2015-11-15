@@ -7,22 +7,17 @@ use BusinessLogic\Enum\Post;
 ?>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
+<span id="page-title">
+    <?php echo $this->getPageTitle() ?>
+</span>
+
+<div class="btn-group" role="group" id="top-toolbar"></div>
+
 <div id="content">
 
     <?php switch( $this->getGet()->getValue( "error" ) ): ?><?php case "01": ?>
             <div class="alert alert-danger ErrorMessage-MarginBottom20" role="alert">Error: the app was not saved correctly.</div>
     <?php endswitch; ?>
-
-    <div id="sub-header">
-        <span class="title">
-            <span id="toggle_menu" class="glyphicon glyphicon-menu-hamburger hidden-md hidden-lg"></span> 
-            <?php if( $this->getGet()->getValue( "id" ) == null ): ?>
-                Create app
-            <?php else: ?>
-                Edit app
-            <?php endif; ?>
-        </span>
-    </div>
 
     <div id="SubContainer">
         <div class="panel panel-default FormContainer">
@@ -37,11 +32,6 @@ use BusinessLogic\Enum\Post;
                         <label>Google client key</label>
                         <input type="text" name="app_google_client_key" value="<?php echo $this->getCurrentApp()->getGoogleKey() ?>" class="form-control" placeholder="Enter the Google client key" maxlength="1024" />
                     </div>
-
-                    <!--            <div class="form-group">
-                                    <label>Microsoft client key</label>
-                                    <input type="text" name="app_microsoft_client_key" value="<?php echo $this->getCurrentApp()->getWindowsPhoneKey() ?>" class="form-control" placeholder="Enter the Microsoft client key" maxlength="1024" />
-                                </div>-->
 
                     <div class="form-group">
                         <label>Client ID <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="Use this code as perameter in the web services"></span></label>

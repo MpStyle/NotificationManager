@@ -37,6 +37,8 @@ class Apps extends BasePage
 
         parent::setMasterPage( new LoggedMasterPage( $this ) );        
         $this->addMasterPagePart( 'content', 'content' );
+        $this->addMasterPagePart( 'top-toolbar', 'top-toolbar' );
+        $this->addMasterPagePart( 'page-title', 'page-title' );
 
         $this->addJavascript( "Javascripts/Apps.js" );
         $this->addCss( "Styles/Apps.css" );
