@@ -39,25 +39,51 @@ body
     display: inline-block;
 }
 
+.user-avatar
+{
+    border-radius: 25px;
+}
+
+.top-avatar-container
+{
+    top: 10px;
+    right: 20px;
+    z-index: 9999;
+    position: fixed;
+
+    .user-avatar
+    {
+        height: 32px;
+        width: 32px;
+    }
+}
+
+.popover
+{
+    .user-details{
+        min-width: 200px;
+    }
+
+    .user-name{
+        padding-left: 20px;
+    }
+
+    .logout-button
+    {
+        margin-top: 20px;
+        width: 100%;
+    }
+}
+
 #top-toolbar
 {
     position: fixed;
-    right: 0.2em;
+    right: 3.7em;
 
     a, a:hover {
         text-decoration: none;
         color: #fff;
-        margin-left: 10px;
-    }
-}
-
-@media (max-width: 992px) {
-    #top-toolbar
-    {
-        .glyphicon
-        {
-            padding-right: 0px;
-        }
+        margin-left: 20px;
     }
 }
 
@@ -110,11 +136,11 @@ body
     top: 0px;
     left: 0px;
     right: 0px;
-    padding: 7px 5px;
+    padding: 13px 15px;
     z-index: 700;
     box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
     background: #4285f4;
-    height: 45px;
+    height: 56px;
     color: #fff;
     font-size: 1.5em;
 }
@@ -144,11 +170,11 @@ body
     overflow: auto;
     overflow-x: hidden;
     -ms-overflow-x: hidden;
-    top: 45px;
+    top: 56px;
     bottom: 0px;
     z-index: 600;
 
-    .UserBar
+    .user-bar
     {
         background-color: #000;
         position: relative;
@@ -168,27 +194,28 @@ body
             background-size: cover; // auto|length|cover|contain|initial|inherit;
         }
 
-        .UserDetails
+        .user-details
         {
             padding: 20px;
         }
 
-        .AvatarContainer
+        .avatar-container
         {
             margin-bottom: 30px;
-
-            .UserAvatar
-            {
-                border-radius: 25px;
-            }
+            display: block;
         }
 
-        .UserName
+        .user-name
         {
             clear: both;
             color: white;
             font-weight: bold;
             margin-right: 20px;
+            display: inline-block;
+        }
+
+        .logout-form
+        {
             display: inline-block;
         }
     }
@@ -260,16 +287,6 @@ body
     }
 } 
 
-@media (max-width: 767px) {
-    #left-column
-    {
-        width: 85%;
-        max-width: 400px;
-        top: 0px;
-        z-index: 1000;
-    }
-}
-
 .MenuArrow
 {
     float: right;
@@ -288,38 +305,12 @@ body
     overflow: hidden;
 }
 
-@media (max-width: 767px) {
-    #Container
-    {
-        margin-top: 10px;
-    }
-}
-
-@media (min-width: 992px) {
-    #ContentWrapper
-    {
-        margin-left: 16.66666667%;
-    }
-}
-
-@media (max-width: 991px)
+#content 
 {
-    #ContentWrapper
+    h2
     {
-        margin-left: 25%;
+        margin-top: 0px;
     }
-}
-
-@media (max-width: 767px) {
-    #ContentWrapper
-    {
-        margin-left: 0px;
-    }
-}
-
-#content h2
-{
-    margin-top: 0px;
 }
 
 #SubContainer
@@ -329,9 +320,47 @@ body
     margin-right: auto;
 }
 
-@media (max-width: 767px) {
-    #SubContainer
+@media (max-width: 991px) {
+    #top-toolbar
+    {
+        right: 0.7em;
+    }
+    
+    #top-toolbar
+    {
+        .glyphicon
+        {
+            padding-right: 0px;
+        }
+    }
+    
+    #left-column
+    {
+        width: 85%;
+        max-width: 400px;
+        top: 0px;
+        z-index: 1000;
+    }
+    
+    #Container
+    {
+        margin-top: 10px;
+    }
+    
+    #content
     {
         margin-top: 65px;
+    }
+
+    #content-wrapper
+    {
+        margin-left: 0px;
+    }
+}
+
+@media (min-width: 992px) {
+    #content-wrapper
+    {
+        margin-left: 16.66666667%;
     }
 }

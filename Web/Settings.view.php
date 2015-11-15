@@ -11,7 +11,7 @@ use BusinessLogic\Configuration\ConfigurationBook;
 <div id="content">
     <div id="sub-header">
         <span class="Title">
-            <span id="toggle_menu" class="glyphicon glyphicon-menu-hamburger hidden-sm hidden-md hidden-lg"></span> 
+            <span id="toggle_menu" class="glyphicon glyphicon-menu-hamburger hidden-md hidden-lg"></span> 
             Settings
         </span>
     </div>

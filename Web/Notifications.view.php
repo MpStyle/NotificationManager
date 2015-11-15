@@ -15,16 +15,16 @@ use BusinessLogic\Notification\NotificationStatus;
 <div id="content">
     <?php switch( $this->getGet()->getValue( "error" ) ): ?><?php case "00": ?>
             <div class="alert alert-success ErrorMessage-MarginBottom20" role="alert">The Notifications was successfully saved.</div>
-            <?php break; ?><?php case "01": ?>
+            <?php break; case "01": ?>
             <div class="alert alert-danger ErrorMessage-MarginBottom20" role="alert">The Notifications was not deleted.</div>
-            <?php break; ?><?php case "02": ?>
+            <?php break; case "02": ?>
             <div class="alert alert-success ErrorMessage-MarginBottom20" role="alert">The Notifications was successfully deleted.</div>    
             <?php break; ?>
     <?php endswitch; ?>
 
     <div id="sub-header">
         <span class="title">
-            <span id="toggle_menu" class="glyphicon glyphicon-menu-hamburger hidden-sm hidden-md hidden-lg"></span> 
+            <span id="toggle_menu" class="glyphicon glyphicon-menu-hamburger hidden-md hidden-lg"></span> 
             Notification list
             <small> (<?php echo $this->getNotificationCount() ?>)</small>
         </span>
@@ -111,7 +111,6 @@ use BusinessLogic\Notification\NotificationStatus;
                     <th>Notification</th>
                     <th class="hidden-xs">Device type</th>
                     <th class="hidden-xs hidden-sm">Status</th>
-                    <!--<th class="hidden-xs hidden-sm" data-resizable-column-id="ReachedDevices">Reached devices</th>-->
                     <th class="hidden-xs hidden-sm">Last update</th>
                     <th class="buttons-col"></th>
                 </tr>
@@ -122,9 +121,12 @@ use BusinessLogic\Notification\NotificationStatus;
                         <td><?php echo $notification->getId() ?></td>
                         <td><?php echo $notification->getApplicationName() ?></td>
                         <td>
-                            <b><?php echo utf8_encode( $notification->getTitle() ) ?></b> - <?php echo utf8_encode( $notification->getMessage() ) ?>
+                            <b><?php echo utf8_encode( $notification->getTitle() ) ?></b> - 
+                            <?php echo $this->normalizeNotificationMessage( $notification->getMessage() ) ?>
                         </td>
-                        <td class="hidden-xs"><?php echo $notification->getDeviceType()=='' ? 'All' : $notification->getDeviceType() ?></td>
+                        <td class="hidden-xs">
+                            <?php echo $notification->getDeviceType()=='' ? 'All' : $notification->getDeviceType() ?>
+                        </td>
                         <td class="hidden-xs hidden-sm">
                             <?php if( $notification->getStatusId()==NotificationStatus::APPROVED ): ?>
                                 Approved
@@ -134,7 +136,6 @@ use BusinessLogic\Notification\NotificationStatus;
                                 Draft
                             <?php endif; ?>
                         </td>
-                        <!--<td class="hidden-xs hidden-sm"><?php echo $notification->getReachedDevices() ?></td>-->
                         <td class="hidden-xs hidden-sm"><?php echo $notification->getUpdateDate() ?></td>
                         <td>
                             <form method="post">

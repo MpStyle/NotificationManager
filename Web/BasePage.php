@@ -117,7 +117,7 @@ abstract class BasePage extends MAbstractPageController
 
         if( ConfigurationBook::getValue( Configuration::MINIFY_HTML ) == "true" )
         {
-            //parent::setOutput( $this->minifyOutput( parent::getOutput() ) );
+            parent::setOutput( $this->minifyOutput( parent::getOutput() ) );
         }
     }
 

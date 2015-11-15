@@ -21,7 +21,7 @@ use BusinessLogic\Application\ApplicationBook;
 
     <div id="sub-header">
         <span class="title">
-            <span id="toggle_menu" class="glyphicon glyphicon-menu-hamburger hidden-sm hidden-md hidden-lg"></span> 
+            <span id="toggle_menu" class="glyphicon glyphicon-menu-hamburger hidden-md hidden-lg"></span> 
             App list 
             <small>(<?php echo $this->getApplicationCount() ?>)</small>
         </span>
@@ -45,8 +45,8 @@ use BusinessLogic\Application\ApplicationBook;
                     <th class="NoWrap">App name</th>
                     <th class="hidden-xs">Client ID <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="Use these codes as perameters in the web services"></span></th>
                     <th class="hidden-xs hidden-sm">Last update</th>
-                    <th class="hidden-xs hidden-sm">Related to this app</th>
-                    <th></th>
+                    <th class="related-header hidden-xs hidden-sm">Related to this app</th>
+                    <th class="edit-header"></th>
                 </tr>
             </thead>
             <tbody>
@@ -54,7 +54,7 @@ use BusinessLogic\Application\ApplicationBook;
                     <tr>
                         <td class="NoWrapEllipsis"><?php echo $application->getName() ?></td>
                         <td class="hidden-xs">
-                            <div class="ClientIdContainer"><?php echo $application->getClientId() ?></div>
+                            <div class="client-id-container"><?php echo $application->getClientId() ?></div>
                         </td>
                         <td class="hidden-xs hidden-sm">
                             <?php echo $application->getUpdateDate() ?>

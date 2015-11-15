@@ -10,7 +10,7 @@ use BusinessLogic\Json\JsonBook;
 <div id="content">
     <div id="sub-header">
         <span class="title">
-            <span id="toggle_menu" class="glyphicon glyphicon-menu-hamburger hidden-sm hidden-md hidden-lg"></span> 
+            <span id="toggle_menu" class="glyphicon glyphicon-menu-hamburger hidden-md hidden-lg"></span> 
             Web service response 
             <small>version: 1.0.0</small>
         </span>

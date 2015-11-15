@@ -35,7 +35,7 @@ class Notifications extends BasePage
     private $notifications = null;
     private $notificationCount = 0;
     private $pages = 1;
-    private $pagination=null;
+    private $pagination = null;
 
     public function __construct()
     {
@@ -56,8 +56,8 @@ class Notifications extends BasePage
 
         /* @var $result MPDOResult */ $result = NotificationAction::getPageCount( $notificationId, $applicationId, $status, $deviceType, $perPage );
         $this->pages = $result->getData( 0, 'PageCount' );
-        
-        $this->pagination=new Views\Pagination($this->pages, $this);
+
+        $this->pagination = new Views\Pagination( $this->pages, $this );
 
         $result = NotificationAction::getCount( $notificationId, $applicationId, $status, $deviceType );
         $this->notificationCount = $result->getData( 0, 'NotificationCount' );
@@ -131,6 +131,7 @@ class Notifications extends BasePage
     {
         $get = $_GET;
         unset( $get["page"] );
+        unset( $get["error"] );
         foreach( $get as $key => $value )
         {
             if( $value == "" || $value == "All" )
@@ -140,6 +141,19 @@ class Notifications extends BasePage
         }
 
         return (count( $get ) > 0);
+    }
+
+    public function normalizeNotificationMessage( $message )
+    {
+        $maxLength = 100;
+        $toReturn = substr( utf8_encode( $message ), 0, $maxLength );
+
+        if( strlen( $message ) > $maxLength )
+        {
+            $toReturn.='...';
+        }
+
+        return $toReturn;
     }
 
 }

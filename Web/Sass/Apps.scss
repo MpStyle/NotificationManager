@@ -24,7 +24,7 @@
     padding-right: 0px;
 }
 
-.ClientIdContainer, .SecretIdContainer
+.client-id-container
 {
     max-width: 300px;
     text-overflow: ellipsis;
@@ -37,4 +37,17 @@
     max-width: 1000px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.related-header, .edit-header
+{
+    min-width: 160px;
+}
+
+@media (min-width: 992px) and (max-width: 1199px)
+{
+    .client-id-container
+    {
+        max-width: 245px;
+    }
 }

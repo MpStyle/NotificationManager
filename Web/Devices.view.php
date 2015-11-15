@@ -25,7 +25,7 @@ use BusinessLogic\Localization\Localization;
 
     <div id="sub-header">
         <span class="title">
-            <span id="toggle_menu" class="glyphicon glyphicon-menu-hamburger hidden-sm hidden-md hidden-lg"></span> 
+            <span id="toggle_menu" class="glyphicon glyphicon-menu-hamburger hidden-md hidden-lg"></span> 
             Device list 
             <small>(<?php echo $this->getDeviceCount() ?>)</small>
         </span>
@@ -124,7 +124,7 @@ use BusinessLogic\Localization\Localization;
             <thead>
                 <tr>
                     <td>&nbsp;</td>
-                    <td></td>
+                    <td class="hidden-xs"></td>
                     <th data-resizable-column-id="MobileId">
                         Device
                     </th>
@@ -136,12 +136,12 @@ use BusinessLogic\Localization\Localization;
                 <?php foreach( $this->getDevices() as /* @var $device Device */ $device ): ?>
                     <tr class="<?php echo ($device->getEnabled()? : 'warning'); ?>">
                         <td><?php echo $device->getId() ?></td>
-                        <td>
+                        <td class="hidden-xs">
                             <img class="DeviceFlag" src="Images/flags/<?php echo $device->getLocalizationName() ?>.png" />
                         </td>
                         <td>
                             <div class="mobile-info"><?php echo $device->getBrand() ?> - <?php echo $device->getModel() ?> | <?php echo $device->getType() ?> - <?php echo $device->getOsVersion() ?></div>
-                            <div class="mobile-id" title="Mobile id: <?php echo $device->getMobileId() ?>"><?php echo $device->getMobileId() ?></div>
+                            <div class="mobile-id hidden-xs hidden-sm" title="Mobile id: <?php echo $device->getMobileId() ?>"><?php echo $device->getMobileId() ?></div>
                         </td>
                         <td class="hidden-xs hidden-sm">
                             <?php echo $device->getApplicationName() ?> - <?php echo $device->getApplicationVersion() ?>

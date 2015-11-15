@@ -3,18 +3,28 @@ function LoggedMasterPage()
     $(".ShowFilter").click(function () {
         $(".FiltersForm").slideToggle();
     });
+    
+    $('.top-avatar-container .user-avatar').popover({
+        content: function () {
+            return $(".user-bar").html();
+        },
+        html: true
+    });
 }
 
 LoggedMasterPage.prototype.toggleMenu = function ()
 {
-    if ($("#left-column").hasClass("hidden-xs"))
+    var $leftColumn=$("#left-column");
+    
+    if ($leftColumn.hasClass("hidden-xs") || $leftColumn.hasClass("hidden-sm"))
     {
-        $("#left-column").removeClass("hidden-xs");
+        $leftColumn.removeClass("hidden-xs");
+        $leftColumn.removeClass("hidden-sm");
         $("#MenuDarkSide").show();
-    }
-    else
+    } else
     {
-        $("#left-column").addClass("hidden-xs");
+        $leftColumn.addClass("hidden-xs");
+        $leftColumn.addClass("hidden-sm");
         $("#MenuDarkSide").hide();
     }
 };

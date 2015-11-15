@@ -54,3 +54,11 @@
 {
     min-width: 165px;
 }
+
+@media (min-width: 992px) and (max-width: 1199px)
+{
+    .mobile-id
+    {
+        max-width: 385px;
+    }
+}
