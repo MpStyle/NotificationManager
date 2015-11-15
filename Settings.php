@@ -16,7 +16,7 @@ class Settings
     const DATABASE_NAME = "NotificationManager";
     
     const APP_NAME = "Notification Manager";
-    const APP_VERSION = "2.0-alpha";
+    const APP_VERSION = "2.0";
 
     public static function run()
     {
