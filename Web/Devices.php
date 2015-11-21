@@ -69,19 +69,19 @@ class Devices extends BasePage
 
     protected function disableDevice()
     {
-        DeviceAction::update( (int) $this->getGet()->getValue( "DeviceId" ), (int) $this->getGet()->getValue( "ApplicationId" ), 0 );
+        DeviceAction::update( (int) $this->getPost()->getValue( "DeviceId" ), (int) $this->getPost()->getValue( "ApplicationId" ), 0 );
         $this->getHttpResponse()->redirect( "Devices.php?error=03&applicationId=" . $this->getApplicationId() . "&page=" . $this->getCurrentPage() );
     }
 
     protected function enableDevice()
     {
-        DeviceAction::update( (int) $this->getGet()->getValue( "DeviceId" ), (int) $this->getGet()->getValue( "ApplicationId" ), 1 );
+        DeviceAction::update( (int) $this->getPost()->getValue( "DeviceId" ), (int) $this->getPost()->getValue( "ApplicationId" ), 1 );
         $this->getHttpResponse()->redirect( "Devices.php?error=03&applicationId=" . $this->getApplicationId() . "&page=" . $this->getCurrentPage() );
     }
 
     protected function deleteDevice()
     {
-        if( DeviceAction::delete( (int) $this->getGet()->getValue( "DeleteDeviceId" ) ) == null )
+        if( DeviceAction::delete( (int) $this->getPost()->getValue( "model-delete-device-id" ) ) == null )
         {
             $this->getHttpResponse()->redirect( "Devices.php?error=01&applicationId=" . $this->getApplicationId() . "&page=" . $this->getCurrentPage() );
         }
