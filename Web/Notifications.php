@@ -23,12 +23,12 @@ namespace Web;
 
 require_once '../Settings.php';
 
-use BusinessLogic\Notification\DeliveryStatus;
 use BusinessLogic\Notification\NotificationBook;
 use BusinessLogic\Notification\NotificationStatus;
 use DbAbstraction\Notification\NotificationAction;
 use MToolkit\Model\Sql\MPDOResult;
 use Web\MasterPages\LoggedMasterPage;
+use Web\Views\Pagination;
 
 class Notifications extends BasePage
 {
@@ -59,7 +59,7 @@ class Notifications extends BasePage
         /* @var $result MPDOResult */ $result = NotificationAction::getPageCount( $notificationId, $applicationId, $status, $deviceType, $perPage );
         $this->pages = $result->getData( 0, 'PageCount' );
 
-        $this->pagination = new Views\Pagination( $this->pages, $this );
+        $this->pagination = new Pagination( $this->pages, $this );
 
         $result = NotificationAction::getCount( $notificationId, $applicationId, $status, $deviceType );
         $this->notificationCount = $result->getData( 0, 'NotificationCount' );
@@ -69,7 +69,7 @@ class Notifications extends BasePage
 
     protected function deleteNotification()
     {
-        if( NotificationAction::delete( (int) $this->getGet()->getValue( "modal-notification-id" ) ) == null )
+        if( NotificationAction::delete( (int) $this->getPost()->getValue( "modal-notification-id" ) ) == null )
         {
             $this->getHttpResponse()->redirect( "Notifications.php?error=01&applicationId=" . $this->getApplicationId() . "&page=" . $this->getCurrentPage() );
         }
@@ -122,7 +122,7 @@ class Notifications extends BasePage
     /**
      * Returns the pagination view.
      * 
-     * @return Views\Pagination
+     * @return Pagination
      */
     public function getPagination()
     {
