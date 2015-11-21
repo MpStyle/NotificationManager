@@ -87,9 +87,9 @@ class MobileRegistration extends AbstractWebService
 
         try
         {
-            DeviceAction::insert( $this->mobileId, $this->type, $this->osVersion, $this->applicationVersion, $this->brand, $this->model, $this->localizationId );
+            DeviceAction::insert( $this->mobileId, $this->type, $this->osVersion, $this->applicationVersion, $this->brand, $this->model, (int)$this->localizationId );
 
-            /* @var $devices MList */ $devices = DeviceBook::getDevices( null, null, null, $this->type, null, $this->mobileId );
+            /* @var $devices MList */ $devices = DeviceBook::getDevices( null, null, null, (int)$this->localizationId, $this->type, null, $this->mobileId );
             if( $devices->count() <= 0 )
             {
                 parent::setResult( false );
@@ -108,7 +108,7 @@ class MobileRegistration extends AbstractWebService
             $applicationId = (int) $applications->at( 0 )->getId();
             $deviceId = (int) $devices->at( 0 )->getId();
 
-            /* @var $devicesApplications MList */ $devicesApplications = DeviceBook::getDevices( $deviceId, null, $applicationId, $this->type, null, $this->mobileId );
+            /* @var $devicesApplications MList */ $devicesApplications = DeviceBook::getDevices( $deviceId, null, $applicationId, (int)$this->localizationId, $this->type, null, $this->mobileId );
 
             // Associa il device all'applicazione solo se non esiste già.
             if( $devicesApplications->count() <= 0 )
