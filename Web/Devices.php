@@ -50,13 +50,11 @@ class Devices extends BasePage
 
         $deviceId = null;
         $enabled = null;
-        $applicationId = $this->getApplicationId() == null ? $this->getApplicationId() : $this->getGet()->getValueByType( "application_id", MDataType::INT );
+        $applicationId = $this->getApplicationId();
         $type = $this->getGet()->getValue( "type" ) == "" ? null : $this->getGet()->getValue( "type" );
         $text = $this->getGet()->getValue( "free_search" ) == "" ? null : $this->getGet()->getValue( "free_search" );
         $localizationId = $this->getGet()->getValue( "localization-id" ) == "" ? null : (int) $this->getGet()->getValue( "localization-id" );
         $perPage = 10;
-
-        $applicationId = $applicationId == null ? $applicationId : (int) $applicationId;
 
         /* @var $result MPDOResult */ $result = DeviceAction::getPageCount( $deviceId, $enabled, $applicationId, $localizationId, $type, $text, null, $perPage );
         $this->pages = $result->getData( 0, 'PageCount' );
@@ -96,6 +94,11 @@ class Devices extends BasePage
     public function getApplicationId()
     {
         return $this->getGet()->getValue( "applicationId" ) == null ? null : (int) $this->getGet()->getValue( "applicationId" );
+    }
+
+    public function getCurrentPage()
+    {
+        return $this->getGet()->getValue( "page" ) == null ? 0 : (int) $this->getGet()->getValue( "page" );
     }
 
     /**
@@ -142,6 +145,7 @@ class Devices extends BasePage
     {
         $get = $_GET;
         unset( $get["page"] );
+        unset( $get["error"] );
         foreach( $get as $key => $value )
         {
             if( $value == "" || $value == "All" )
