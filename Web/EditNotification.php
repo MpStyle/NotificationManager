@@ -26,6 +26,7 @@ require_once '../Settings.php';
 use BusinessLogic\Application\ApplicationLinkType;
 use BusinessLogic\Date\DateBook;
 use BusinessLogic\Notification\Notification;
+use BusinessLogic\Notification\NotificationBook;
 use BusinessLogic\Notification\NotificationStatus;
 use DbAbstraction\Device\DeviceAction;
 use DbAbstraction\Notification\NotificationAction;
@@ -38,6 +39,11 @@ class EditNotification extends BasePage
     public function __construct()
     {
         parent::__construct( __DIR__ . '/EditNotification.view.php' );
+        
+        if( NotificationBook::getCount( (int) $this->getGet()->getValue( "id" ) ) <= 0 )
+        {
+            parent::getHttpResponse()->redirect( "Notifications.php" );
+        }
 
         parent::setMasterPage( new LoggedMasterPage( $this ) );
         $this->addMasterPagePart( 'content', 'content' );
