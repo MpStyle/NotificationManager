@@ -21,12 +21,13 @@ namespace BusinessLogic\Notification;
  * @author  Michele Pagnin
  */
 
-
 final class NotificationStatus
 {
     const DRAFT = 1;
     const APPROVED = 2;
     const CLOSED = 3;
+    const SENDING = 4;
+    const EDITING = 5;
     
     protected $id;
     Protected $name;

@@ -132,9 +132,11 @@ use BusinessLogic\Notification\NotificationStatus;
                         </td>
                         <td class="hidden-xs hidden-sm">
                             <?php if( $notification->getStatusId() == NotificationStatus::APPROVED ): ?>
-                                Approved
+                                Ready to send
+                            <?php elseif( $notification->getStatusId() == NotificationStatus::SENDING ): ?>
+                                Sending...
                             <?php elseif( $notification->getStatusId() == NotificationStatus::CLOSED ): ?>
-                                Closed
+                                Sent
                             <?php else: ?>
                                 Draft
                             <?php endif; ?>
@@ -143,11 +145,14 @@ use BusinessLogic\Notification\NotificationStatus;
                         <td>
                             <form method="post">
                                 <div class="btn-group" role="group">
-                                    <?php if( $notification->getStatusId() == NotificationStatus::CLOSED ): ?>
+                                    <?php if( $notification->getStatusId() == NotificationStatus::CLOSED
+                                            || $notification->getStatusId() == NotificationStatus::SENDING ): ?>
                                         <a href="EditNotification.php?id=<?php echo $notification->getId() ?>" class="btn btn-default" title="Show">
                                             <span class="glyphicon glyphicon-eye-open"></span> 
                                         </a>
-                                    <?php else: ?>
+                                    <?php elseif( $notification->getStatusId() == NotificationStatus::APPROVED 
+                                            || $notification->getStatusId() == NotificationStatus::EDITING
+                                            || $notification->getStatusId() == NotificationStatus::DRAFT ): ?>
                                         <a href="EditNotification.php?id=<?php echo $notification->getId() ?>" class="btn btn-default" title="Edit">
                                             <span class="glyphicon glyphicon-edit"></span> 
                                         </a>
