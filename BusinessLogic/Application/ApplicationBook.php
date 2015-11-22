@@ -63,5 +63,17 @@ final class ApplicationBook
 
         return $applications;
     }
+    
+    /**
+     * 
+     * @param int|null $id
+     * @param int|null $name
+     * @return int
+     */
+    public static function getCount( $id = null, $name = null )
+    {
+        /* @var $result MPDOResult */ $result = ApplicationAction::getCount( $id, $name );
+        return $result->getData( 0, 'AppCount' );
+    }
 
 }

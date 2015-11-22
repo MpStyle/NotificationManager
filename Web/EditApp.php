@@ -24,6 +24,7 @@ namespace Web;
 require_once '../Settings.php';
 
 use BusinessLogic\Application\Application;
+use BusinessLogic\Application\ApplicationBook;
 use BusinessLogic\Application\ApplicationLink;
 use BusinessLogic\ApplicationInternalLink\ApplicationInternalLinkBook;
 use DbAbstraction\Application\ApplicationAction;
@@ -37,6 +38,11 @@ class EditApp extends BasePage
     public function __construct()
     {
         parent::__construct( __DIR__ . '/EditApp.view.php' );
+        
+        if( ApplicationBook::getCount( (int) $this->getGet()->getValue( "id" ) ) <= 0 )
+        {
+            parent::getHttpResponse()->redirect( "Apps.php" );
+        }
 
         parent::setMasterPage( new LoggedMasterPage( $this ) );
         $this->addMasterPagePart( 'content', 'content' );

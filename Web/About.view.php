@@ -32,6 +32,17 @@ namespace Web;
 
         <div role="tabpanel" class="tab-pane" id="changelog">
 
+            <h3>2.1.0</h3>
+            <ul>
+                <li>Bug fixing</li>
+                <li>Improved UI & UX performance</li>
+            </ul>
+            
+            <h3>2.0.1</h3>
+            <ul>
+                <li>Bug fixing</li>
+            </ul>
+            
             <h3>2.0</h3>
             <ul>
                 <li>Bug fixing</li>
