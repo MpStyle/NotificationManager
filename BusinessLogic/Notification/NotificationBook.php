@@ -67,6 +67,19 @@ class NotificationBook
 
         return $notifications;
     }
+    
+    /**
+     * @param int|null $id
+     * @param int|null $applicationId
+     * @param int|null $statusId
+     * @param string|null $deviceType
+     * @return int
+     */
+    public static function getCount($id = null, $applicationId=null, $statusId=null, $deviceType=null)
+    {
+        $result= NotificationAction::getCount($id, $applicationId, $statusId, $deviceType);
+        return $result->getData( 0, 'NotificationCount' );
+    }
 
 	/**
 	public static function sendNotificationUsingGCM($notificationId, $deviceId)
