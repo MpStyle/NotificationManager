@@ -45,6 +45,11 @@ use BusinessLogic\Localization\Localization;
             <div class="alert alert-success ErrorMessage ErrorMessage-MarginBottom20" role="alert">The device was successfully updated.</div>    
             <?php
             break;
+        case "04":
+            ?>
+            <div class="alert alert-danger ErrorMessage ErrorMessage-MarginBottom20" role="alert">The nickname was not set.</div>    
+            <?php
+            break;
     endswitch;
     ?>
 
@@ -148,7 +153,11 @@ use BusinessLogic\Localization\Localization;
                             <img class="DeviceFlag" src="Images/flags/<?php echo $device->getLocalizationName() ?>.png" />
                         </td>
                         <td>
-                            <div class="mobile-info"><?php echo $device->getBrand() ?> - <?php echo $device->getModel() ?> | <?php echo $device->getType() ?> - <?php echo $device->getOsVersion() ?></div>
+                            <?php if( $device->getNickname()!=null ): ?>
+                                <div class="mobile-info"><?php echo $device->getNickname() ?></div>
+                            <?php else: ?>
+                                <div class="mobile-info"><?php echo $device->getBrand() ?> - <?php echo $device->getModel() ?> | <?php echo $device->getType() ?> - <?php echo $device->getOsVersion() ?></div>
+                            <?php endif; ?>
                             <div class="mobile-id hidden-xs hidden-sm" title="Mobile id: <?php echo $device->getMobileId() ?>"><?php echo $device->getMobileId() ?></div>
                         </td>
                         <td class="hidden-xs hidden-sm">
@@ -157,6 +166,9 @@ use BusinessLogic\Localization\Localization;
                         <td>
                             <form method="post">
                                 <div class="btn-group" role="group">
+                                    <span id="set-nickname-button" class="btn btn-primary" title="Set a nickname for this device" data-toggle="modal" data-target=".set-nickname-modal">
+                                        <span class="glyphicon glyphicon-user"></span>
+                                    </span>
                                     <?php if( $device->getEnabled() ): ?>
                                         <button id="DisableDeviceButton" type="submit" name="action" value="disableDevice" class="btn btn-warning" title="Disable">
                                             <span class="glyphicon glyphicon-thumbs-down"></span> 
@@ -174,6 +186,7 @@ use BusinessLogic\Localization\Localization;
                                 <input type="hidden" class="MobileId" value="<?php echo $device->getMobileId() ?>" />
                                 <input type="hidden" class="DeviceId" name="DeviceId" value="<?php echo $device->getId() ?>" />
                                 <input type="hidden" class="ApplicationId" name="ApplicationId" value="<?php echo $device->getApplicationId() ?>" />
+                                <input type="hidden" class="Nickname" name="Nickname" value="<?php echo $device->getNickname() ?>" />
                             </form>
                         </td>
                     </tr>
@@ -198,6 +211,27 @@ use BusinessLogic\Localization\Localization;
                         <input type="hidden" name="model-delete-device-id" class="modal-delete-device-id" value="" />
                     </form>
                 </div>
+            </div>
+        </div>
+    </div>
+            
+    <div class="modal fade set-nickname-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <form method="post">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="control-label">Choose a nickname for this device:</label>
+                            <input type="text" name="modal-nickname" class="form-control modal-nickname" maxlength="100" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" name="action" value="updateNickName">Save</button>
+
+                        <input type="hidden" name="modal-device-id" class="modal-device-id" value="" />
+                    </div>
+                </form>
             </div>
         </div>
     </div>

@@ -107,26 +107,22 @@ class DeviceAction
     }
 
     public static function insert(
-    $mobileId
-    , $type
-    , $osVersion
-    , $applicationVersion
-    , $brand
-    , $model
-    , $localizationId )
+        $mobileId
+        , $type
+        , $osVersion
+        , $applicationVersion
+        , $brand
+        , $model
+        , $localizationId )
     {
         $query = "CALL deviceInsert(?, ?, ?, ?, ?, ?, ?)";
         /* @var $connection PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
 
-        $sql->bindValue( $mobileId );
-        $sql->bindValue( $type );
-        $sql->bindValue( $osVersion );
-        $sql->bindValue( $applicationVersion );
-        $sql->bindValue( $brand );
-        $sql->bindValue( $model );
-        $sql->bindValue( $localizationId );
+        $sql->bindValues( array(
+            $mobileId, $type, $osVersion, $applicationVersion, $brand, $model, $localizationId 
+        ) );
 
         $sql->exec();
 
@@ -138,13 +134,11 @@ class DeviceAction
      * @param boolean $enabled
      * @return MPDOResult
      */
-    public static function update( $deviceId, $applicationId, $enabled )
+    public static function update( $deviceId, $applicationId, $enabled, $nickname )
     {
-        MDataType::mustBeInt( $deviceId );
-        MDataType::mustBeInt( $applicationId );
-        MDataType::mustBeInt( $enabled );
+        MDataType::mustBe(array(MDataType::INT, MDataType::INT, MDataType::INT, MDataType::STRING|MDataType::NULL));
 
-        $query = "CALL deviceUpdate(?, ?, ?)";
+        $query = "CALL deviceUpdate(?, ?, ?, ?)";
         /* @var $connection PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
@@ -152,6 +146,7 @@ class DeviceAction
         $sql->bindValue( $deviceId );
         $sql->bindValue( $applicationId );
         $sql->bindValue( $enabled );
+        $sql->bindValue( $nickname );
 
         $sql->exec();
 
@@ -198,32 +193,82 @@ class DeviceAction
      * @param int $page
      * @return MPDOResult
      */
-    public static function get( $id = null, $enabled = null, $applicationId = null, $localizationId=null, $type = null, $freeSearch = null, $mobileId = null, $perPage = 10, $page = 0 )
+    public static function get( $id = null
+            , $enabled = null
+            , $applicationId = null
+            , $localizationId=null
+            , $type = null
+            , $freeSearch = null
+            , $mobileId = null
+            , $nickname = null
+            , $perPage = 10
+            , $page = 0 )
     {
-        MDataType::mustBeNullableInt( $id );
-        MDataType::mustBeNullableInt( $enabled );
-        MDataType::mustBeNullableInt( $applicationId );
-        MDataType::mustBeNullableInt( $localizationId );
-        MDataType::mustBeNullableString( $type );
-        MDataType::mustBeNullableString( $freeSearch );
-        MDataType::mustBeNullableString( $mobileId );
-        MDataType::mustBeInt( $perPage );
-        MDataType::mustBeInt( $page );
+        MDataType::mustBe(array(MDataType::INT|MDataType::NULL
+                , MDataType::INT|MDataType::NULL
+                , MDataType::INT|MDataType::NULL
+                , MDataType::INT|MDataType::NULL
+                , MDataType::STRING|MDataType::NULL
+                , MDataType::STRING|MDataType::NULL
+                , MDataType::STRING|MDataType::NULL
+                , MDataType::STRING|MDataType::NULL
+                , MDataType::INT
+                , MDataType::INT));
 
-        $query = "CALL deviceGet(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $query = "CALL deviceGet(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         /* @var $connection PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
 
-        $sql->bindValue( $id );
-        $sql->bindValue( $enabled );
-        $sql->bindValue( $applicationId );
-        $sql->bindValue( $localizationId );
-        $sql->bindValue( $type );
-        $sql->bindValue( $freeSearch );
-        $sql->bindValue( $mobileId );
-        $sql->bindValue( $perPage );
-        $sql->bindValue( $page );
+        $sql->bindValues( array(
+            $id, $enabled, $applicationId, $localizationId, $type, $freeSearch, $mobileId, $nickname, $perPage, $page 
+        ) );
+
+        $sql->exec();
+
+        return $sql->getResult();
+    }
+
+    /**
+     * @param int|null $id
+     * @param int|null $enabled
+     * @param int|null $applicationId
+     * @param int|null $localizationId
+     * @param string|null $type
+     * @param string|null $freeSearch
+     * @param string|null $mobileId
+     * @param string|null $nickname
+     * @param int $perPage
+     * @return MPDOResult
+     */
+    public static function getPageCount( $id = null
+            , $enabled = null
+            , $applicationId = null
+            , $localizationId=null
+            , $type = null
+            , $freeSearch = null
+            , $mobileId = null
+            , $nickname = null
+            , $perPage = 10 )
+    {
+        MDataType::mustBe(array(MDataType::INT|MDataType::NULL
+                , MDataType::INT|MDataType::NULL
+                , MDataType::INT|MDataType::NULL
+                , MDataType::INT|MDataType::NULL
+                , MDataType::STRING|MDataType::NULL
+                , MDataType::STRING|MDataType::NULL
+                , MDataType::STRING|MDataType::NULL
+                , MDataType::STRING|MDataType::NULL
+                , MDataType::INT));
+
+        $query = "CALL deviceGetPageCount(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        /* @var $connection PDO */
+        $connection = MDbConnection::getDbConnection();
+        $sql = new MPDOQuery( $query, $connection );
+
+        $sql->bindValues( array( 
+            $id, $enabled, $applicationId, $localizationId, $type, $freeSearch, $mobileId, $nickname, $perPage 
+        ) );
 
         $sql->exec();
 
@@ -236,57 +281,32 @@ class DeviceAction
      * @param int $applicationId
      * @return MPDOResult
      */
-    public static function getPageCount( $id = null, $enabled = null, $applicationId = null, $localizationId=null, $type = null, $freeSearch = null, $mobileId = null, $perPage = 10 )
+    public static function getCount( $id = null
+            , $enabled = null
+            , $applicationId = null
+            , $localizationId=null
+            , $type = null
+            , $freeSearch = null
+            , $mobileId = null
+            , $nickname = null )
     {
-        MDataType::mustBeNullableInt( $id );
-        MDataType::mustBeNullableInt( $enabled );
-        MDataType::mustBeNullableInt( $applicationId );
-        MDataType::mustBeNullableInt( $localizationId );
+        MDataType::mustBe(array(MDataType::INT|MDataType::NULL
+                , MDataType::INT|MDataType::NULL
+                , MDataType::INT|MDataType::NULL
+                , MDataType::INT|MDataType::NULL
+                , MDataType::STRING|MDataType::NULL
+                , MDataType::STRING|MDataType::NULL
+                , MDataType::STRING|MDataType::NULL
+                , MDataType::STRING|MDataType::NULL));
 
-        $query = "CALL deviceGetPageCount(?, ?, ?, ?, ?, ?, ?, ?)";
+        $query = "CALL deviceGetCount(?, ?, ?, ?, ?, ?, ?, ?)";
         /* @var $connection PDO */
         $connection = MDbConnection::getDbConnection();
         $sql = new MPDOQuery( $query, $connection );
 
-        $sql->bindValue( $id );
-        $sql->bindValue( $enabled );
-        $sql->bindValue( $applicationId );
-        $sql->bindValue( $localizationId );
-        $sql->bindValue( $type );
-        $sql->bindValue( $freeSearch );
-        $sql->bindValue( $mobileId );
-        $sql->bindValue( $perPage );
-
-        $sql->exec();
-
-        return $sql->getResult();
-    }
-
-    /**
-     * @param int $id
-     * @param int $enabled
-     * @param int $applicationId
-     * @return MPDOResult
-     */
-    public static function getCount( $id = null, $enabled = null, $applicationId = null, $localizationId=null, $type = null, $freeSearch = null, $mobileId = null )
-    {
-        MDataType::mustBeNullableInt( $id );
-        MDataType::mustBeNullableInt( $enabled );
-        MDataType::mustBeNullableInt( $applicationId );
-        MDataType::mustBeNullableInt( $localizationId );
-
-        $query = "CALL deviceGetCount(?, ?, ?, ?, ?, ?, ?)";
-        /* @var $connection PDO */
-        $connection = MDbConnection::getDbConnection();
-        $sql = new MPDOQuery( $query, $connection );
-
-        $sql->bindValue( $id );
-        $sql->bindValue( $enabled );
-        $sql->bindValue( $applicationId );
-        $sql->bindValue( $localizationId );
-        $sql->bindValue( $type );
-        $sql->bindValue( $freeSearch );
-        $sql->bindValue( $mobileId );
+        $sql->bindValues( array(
+            $id, $enabled, $applicationId, $localizationId, $type, $freeSearch, $mobileId, $nickname 
+        ) );
 
         $sql->exec();
 

@@ -40,6 +40,7 @@ class Device extends MObject
     protected $localizationName = null;
     protected $creationDate=null;
     protected $updateDate=null;
+    protected $nickname=null;
 
     /**
      * @return int
@@ -223,6 +224,17 @@ class Device extends MObject
     public function setUpdateDate( $updateDate )
     {
         $this->updateDate = $updateDate;
+        return $this;
+    }
+
+    public function getNickname()
+    {
+        return $this->nickname;
+    }
+
+    public function setNickname( $nickname )
+    {
+        $this->nickname = $nickname;
         return $this;
     }
 

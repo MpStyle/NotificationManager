@@ -56,26 +56,57 @@ class Devices extends BasePage
         $localizationId = $this->getGet()->getValue( "localization-id" ) == "" ? null : (int) $this->getGet()->getValue( "localization-id" );
         $perPage = 10;
 
-        /* @var $result MPDOResult */ $result = DeviceAction::getPageCount( $deviceId, $enabled, $applicationId, $localizationId, $type, $text, null, $perPage );
+        /* @var $result MPDOResult */ $result = DeviceAction::getPageCount( $deviceId, $enabled, $applicationId, $localizationId, $type, $text, null, null, $perPage );
         $this->pages = $result->getData( 0, 'PageCount' );
 
         $this->pagination = new Views\Pagination( $this->pages, $this );
 
-        /* @var $result MPDOResult */ $result = DeviceAction::getCount( $deviceId, $enabled, $applicationId, $localizationId, $type, $text, null );
+        /* @var $result MPDOResult */ $result = DeviceAction::getCount( $deviceId, $enabled, $applicationId, $localizationId, $type, $text, null, null );
         $this->deviceCount = $result->getData( 0, 'DeviceCount' );
 
-        $this->devices = DeviceBook::getDevices( $deviceId, $enabled, $applicationId, $localizationId, $type, $text, null, $perPage, $this->pagination->getCurrentPage() );
+        $this->devices = DeviceBook::getDevices( $deviceId, $enabled, $applicationId, $localizationId, $type, $text, null, null, $perPage, $this->pagination->getCurrentPage() );
     }
 
     protected function disableDevice()
     {
-        DeviceAction::update( (int) $this->getPost()->getValue( "DeviceId" ), (int) $this->getPost()->getValue( "ApplicationId" ), 0 );
+        DeviceAction::update( 
+            (int) $this->getPost()->getValue( "DeviceId" )
+            , (int) $this->getPost()->getValue( "ApplicationId" )
+            , 0 
+            , $this->getPost()->getValue( "Nickname" )
+        );
+        
         $this->getHttpResponse()->redirect( "Devices.php?error=03&applicationId=" . $this->getApplicationId() . "&page=" . $this->getCurrentPage() );
     }
 
     protected function enableDevice()
     {
-        DeviceAction::update( (int) $this->getPost()->getValue( "DeviceId" ), (int) $this->getPost()->getValue( "ApplicationId" ), 1 );
+        DeviceAction::update( 
+            (int) $this->getPost()->getValue( "DeviceId" )
+            , (int) $this->getPost()->getValue( "ApplicationId" )
+            , 1 
+            , $this->getPost()->getValue( "Nickname" )
+        );
+        $this->getHttpResponse()->redirect( "Devices.php?error=03&applicationId=" . $this->getApplicationId() . "&page=" . $this->getCurrentPage() );
+    }
+    
+    protected function updateNickName()
+    {
+        $devices = DeviceBook::getDevices((int) $this->getPost()->getValue( "modal-device-id" ));
+        
+        if( $devices->count()<=0 )
+        {
+            $this->getHttpResponse()->redirect( "Devices.php?error=04&applicationId=" . $this->getApplicationId() . "&page=" . $this->getCurrentPage() );
+        }
+        
+        /* @var $device \BusinessLogic\Device\Device */ $device=$devices->getValue(0);
+        
+        DeviceAction::update( 
+            (int) $device->getId()
+            , (int) $device->getApplicationId()
+            , (int) $device->getEnabled()
+            , $this->getPost()->getValue( "modal-nickname" )
+        );
         $this->getHttpResponse()->redirect( "Devices.php?error=03&applicationId=" . $this->getApplicationId() . "&page=" . $this->getCurrentPage() );
     }
 

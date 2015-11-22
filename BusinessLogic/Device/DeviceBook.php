@@ -33,29 +33,39 @@ final class DeviceBook
     /**
      * Returns a MList of Device filtered by parameters.
      * 
-     * @param int $id
-     * @param int $enabled
-     * @param int $applicationId
-     * @param string $type
-     * @param string $freeSearch
-     * @param int $mobileId
+     * @param int|null $id
+     * @param int|null $enabled
+     * @param int|null $applicationId
+     * @param string|null $type
+     * @param string|null $freeSearch
+     * @param int|null $mobileId
      * @param int $perPage
      * @param int $page
      * @return MList
      */
-    public static function getDevices( $id = null, $enabled = null, $applicationId = null, $localizationId=null, $type = null, $freeSearch = null, $mobileId = null, $perPage = 10000000, $page = 0 )
+    public static function getDevices( $id = null
+            , $enabled = null
+            , $applicationId = null
+            , $localizationId=null
+            , $type = null
+            , $freeSearch = null
+            , $mobileId = null
+            , $nickname = null
+            , $perPage = 10000000
+            , $page = 0 )
     {
-        MDataType::mustBeNullableInt( $id );
-        MDataType::mustBeNullableInt( $enabled );
-        MDataType::mustBeNullableInt( $applicationId );
-        MDataType::mustBeNullableInt( $localizationId );
-        MDataType::mustBeNullableString( $type );
-        MDataType::mustBeNullableString( $freeSearch );
-        MDataType::mustBeNullableString( $mobileId );
-        MDataType::mustBeInt( $perPage );
-        MDataType::mustBeInt( $page );
+        MDataType::mustBe(array(MDataType::INT|MDataType::NULL
+                , MDataType::INT|MDataType::NULL
+                , MDataType::INT|MDataType::NULL
+                , MDataType::INT|MDataType::NULL
+                , MDataType::STRING|MDataType::NULL
+                , MDataType::STRING|MDataType::NULL
+                , MDataType::STRING|MDataType::NULL
+                , MDataType::STRING|MDataType::NULL
+                , MDataType::INT
+                , MDataType::INT));
 
-        /* @var $deviceList MPDOResult */ $deviceList = DeviceAction::get( $id, $enabled, $applicationId, $localizationId, $type, $freeSearch, $mobileId, $perPage, $page );
+        /* @var $deviceList MPDOResult */ $deviceList = DeviceAction::get( $id, $enabled, $applicationId, $localizationId, $type, $freeSearch, $mobileId, $nickname, $perPage, $page );
         /* @var $devices MList */ $devices = new MList();
 
         if( $deviceList==null )
