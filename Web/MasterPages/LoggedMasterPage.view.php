@@ -22,7 +22,7 @@ namespace Web\MasterPages;
         <!-- JSON RPC Client -->
         <script src="Javascripts/JsonRpcClient/jquery.jsonrpcclient.min.js"></script>
 
-        <script src="Javascripts/LoggedMasterPage.js"></script>
+        <script src="Javascripts/LoggedMasterPage.min.js"></script>
     </head>
     <body>
         <div id="header">

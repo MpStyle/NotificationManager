@@ -9,7 +9,7 @@
 
 var helper = (function() {
     var authResult = undefined;
-
+ 
     return {
         onSignInCallback: function(authResult)
         {

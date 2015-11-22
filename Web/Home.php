@@ -35,7 +35,7 @@ class Home extends BasePage
         $this->addMasterPagePart( 'top-toolbar', 'top-toolbar' );
         $this->addMasterPagePart( 'page-title', 'page-title' );
         
-        $this->addJavascript("Javascripts/Home.js");
+        $this->addJavascript("Javascripts/Home.min.js");
         $this->addCss("Styles/Home.css");
         
         $page=$this->getGet()->getValue("currentPage");

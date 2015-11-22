@@ -12,7 +12,7 @@ function Notifications()
     $(".ErrorMessage").fadeTo(2000, 500).slideUp(500, function () {
     });
 }
-
+ 
 $(function () {
     var notifications = new Notifications();
 });

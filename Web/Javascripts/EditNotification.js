@@ -6,7 +6,7 @@ function EditNotification()
     });
     $('#EndDate').datetimepicker({
         format: 'DD/MM/YYYY'
-    });
+    }); 
 
     $("#StartDate").on("dp.change", function (e) {
         $('#EndDate').data("DateTimePicker").minDate(e.date);

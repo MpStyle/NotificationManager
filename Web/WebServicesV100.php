@@ -37,7 +37,7 @@ class WebServicesV100 extends BasePage
         $this->addMasterPagePart( 'top-toolbar', 'top-toolbar' );
         $this->addMasterPagePart( 'page-title', 'page-title' );
 
-        $this->addJavascript( "Javascripts/WebServicesV100.js" );
+        $this->addJavascript( "Javascripts/WebServicesV100.min.js" );
         $this->addCss( "Styles/WebServicesV100.css" );
     }
 

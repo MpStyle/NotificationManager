@@ -35,7 +35,7 @@ class Login extends BasePage
         $this->addMasterPagePart( 'top-toolbar', 'top-toolbar' );
         $this->addMasterPagePart( 'page-title', 'page-title' );
         
-        $this->addJavascript("Javascripts/Login.js");
+        $this->addJavascript("Javascripts/Login.min.js");
         $this->addCss("Styles/Login.css");
     }
 }

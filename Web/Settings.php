@@ -36,7 +36,7 @@ class Settings extends BasePage
         $this->addMasterPagePart( 'top-toolbar', 'top-toolbar' );
         $this->addMasterPagePart( 'page-title', 'page-title' );
         
-        $this->addJavascript("Javascripts/Settings.js");
+        $this->addJavascript("Javascripts/Settings.min.js");
         $this->addCss("Styles/Settings.css");
         
         if( $this->isPostBack() )

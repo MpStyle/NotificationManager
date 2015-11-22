@@ -45,7 +45,7 @@ class Notifications extends BasePage
         $this->addMasterPagePart( 'top-toolbar', 'top-toolbar' );
         $this->addMasterPagePart( 'page-title', 'page-title' );
 
-        $this->addJavascript( "Javascripts/Notifications.js" );
+        $this->addJavascript( "Javascripts/Notifications.min.js" );
         $this->addCss( "Styles/Notifications.css" );
 
         $notificationId = null;

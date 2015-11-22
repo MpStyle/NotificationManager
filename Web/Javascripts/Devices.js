@@ -6,7 +6,7 @@ function Devices()
         
         $('.DeleteDeviceModal .modal-delete-device-id').html(deviceId);
         $('.DeleteDeviceModal .modal-delete-device-id').val(deviceId);
-    });
+    }); 
     
     $('.set-nickname-modal').on('show.bs.modal', function (event) {
         var $button = $(event.relatedTarget);

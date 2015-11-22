@@ -23,8 +23,6 @@ namespace Web;
 
 require_once '../Settings.php';
 
-use BusinessLogic\Configuration\Configuration;
-use BusinessLogic\Configuration\ConfigurationBook;
 use MToolkit\Core\MMap;
 use Web\MasterPages\LoggedMasterPage;
 
@@ -46,7 +44,7 @@ class WebServicesV100Response extends BasePage
         $this->addMasterPagePart( 'top-toolbar', 'top-toolbar' );
         $this->addMasterPagePart( 'page-title', 'page-title' );
 
-        $this->addJavascript( "Javascripts/WebServicesV100Response.js" );
+        $this->addJavascript( "Javascripts/WebServicesV100Response.min.js" );
         $this->addCss( "Styles/WebServicesV100Response.css" );
         
         // init params

@@ -40,7 +40,7 @@ class Apps extends BasePage
         $this->addMasterPagePart( 'top-toolbar', 'top-toolbar' );
         $this->addMasterPagePart( 'page-title', 'page-title' );
 
-        $this->addJavascript( "Javascripts/Apps.js" );
+        $this->addJavascript( "Javascripts/Apps.min.js" );
         $this->addCss( "Styles/Apps.css" );
         
         /* @var $result MPDOResult */ $result = ApplicationAction::getCount( null, null );

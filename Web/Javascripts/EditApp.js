@@ -5,7 +5,7 @@ function EditApp()
     $("#RefreshSecretIdButton").click(function () {
         $("#SecretIdText").val(outerThis.generateUUID());
     });
-}
+} 
 
 EditApp.prototype.generateUUID= function() {
     var d = new Date().getTime();

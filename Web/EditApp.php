@@ -43,7 +43,7 @@ class EditApp extends BasePage
         $this->addMasterPagePart( 'top-toolbar', 'top-toolbar' );
         $this->addMasterPagePart( 'page-title', 'page-title' );
 
-        $this->addJavascript( "Javascripts/EditApp.js" );
+        $this->addJavascript( "Javascripts/EditApp.min.js" );
         $this->addCss( "Styles/EditApp.css" );
 
         $internalLinks = ApplicationInternalLinkBook::get( null, null, (int) $this->getCurrentApp()->getId() )->__toArray();

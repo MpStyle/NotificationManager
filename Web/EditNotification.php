@@ -50,7 +50,7 @@ class EditNotification extends BasePage
         $this->addMasterPagePart( 'top-toolbar', 'top-toolbar' );
         $this->addMasterPagePart( 'page-title', 'page-title' );
 
-        $this->addJavascript( "Javascripts/EditNotification.js" );
+        $this->addJavascript( "Javascripts/EditNotification.min.js" );
         $this->addJavascript( "../vendor/moment/moment/min/moment.min.js" );
         $this->addJavascript( "../vendor/twbs/bootstrap/js/transition.js" );
         $this->addJavascript( "../vendor/twbs/bootstrap/js/collapse.js" );

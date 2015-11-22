@@ -45,7 +45,7 @@ class Devices extends BasePage
         $this->addMasterPagePart( 'top-toolbar', 'top-toolbar' );
         $this->addMasterPagePart( 'page-title', 'page-title' );
 
-        $this->addJavascript( "Javascripts/Devices.js" );
+        $this->addJavascript( "Javascripts/Devices.min.js" );
         $this->addCss( "Styles/Devices.css" );
 
         $deviceId = null;
