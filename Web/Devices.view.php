@@ -20,7 +20,12 @@ use BusinessLogic\Localization\Localization;
     <a href="" data-toggle="tooltip" data-placement="bottom" title="Refresh the page">
         <span class="glyphicon glyphicon-refresh"></span> 
     </a>
-    <a href="#" class="ShowFilter" data-toggle="tooltip" data-placement="bottom" title="Show/hide the filters">
+    <a href="#" class="ShowFilter" 
+       role="button"
+       data-toggle="collapse" 
+       title="Show/hide the filters"
+       data-target=".filters-form" 
+       aria-expanded="false" aria-controls="filters-form">
         <span class="glyphicon glyphicon-search"></span> 
     </a>         
 </div>
@@ -54,7 +59,7 @@ use BusinessLogic\Localization\Localization;
     ?>
 
     <div id="SubContainer">
-        <form method="get" class="form-horizontal FiltersForm <?php echo (!$this->showFilters() ? "filters-form-hide" : "") ?>">
+        <form method="get" class="form-horizontal filters-form <?php echo (!$this->showFilters() ? "collapse" : "collapse in") ?>">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="form-group">

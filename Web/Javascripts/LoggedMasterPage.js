@@ -1,9 +1,5 @@
 function LoggedMasterPage()
-{
-    $(".ShowFilter").click(function () {
-        $(".FiltersForm").slideToggle();
-    });
-    
+{    
     $('.top-avatar-container .user-avatar').popover({
         content: function () {
             return $(".user-bar").html();
