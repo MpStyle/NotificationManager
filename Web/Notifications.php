@@ -26,7 +26,6 @@ require_once '../Settings.php';
 use BusinessLogic\Notification\NotificationBook;
 use BusinessLogic\Notification\NotificationStatus;
 use DbAbstraction\Notification\NotificationAction;
-use MToolkit\Model\Sql\MPDOResult;
 use Web\MasterPages\LoggedMasterPage;
 use Web\Views\Pagination;
 
@@ -51,20 +50,17 @@ class Notifications extends BasePage
 
         $notificationId = null;
         $applicationId = $this->getApplicationId();
-        $status = $this->getGet()->getValue( "status" ) == "" ? null : (int) $this->getGet()->getValue( "status" );
+        $statusId = $this->getGet()->getValue( "status" ) == "" ? null : (int) $this->getGet()->getValue( "status" );
         $deviceType = $this->getGet()->getValue( "type" ) == "" ? null : $this->getGet()->getValue( "type" );
         $perPage = 10;
         $currentPage = $this->getCurrentPage();
 
-        /* @var $result MPDOResult */ $result = NotificationAction::getPageCount( $notificationId, $applicationId, $status, $deviceType, $perPage );
-        $this->pages = $result->getData( 0, 'PageCount' );
+        $notificationForPage = NotificationBook::getNotificationForPagination( $notificationId, $applicationId, $statusId, $deviceType, $perPage, $currentPage );
+        $this->pages = $notificationForPage->getPageCount();
+        $this->notificationCount = $notificationForPage->getCount();
+        $this->notifications = $notificationForPage->getNotificationList();
 
         $this->pagination = new Pagination( $this->pages, $this );
-
-        $result = NotificationAction::getCount( $notificationId, $applicationId, $status, $deviceType );
-        $this->notificationCount = $result->getData( 0, 'NotificationCount' );
-
-        $this->notifications = NotificationBook::getNotifications( $notificationId, $applicationId, $status, $deviceType, $perPage, $currentPage );
     }
 
     protected function deleteNotification()

@@ -29,15 +29,36 @@ use MToolkit\Model\Sql\MPDOResult;
 
 class NotificationBook
 {
+
+    /**
+     * 
+     * @param int|null $id
+     * @param int|null $applicationId
+     * @param int|null $statusId
+     * @param string|null $deviceType
+     * @param int $perPage
+     * @param int $page
+     * @return NotificationForPagination
+     */
+    public static function getNotificationForPagination( $id = null, $applicationId = null, $statusId = null, $deviceType = null, $perPage = 10, $page = 0 )
+    {
+        $toReturn = new NotificationForPagination();
+        $toReturn->setList( NotificationBook::getNotifications( $id, $applicationId, $statusId, $deviceType, $perPage, $page ) );
+        $toReturn->setCount( NotificationBook::getCount( $id, $applicationId, $statusId, $deviceType ) );
+        $toReturn->setPageCount( NotificationBook::getPageCount( $id, $applicationId, $statusId, $deviceType, $perPage ) );
+        return $toReturn;
+    }
+
     /**
      * @param int $id
      * @param int $applicationId
-     * @param string $status
+     * @param int $status
+     * @param string|null $deviceType
      * @param int $perPage
      * @param int $page
      * @return MList
      */
-    public static function getNotifications( $id = null, $applicationId=null, $status=null, $deviceType=null, $perPage=10, $page=0 )
+    public static function getNotifications( $id = null, $applicationId = null, $status = null, $deviceType = null, $perPage = 10, $page = 0 )
     {
         MDataType::mustBeNullableInt( $id );
         MDataType::mustBeNullableInt( $applicationId );
@@ -51,13 +72,13 @@ class NotificationBook
         {
             foreach( $notificationList as $currentNotification )
             {
-                
+
                 $notification = new Notification();
 
                 foreach( $currentNotification as $key => $value )
-                {                    
+                {
                     $codeKey = lcfirst( $key );
-                    
+
                     $notification->$codeKey = $value;
                 }
 
@@ -67,7 +88,7 @@ class NotificationBook
 
         return $notifications;
     }
-    
+
     /**
      * @param int|null $id
      * @param int|null $applicationId
@@ -75,21 +96,36 @@ class NotificationBook
      * @param string|null $deviceType
      * @return int
      */
-    public static function getCount($id = null, $applicationId=null, $statusId=null, $deviceType=null)
+    public static function getCount( $id = null, $applicationId = null, $statusId = null, $deviceType = null )
     {
-        $result= NotificationAction::getCount($id, $applicationId, $statusId, $deviceType);
+        $result = NotificationAction::getCount( $id, $applicationId, $statusId, $deviceType );
         return $result->getData( 0, 'NotificationCount' );
     }
 
-	/**
-	public static function sendNotificationUsingGCM($notificationId, $deviceId)
-	{
-		
-	}
-	
-	public static function sendNotificationUsingMPNS($notificationId, $deviceId)
-	{
-		
-	}
-	*/
+    /**
+     * 
+     * @param int|null $id
+     * @param int|null $applicationId
+     * @param int|null $statusId
+     * @param string|null $deviceType
+     * @param int $perPage
+     * @return int
+     */
+    public static function getPageCount( $id = null, $applicationId = null, $statusId = null, $deviceType = null, $perPage = 10 )
+    {
+        $result = NotificationAction::getCount( $id, $applicationId, $statusId, $deviceType );
+        return $result->getData( 0, 'PageCount' );
+    }
+
+    /**
+      public static function sendNotificationUsingGCM($notificationId, $deviceId)
+      {
+
+      }
+
+      public static function sendNotificationUsingMPNS($notificationId, $deviceId)
+      {
+
+      }
+     */
 }
