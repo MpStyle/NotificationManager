@@ -28,7 +28,7 @@ use MToolkit\Core\MDataType;
 use MToolkit\Core\MObject;
 
 /**
- * Può mandare notifiche fino a 1000 destinatari al colpo.
+ * The max number of receivers for the Google Cloud Message is 1000.
  */
 class GCMEngine extends AbstractEngine
 {
@@ -53,6 +53,27 @@ class GCMEngine extends AbstractEngine
         $this->accessKey = $accessKey;
     }
 
+    private function getMessage()
+    {
+        return array(
+            'id' => $this->getNotification()->getId(),
+            'message' => $this->getNotification()->getMessage(),
+            'title' => $this->getNotification()->getTitle(),
+            'subtitle' => $this->getNotification()->getShortMessage()
+        );
+    }
+
+    private function getHeaders()
+    {
+        return array(
+            'Authorization: key=' . $this->accessKey,
+            'Content-Type: application/json'
+        );
+    }
+
+    /**
+     * Sends the notification.
+     */
     public function send()
     {
         $countReceivers = $this->getReceivers()->count();
@@ -63,59 +84,48 @@ class GCMEngine extends AbstractEngine
             return;
         }
 
-        $msg = array(
-            'id' => $this->getNotification()->getId(),
-            'message' => $this->getNotification()->getMessage(),
-            'title' => $this->getNotification()->getTitle(),
-            'subtitle' => $this->getNotification()->getShortMessage()
-        );
-
-        $headers = array(
-            'Authorization: key=' . $this->accessKey,
-            'Content-Type: application/json'
-        );
+        $msg = $this->getMessage();
+        $headers = $this->getHeaders();
 
         // Send the notification to the device in self::MAX_RECEIVERS at a time
         for( $index = 0; $index <= floor( $countReceivers / self::MAX_RECEIVERS ); $index++ )
         {
-            $endPosition = (($index + 1) * self::MAX_RECEIVERS) - 1;
-            if( $endPosition >= $countReceivers )
-            {
-                $endPosition = $countReceivers - 1;
-            }
-
-            //$receivers = $this->getReceivers()->slice( $index * self::MAX_RECEIVERS, $endPosition );
-            $receivers = $this->getReceivers();
-
-            $fields = array
-                (
-                'registration_ids' => $receivers->__toArray(),
-                'data' => $msg
-            );
-
-            $ch = curl_init();
-            curl_setopt( $ch, CURLOPT_URL, self::GOOGLE_NOTIFICATION_WEB_SERVICE );
-            curl_setopt( $ch, CURLOPT_POST, true );
-            curl_setopt( $ch, CURLOPT_HTTPHEADER, $headers );
-            curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-            curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
-            curl_setopt( $ch, CURLOPT_POSTFIELDS, json_encode( $fields ) );
-            $result = curl_exec( $ch );
-            curl_close( $ch );
-
-            $json = json_decode( $result, true );
-
-            $response = new ResponseEngine();
-            $response->setNotificationCount( parent::getReceivers() )
-                    ->setNotificationNotSentCount( $json['failure'] )
-                    ->setNotificationSentCount( $json['success'] )
-                    ->setRemoteId( $json['multicast_id'] );
-
-            $this->setResponse( $response );
+            $this->sendNotification( $msg, $headers );
         }
     }
 
+    private function sendNotification( $msg, $headers )
+    {
+        $receivers = $this->getReceivers();
+        $fields = array(
+            'registration_ids' => $receivers->__toArray(),
+            'data' => $msg
+        );
+
+        $ch = curl_init();
+        curl_setopt( $ch, CURLOPT_URL, self::GOOGLE_NOTIFICATION_WEB_SERVICE );
+        curl_setopt( $ch, CURLOPT_POST, true );
+        curl_setopt( $ch, CURLOPT_HTTPHEADER, $headers );
+        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+        curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
+        curl_setopt( $ch, CURLOPT_POSTFIELDS, json_encode( $fields ) );
+        $result = curl_exec( $ch );
+        curl_close( $ch );
+
+        $json = json_decode( $result, true );
+
+        $response = new ResponseEngine();
+        $response->setNotificationCount( parent::getReceivers() )
+                ->setNotificationNotSentCount( $json['failure'] )
+                ->setNotificationSentCount( $json['success'] )
+                ->setRemoteId( $json['multicast_id'] );
+
+        $this->setResponse( $response );
+    }
+
     /**
+     * Returns the notification to send.
+     * 
      * @return Notification
      */
     public function getNotification()
@@ -124,6 +134,8 @@ class GCMEngine extends AbstractEngine
     }
 
     /**
+     * Sets the notification to send.
+     * 
      * @param Notification $notification
      * @return \BusinessLogic\Sender\Android\Sender
      */
