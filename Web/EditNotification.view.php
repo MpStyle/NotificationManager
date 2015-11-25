@@ -31,7 +31,7 @@ use DbAbstraction\Device\DeviceAction;
         <div class="panel panel-default FormContainer">
             <div class="panel-body">
                 <form method="post">
-                    <?php if( $this->getGet()->getValue( "id" )!=null ): ?>
+                    <?php if( $this->getGet()->getValue( "id" ) != null ): ?>
                         <div class="form-group">
                             <label>Id:</label>
                             <input type="text" readonly="readonly" value="<?php echo $this->getCurrentNotification()->getId() ?>" class="form-control" />
@@ -43,7 +43,7 @@ use DbAbstraction\Device\DeviceAction;
                         <select id="ApplicationId" name="application_id" class="form-control" required="required">
                             <option value="" disabled selected>Select an application</option>
                             <?php foreach( ApplicationBook::getApplications() as /* @var $application Application */ $application ): ?>
-                                <option value="<?php echo $application->getId() ?>" <?php echo ($this->getCurrentNotification()->getApplicationId()==$application->getId() ? "selected" : "") ?>>
+                                <option value="<?php echo $application->getId() ?>" <?php echo ($this->getCurrentNotification()->getApplicationId() == $application->getId() ? "selected" : "") ?>>
                                     <?php echo $application->getName() ?>
                                 </option>
                             <?php endforeach; ?>
@@ -55,12 +55,12 @@ use DbAbstraction\Device\DeviceAction;
 
                         <select name="localization_id" class="form-control">
                             <option value="">All</option>
-                            <option value="<?php echo Localization::EN ?>">English</option>
-                            <option value="<?php echo Localization::DE ?>">German</option>
-                            <option value="<?php echo Localization::ES ?>">Spanish</option>
-                            <option value="<?php echo Localization::FR ?>">France</option>
-                            <option value="<?php echo Localization::IT ?>">Italy</option>
-                            <option value="<?php echo Localization::RU ?>">Russia</option>
+                            <option value="<?php echo Localization::EN ?>" <?php echo ($this->getCurrentNotification()->getLocalizationId() == Localization::EN ? "selected" : ""); ?>>English</option>
+                            <option value="<?php echo Localization::DE ?>" <?php echo ($this->getCurrentNotification()->getLocalizationId() == Localization::DE ? "selected" : ""); ?>>German</option>
+                            <option value="<?php echo Localization::ES ?>" <?php echo ($this->getCurrentNotification()->getLocalizationId() == Localization::ES ? "selected" : ""); ?>>Spanish</option>
+                            <option value="<?php echo Localization::FR ?>" <?php echo ($this->getCurrentNotification()->getLocalizationId() == Localization::FR ? "selected" : ""); ?>>France</option>
+                            <option value="<?php echo Localization::IT ?>" <?php echo ($this->getCurrentNotification()->getLocalizationId() == Localization::IT ? "selected" : ""); ?>>Italy</option>
+                            <option value="<?php echo Localization::RU ?>" <?php echo ($this->getCurrentNotification()->getLocalizationId() == Localization::RU ? "selected" : ""); ?>>Russia</option>
                         </select>
 
                     </div>
@@ -79,22 +79,22 @@ use DbAbstraction\Device\DeviceAction;
                         <label>Link type:</label>
                         <select id="LinkType" name="link_type" class="form-control" required="required">
                             <option></option>
-                            <option value="<?php echo ApplicationLinkType::INTERNAL ?>" <?php echo ($this->getCurrentNotification()->getLinkType()==ApplicationLinkType::INTERNAL ? "selected" : "") ?>><?php echo ApplicationLinkType::INTERNAL ?></option>
-                            <option value="<?php echo ApplicationLinkType::EXTERNAL ?>" <?php echo ($this->getCurrentNotification()->getLinkType()==ApplicationLinkType::EXTERNAL ? "selected" : "") ?>><?php echo ApplicationLinkType::EXTERNAL ?></option>
+                            <option value="<?php echo ApplicationLinkType::INTERNAL ?>" <?php echo ($this->getCurrentNotification()->getLinkType() == ApplicationLinkType::INTERNAL ? "selected" : "") ?>><?php echo ApplicationLinkType::INTERNAL ?></option>
+                            <option value="<?php echo ApplicationLinkType::EXTERNAL ?>" <?php echo ($this->getCurrentNotification()->getLinkType() == ApplicationLinkType::EXTERNAL ? "selected" : "") ?>><?php echo ApplicationLinkType::EXTERNAL ?></option>
                         </select>
                     </div>
 
-                    <div id="InternalLinkGroup" class="form-group <?php echo ($this->getCurrentNotification()->getLinkType()==ApplicationLinkType::INTERNAL ? "ShowLinkGroup" : "") ?>">
+                    <div id="InternalLinkGroup" class="form-group <?php echo ($this->getCurrentNotification()->getLinkType() == ApplicationLinkType::INTERNAL ? "ShowLinkGroup" : "") ?>">
                         <label>Internal link:</label>
                         <select name="internal_link" class="form-control" id="InternalLinks">
                             <option value="" disabled selected></option>
                             <?php foreach( ApplicationInternalLinkBook::get( null, null, (int) $this->getCurrentNotification()->getApplicationId() ) as /* @var $link ApplicationLink */ $link ): ?>
-                                <option value="<?php echo $link->getId() ?>" <?php echo ($link->getId()==$this->getCurrentNotification()->getInternalLinkId() ? "selected" : ""); ?>><?php echo $link->getName() ?></option>
+                                <option value="<?php echo $link->getId() ?>" <?php echo ($link->getId() == $this->getCurrentNotification()->getInternalLinkId() ? "selected" : ""); ?>><?php echo $link->getName() ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
 
-                    <div id="ExternalLinkGroup" class="form-group <?php echo ($this->getCurrentNotification()->getLinkType()==ApplicationLinkType::EXTERNAL ? "ShowLinkGroup" : "") ?>">
+                    <div id="ExternalLinkGroup" class="form-group <?php echo ($this->getCurrentNotification()->getLinkType() == ApplicationLinkType::EXTERNAL ? "ShowLinkGroup" : "") ?>">
                         <label>External link:</label>
                         <input type="text" name="extenal_link" value="<?php echo $this->getCurrentNotification()->getExternalLink() ?>" class="form-control" placeholder="Enter the URL" />
                     </div>
@@ -104,7 +104,7 @@ use DbAbstraction\Device\DeviceAction;
                         <select name="device_type" class="form-control">
                             <option value="">Everyone</option>
                             <?php foreach( DeviceAction::getDeviceType() as $deviceType ): ?>
-                                <option value="<?php echo $deviceType["Name"] ?>" <?php echo ($deviceType["Name"]==$this->getCurrentNotification()->getDeviceType() ? "selected" : "") ?>><?php echo $deviceType["Name"] ?></option>
+                                <option value="<?php echo $deviceType["Name"] ?>" <?php echo ($deviceType["Name"] == $this->getCurrentNotification()->getDeviceType() ? "selected" : "") ?>><?php echo $deviceType["Name"] ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -142,7 +142,7 @@ use DbAbstraction\Device\DeviceAction;
                                 name="action" 
                                 value="confirmEdit" 
                                 class="btn btn-primary">
-                                    <?php echo ($this->getCurrentNotification()->getStatusId()==NotificationStatus::CLOSED ? "Save a copy and send" : "Save and send"); ?>
+                                    <?php echo ($this->getCurrentNotification()->getStatusId() == NotificationStatus::CLOSED ? "Save a copy and send" : "Save and send"); ?>
                             </button>
 
                             <button 
@@ -150,7 +150,7 @@ use DbAbstraction\Device\DeviceAction;
                                 name="action" 
                                 value="saveDraft" 
                                 class="btn btn-default">
-                                    <?php echo ($this->getCurrentNotification()->getStatusId()==NotificationStatus::CLOSED ? "Save a draft copy" : "Save a draft"); ?>
+                                    <?php echo ($this->getCurrentNotification()->getStatusId() == NotificationStatus::CLOSED ? "Save a draft copy" : "Save a draft"); ?>
                             </button>
 
                             <a href="Notifications.php" class="btn btn-default">Cancel</a>

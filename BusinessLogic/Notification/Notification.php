@@ -64,6 +64,7 @@ class Notification extends MObject
     protected $externalLink;
     protected $internalLink;
     protected $internalLinkId;
+    protected $localizationId;
 
     /**
      * Could be: UNREADED, READED, REMOVED
@@ -322,4 +323,16 @@ class Notification extends MObject
         $this->reachedDevices = $reachedDevices;
         return $this;
     }
+    
+    public function getLocalizationId()
+    {
+        return $this->localizationId;
+    }
+
+    public function setLocalizationId( $localizationId )
+    {
+        $this->localizationId = $localizationId;
+        return $this;
+    }
+
 }
