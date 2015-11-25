@@ -105,12 +105,6 @@ class GCMEngine extends AbstractEngine
 
             $json = json_decode( $result, true );
 
-
-            error_log( print_r( $this->getReceivers(), true ) );
-            error_log( print_r( $this->getReceivers(), true ) );
-            error_log( print_r( $fields, true ) );
-            error_log( print_r( $result, true ) );
-
             $response = new ResponseEngine();
             $response->setNotificationCount( parent::getReceivers() )
                     ->setNotificationNotSentCount( $json['failure'] )
