@@ -27,10 +27,15 @@ use MToolkit\Model\Sql\MPDOQuery;
 use MToolkit\Model\Sql\MPDOResult;
 use PDO;
 
+/**
+ * ApplicationAction class collects the call to the stored procedures of the database about the application.
+ */
 class ApplicationAction
 {
 
     /**
+     * Calls the store procedure to insert a new application in the database.<br>
+     * MDataType is used for the type checking of the parameters.
      * 
      * @param string $name
      * @param string $googleKey
@@ -64,6 +69,8 @@ class ApplicationAction
     }
 
     /**
+     * Calls the store procedure to update an application in the database.<br>
+     * MDataType is used for the type checking of the parameters.
      * 
      * @param int $id
      * @param string $name
@@ -97,6 +104,9 @@ class ApplicationAction
     }
 
     /**
+     * Calls the store procedure to delete an application in the database.<br>
+     * MDataType is used for the type checking of the parameters.
+     * 
      * @param int $id
      * @return MPDOResult
      */
@@ -117,6 +127,10 @@ class ApplicationAction
     }
 
     /**
+     * Calls the store procedure to retrieve the applications in the database.<br>
+     * The parameters of the method are used to filter the resultset. Their are used in "AND" condition.<br>
+     * MDataType is used for the type checking of the parameters.
+     * 
      * @param int $id
      * @param string $name
      * @param int $perPage
@@ -147,6 +161,14 @@ class ApplicationAction
         return $sql->getResult();
     }
     
+    /**
+     * Calls the store procedure to count the applications in the database.<br>
+     * The parameters of the method are used to filter the resultset. Their are used in "AND" condition.<br>
+     * MDataType is used for the type checking of the parameters.
+     * 
+     * @param int $id
+     * @param string $name
+     */
     public static function getCount($id = null, $name = null)
     {
         MDataType::mustBeNullableInt( $id );
