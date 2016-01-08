@@ -5,6 +5,23 @@ Right now the support is limited to the service Google Cloud Messaging, so you a
 
 ## Install
 
+NotificationManager uses composer to manage the external library.
+
+### Clone the repository
+Clone the repository:
+```
+git clone https://github.com/MpStyle/NotificationManager.git
+```
+
+### Install the dependecies
+```
+php composer.phar install
+```
+
+### Create the database
+
+### Edit the Settings.php file
+
 ### Google API Console
 
 #### Enable Google+ API

@@ -1,12 +1,13 @@
 {
-    "name": "vendor/notification-manager",
-    "description": "Description of project NotificationManager.",
+    "name": "mpstyle/notification-manager",
+    "description": "NotificationManager is a web app to manage the push notification of your mobile apps.",
     "authors": [
         {
             "name": "Michele Pagnin",
             "email": "pagnin.michele@gmail.com"
         }
     ],
+    "vendor-dir": "Libs",
     "require": {
         "twbs/bootstrap": "v3.3.5",
         "mpstyle/mtoolkit": "dev-master",
