@@ -26,8 +26,22 @@ use MToolkit\Model\Sql\MDbConnection;
 use MToolkit\Model\Sql\MPDOQuery;
 use PDO;
 
+/**
+ * ApplicationInternalLinkAction class collects the call to the stored procedures of 
+ * the database about the internal link of the application.
+ */
 class ApplicationInternalLinkAction
 {
+    /**
+     * Calls the store procedure to retrieve the internal link in the database.<br>
+     * The parameters of the method are used to filter the resultset. Their are used in "AND" condition.<br>
+     * MDataType is used for the type checking of the parameters.
+     * 
+     * @param int $id
+     * @param string $name
+     * @param int $id
+     * @return MPDOResult
+     */
     public static function get( $id=null, $name=null, $applicationId=null )
     {
         MDataType::mustBeNullableInt( $id );
@@ -48,6 +62,15 @@ class ApplicationInternalLinkAction
         return $sql->getResult();
     }
     
+    /**
+     * Calls the store procedure to insert a new internal link in the database.<br>
+     * Both parameters could be null.<br>
+     * MDataType is used for the type checking of the parameters.
+     * 
+     * @param string $name
+     * @param int $applicationId
+     * @return MPDOResult
+     */
     public static function insert( $name=null, $applicationId=null )
     {
         MDataType::mustBeNullableInt( $applicationId );
@@ -66,6 +89,13 @@ class ApplicationInternalLinkAction
         return $sql->getResult();
     }
     
+    /**
+     * Calls the store procedure to delete an internal link in the database.<br>
+     * MDataType is used for the type checking of the parameters.
+     * 
+     * @param int $id
+     * @return MPDOResult
+     */
     public static function delete( $applicationId=null )
     {
         MDataType::mustBeNullableInt( $applicationId );
